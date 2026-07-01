@@ -1,0 +1,7550 @@
+@docImport 'package:flutter/widgets.dart';
+
+@docImport 'raw_keyboard.dart';
+
+# KeyboardKey
+
+```dart
+abstract class KeyboardKey with Diagnosticable {}
+```
+
+A base class for all keyboard key types.
+
+See also:
+
+- [PhysicalKeyboardKey], a class with static values that describe the keys that are returned from [RawKeyEvent.physicalKey].
+- [LogicalKeyboardKey], a class with static values that describe the keys that are returned from [RawKeyEvent.logicalKey].
+
+### KeyboardKey()
+
+```dart
+KeyboardKey()
+```
+
+Abstract const constructor. This constructor enables subclasses to provide const constructors so that they can be used in const expressions.
+
+# LogicalKeyboardKey
+
+```dart
+class LogicalKeyboardKey extends KeyboardKey {}
+```
+
+A class with static values that describe the keys that are returned from [RawKeyEvent.logicalKey].
+
+These represent _logical_ keys, which are keys which are interpreted in the context of any modifiers, modes, or keyboard layouts which may be in effect.
+
+This is contrast to [PhysicalKeyboardKey], which represents a physical key in a particular location on the keyboard, without regard for the modifier state, mode, or keyboard layout.
+
+As an example, if you wanted to implement an app where the "Q" key "quit" something, you'd want to look at the logical key to detect this, since you would like to have it match the key with "Q" on it, instead of always looking for "the key next to the TAB key", since on a French keyboard, the key next to the TAB key has an "A" on it.
+
+Conversely, if you wanted a game where the key next to the CAPS LOCK (the "A" key on a QWERTY keyboard) moved the player to the left, you'd want to look at the physical key to make sure that regardless of the character the key produces, you got the key that is in that location on the keyboard.
+
+{@tool dartpad} This example shows how to detect if the user has selected the logical "Q" key and handle the key if they have.
+
+** See code in examples/api/lib/services/keyboard_key/logical_keyboard_key.0.dart ** {@end-tool} See also:
+
+- [RawKeyEvent], the keyboard event object received by widgets that listen to keyboard events.
+- [Focus.onKey], the handler on a widget that lets you handle key events.
+- [RawKeyboardListener], a widget used to listen to keyboard events (but not handle them).
+
+### LogicalKeyboardKey()
+
+```dart
+LogicalKeyboardKey(int keyId)
+```
+
+Creates a new LogicalKeyboardKey object for a key ID.
+
+### keyId
+
+```dart
+int keyId
+```
+
+A unique code representing this key.
+
+This is an opaque code. It should not be unpacked to derive information from it, as the representation of the code could change at any time.
+
+### keyLabel
+
+```dart
+String get keyLabel
+```
+
+A description representing the character produced by a [RawKeyEvent].
+
+This value is useful for providing readable strings for keys or keyboard shortcuts. Do not use this value to compare equality of keys; compare [keyId] instead.
+
+For printable keys, this is usually the printable character in upper case ignoring modifiers or combining keys, such as 'A', '1', or '/'. This might also return accented letters (such as 'Ù') for keys labeled as so, but not if such character is a result from preceding combining keys ('`̀' followed by key U).
+
+For other keys, [keyLabel] looks up the full key name from a predefined map, such as 'F1', 'Shift Left', or 'Media Down'. This value is an empty string if there's no key label data for a key.
+
+For the printable representation that takes into consideration the modifiers and combining keys, see [RawKeyEvent.character].
+
+{@macro flutter.services.RawKeyEventData.keyLabel}
+
+### debugName
+
+```dart
+String? get debugName
+```
+
+The debug string to print for this keyboard key, which will be null in release mode.
+
+For printable keys, this is usually a more descriptive name related to [keyLabel], such as 'Key A', 'Digit 1', 'Backslash'. This might also return accented letters (such as 'Key Ù') for keys labeled as so.
+
+For other keys, this looks up the full key name from a predefined map (the same value as [keyLabel]), such as 'F1', 'Shift Left', or 'Media Down'. If there's no key label data for a key, this returns a name that explains the ID (such as 'Key with ID 0x00100012345').
+
+### hashCode
+
+```dart
+int get hashCode
+```
+
+### operator ==()
+
+```dart
+bool operator ==(Object other)
+```
+
+### findKeyByKeyId()
+
+```dart
+LogicalKeyboardKey? findKeyByKeyId(int keyId)
+```
+
+Returns the [LogicalKeyboardKey] constant that matches the given ID, or null, if not found.
+
+### isControlCharacter()
+
+```dart
+bool isControlCharacter(String label)
+```
+
+Returns true if the given label represents a Unicode control character.
+
+Examples of control characters are characters like "U+000A LINE FEED (LF)" or "U+001B ESCAPE (ESC)".
+
+See <https://en.wikipedia.org/wiki/Unicode_control_characters> for more information.
+
+Used by [RawKeyEvent] subclasses to help construct IDs.
+
+### isAutogenerated
+
+```dart
+bool get isAutogenerated
+```
+
+Returns true if the [keyId] of this object is one that is auto-generated by Flutter.
+
+Auto-generated key IDs are generated in response to platform key codes which Flutter doesn't recognize, and their IDs shouldn't be used in a persistent way.
+
+Auto-generated IDs should be a rare occurrence: Flutter supports most keys.
+
+Keys that generate Unicode characters (even if unknown to Flutter) will not return true for [isAutogenerated], since they will be assigned a Unicode-based code that will remain stable.
+
+If Flutter adds support for a previously unsupported key code, the ID it reports will change, but the ID will remain stable on the platform it is produced on until Flutter adds support for recognizing it.
+
+So, hypothetically, if Android added a new key code of 0xffff, representing a new "do what I mean" key, then the auto-generated code would be 0x1020000ffff, but once Flutter added the "doWhatIMean" key to the definitions below, the new code would be 0x0020000ffff for all platforms that had a "do what I mean" key from then on.
+
+### synonyms
+
+```dart
+Set<LogicalKeyboardKey> get synonyms
+```
+
+Returns a set of pseudo-key synonyms for the given `key`.
+
+This allows finding the pseudo-keys that also represent a concrete `key` so that a class with a key map can match pseudo-keys as well as the actual generated keys.
+
+Pseudo-keys returned in the set are typically used to represent keys which appear in multiple places on the keyboard, such as the [shift], [alt], [control], and [meta] keys. Pseudo-keys in the returned set won't ever be generated directly, but if a more specific key event is received, then this set can be used to find the more general pseudo-key. For example, if this is a [shiftLeft] key, this accessor will return the set `<LogicalKeyboardKey>{ shift }`.
+
+### collapseSynonyms()
+
+```dart
+Set<LogicalKeyboardKey> collapseSynonyms(Set<LogicalKeyboardKey> input)
+```
+
+Takes a set of keys, and returns the same set, but with any keys that have synonyms replaced.
+
+It is used, for example, to take sets of keys with members like [controlRight] and [controlLeft] and convert that set to contain just [control], so that the question "is any control key down?" can be asked.
+
+### expandSynonyms()
+
+```dart
+Set<LogicalKeyboardKey> expandSynonyms(Set<LogicalKeyboardKey> input)
+```
+
+Returns the given set with any pseudo-keys expanded into their synonyms.
+
+It is used, for example, to take sets of keys with members like [control] and [shift] and convert that set to contain [controlLeft], [controlRight], [shiftLeft], and [shiftRight].
+
+### debugFillProperties()
+
+```dart
+void debugFillProperties(DiagnosticPropertiesBuilder properties)
+```
+
+### valueMask
+
+```dart
+int valueMask
+```
+
+Mask for the 32-bit value portion of the key code.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### planeMask
+
+```dart
+int planeMask
+```
+
+Mask for the plane prefix portion of the key code.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### unicodePlane
+
+```dart
+int unicodePlane
+```
+
+The plane value for keys which have a Unicode representation.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### unprintablePlane
+
+```dart
+int unprintablePlane
+```
+
+The plane value for keys defined by Chromium and does not have a Unicode representation.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### flutterPlane
+
+```dart
+int flutterPlane
+```
+
+The plane value for keys defined by Flutter.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### startOfPlatformPlanes
+
+```dart
+int startOfPlatformPlanes
+```
+
+The platform plane with the lowest mask value, beyond which the keys are considered autogenerated.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### androidPlane
+
+```dart
+int androidPlane
+```
+
+The plane value for the private keys defined by the Android embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### fuchsiaPlane
+
+```dart
+int fuchsiaPlane
+```
+
+The plane value for the private keys defined by the Fuchsia embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### iosPlane
+
+```dart
+int iosPlane
+```
+
+The plane value for the private keys defined by the iOS embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### macosPlane
+
+```dart
+int macosPlane
+```
+
+The plane value for the private keys defined by the macOS embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### gtkPlane
+
+```dart
+int gtkPlane
+```
+
+The plane value for the private keys defined by the Gtk embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### windowsPlane
+
+```dart
+int windowsPlane
+```
+
+The plane value for the private keys defined by the Windows embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### webPlane
+
+```dart
+int webPlane
+```
+
+The plane value for the private keys defined by the Web embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### glfwPlane
+
+```dart
+int glfwPlane
+```
+
+The plane value for the private keys defined by the GLFW embedding.
+
+This is used by platform-specific code to generate Flutter key codes.
+
+### space
+
+```dart
+LogicalKeyboardKey space
+```
+
+Represents the logical "Space" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### exclamation
+
+```dart
+LogicalKeyboardKey exclamation
+```
+
+Represents the logical "Exclamation" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### quote
+
+```dart
+LogicalKeyboardKey quote
+```
+
+Represents the logical "Quote" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numberSign
+
+```dart
+LogicalKeyboardKey numberSign
+```
+
+Represents the logical "Number Sign" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### dollar
+
+```dart
+LogicalKeyboardKey dollar
+```
+
+Represents the logical "Dollar" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### percent
+
+```dart
+LogicalKeyboardKey percent
+```
+
+Represents the logical "Percent" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### ampersand
+
+```dart
+LogicalKeyboardKey ampersand
+```
+
+Represents the logical "Ampersand" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### quoteSingle
+
+```dart
+LogicalKeyboardKey quoteSingle
+```
+
+Represents the logical "Quote Single" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### parenthesisLeft
+
+```dart
+LogicalKeyboardKey parenthesisLeft
+```
+
+Represents the logical "Parenthesis Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### parenthesisRight
+
+```dart
+LogicalKeyboardKey parenthesisRight
+```
+
+Represents the logical "Parenthesis Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### asterisk
+
+```dart
+LogicalKeyboardKey asterisk
+```
+
+Represents the logical "Asterisk" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### add
+
+```dart
+LogicalKeyboardKey add
+```
+
+Represents the logical "Add" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### comma
+
+```dart
+LogicalKeyboardKey comma
+```
+
+Represents the logical "Comma" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### minus
+
+```dart
+LogicalKeyboardKey minus
+```
+
+Represents the logical "Minus" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### period
+
+```dart
+LogicalKeyboardKey period
+```
+
+Represents the logical "Period" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### slash
+
+```dart
+LogicalKeyboardKey slash
+```
+
+Represents the logical "Slash" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit0
+
+```dart
+LogicalKeyboardKey digit0
+```
+
+Represents the logical "Digit 0" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit1
+
+```dart
+LogicalKeyboardKey digit1
+```
+
+Represents the logical "Digit 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit2
+
+```dart
+LogicalKeyboardKey digit2
+```
+
+Represents the logical "Digit 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit3
+
+```dart
+LogicalKeyboardKey digit3
+```
+
+Represents the logical "Digit 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit4
+
+```dart
+LogicalKeyboardKey digit4
+```
+
+Represents the logical "Digit 4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit5
+
+```dart
+LogicalKeyboardKey digit5
+```
+
+Represents the logical "Digit 5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit6
+
+```dart
+LogicalKeyboardKey digit6
+```
+
+Represents the logical "Digit 6" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit7
+
+```dart
+LogicalKeyboardKey digit7
+```
+
+Represents the logical "Digit 7" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit8
+
+```dart
+LogicalKeyboardKey digit8
+```
+
+Represents the logical "Digit 8" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### digit9
+
+```dart
+LogicalKeyboardKey digit9
+```
+
+Represents the logical "Digit 9" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colon
+
+```dart
+LogicalKeyboardKey colon
+```
+
+Represents the logical "Colon" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### semicolon
+
+```dart
+LogicalKeyboardKey semicolon
+```
+
+Represents the logical "Semicolon" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### less
+
+```dart
+LogicalKeyboardKey less
+```
+
+Represents the logical "Less" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### equal
+
+```dart
+LogicalKeyboardKey equal
+```
+
+Represents the logical "Equal" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### greater
+
+```dart
+LogicalKeyboardKey greater
+```
+
+Represents the logical "Greater" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### question
+
+```dart
+LogicalKeyboardKey question
+```
+
+Represents the logical "Question" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### at
+
+```dart
+LogicalKeyboardKey at
+```
+
+Represents the logical "At" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### bracketLeft
+
+```dart
+LogicalKeyboardKey bracketLeft
+```
+
+Represents the logical "Bracket Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### backslash
+
+```dart
+LogicalKeyboardKey backslash
+```
+
+Represents the logical "Backslash" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### bracketRight
+
+```dart
+LogicalKeyboardKey bracketRight
+```
+
+Represents the logical "Bracket Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### caret
+
+```dart
+LogicalKeyboardKey caret
+```
+
+Represents the logical "Caret" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### underscore
+
+```dart
+LogicalKeyboardKey underscore
+```
+
+Represents the logical "Underscore" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### backquote
+
+```dart
+LogicalKeyboardKey backquote
+```
+
+Represents the logical "Backquote" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyA
+
+```dart
+LogicalKeyboardKey keyA
+```
+
+Represents the logical "Key A" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyB
+
+```dart
+LogicalKeyboardKey keyB
+```
+
+Represents the logical "Key B" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyC
+
+```dart
+LogicalKeyboardKey keyC
+```
+
+Represents the logical "Key C" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyD
+
+```dart
+LogicalKeyboardKey keyD
+```
+
+Represents the logical "Key D" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyE
+
+```dart
+LogicalKeyboardKey keyE
+```
+
+Represents the logical "Key E" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyF
+
+```dart
+LogicalKeyboardKey keyF
+```
+
+Represents the logical "Key F" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyG
+
+```dart
+LogicalKeyboardKey keyG
+```
+
+Represents the logical "Key G" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyH
+
+```dart
+LogicalKeyboardKey keyH
+```
+
+Represents the logical "Key H" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyI
+
+```dart
+LogicalKeyboardKey keyI
+```
+
+Represents the logical "Key I" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyJ
+
+```dart
+LogicalKeyboardKey keyJ
+```
+
+Represents the logical "Key J" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyK
+
+```dart
+LogicalKeyboardKey keyK
+```
+
+Represents the logical "Key K" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyL
+
+```dart
+LogicalKeyboardKey keyL
+```
+
+Represents the logical "Key L" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyM
+
+```dart
+LogicalKeyboardKey keyM
+```
+
+Represents the logical "Key M" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyN
+
+```dart
+LogicalKeyboardKey keyN
+```
+
+Represents the logical "Key N" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyO
+
+```dart
+LogicalKeyboardKey keyO
+```
+
+Represents the logical "Key O" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyP
+
+```dart
+LogicalKeyboardKey keyP
+```
+
+Represents the logical "Key P" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyQ
+
+```dart
+LogicalKeyboardKey keyQ
+```
+
+Represents the logical "Key Q" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyR
+
+```dart
+LogicalKeyboardKey keyR
+```
+
+Represents the logical "Key R" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyS
+
+```dart
+LogicalKeyboardKey keyS
+```
+
+Represents the logical "Key S" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyT
+
+```dart
+LogicalKeyboardKey keyT
+```
+
+Represents the logical "Key T" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyU
+
+```dart
+LogicalKeyboardKey keyU
+```
+
+Represents the logical "Key U" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyV
+
+```dart
+LogicalKeyboardKey keyV
+```
+
+Represents the logical "Key V" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyW
+
+```dart
+LogicalKeyboardKey keyW
+```
+
+Represents the logical "Key W" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyX
+
+```dart
+LogicalKeyboardKey keyX
+```
+
+Represents the logical "Key X" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyY
+
+```dart
+LogicalKeyboardKey keyY
+```
+
+Represents the logical "Key Y" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### keyZ
+
+```dart
+LogicalKeyboardKey keyZ
+```
+
+Represents the logical "Key Z" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### braceLeft
+
+```dart
+LogicalKeyboardKey braceLeft
+```
+
+Represents the logical "Brace Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### bar
+
+```dart
+LogicalKeyboardKey bar
+```
+
+Represents the logical "Bar" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### braceRight
+
+```dart
+LogicalKeyboardKey braceRight
+```
+
+Represents the logical "Brace Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tilde
+
+```dart
+LogicalKeyboardKey tilde
+```
+
+Represents the logical "Tilde" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### unidentified
+
+```dart
+LogicalKeyboardKey unidentified
+```
+
+Represents the logical "Unidentified" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### backspace
+
+```dart
+LogicalKeyboardKey backspace
+```
+
+Represents the logical "Backspace" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tab
+
+```dart
+LogicalKeyboardKey tab
+```
+
+Represents the logical "Tab" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### enter
+
+```dart
+LogicalKeyboardKey enter
+```
+
+Represents the logical "Enter" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### escape
+
+```dart
+LogicalKeyboardKey escape
+```
+
+Represents the logical "Escape" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### delete
+
+```dart
+LogicalKeyboardKey delete
+```
+
+Represents the logical "Delete" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### accel
+
+```dart
+LogicalKeyboardKey accel
+```
+
+Represents the logical "Accel" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### altGraph
+
+```dart
+LogicalKeyboardKey altGraph
+```
+
+Represents the logical "Alt Graph" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### capsLock
+
+```dart
+LogicalKeyboardKey capsLock
+```
+
+Represents the logical "Caps Lock" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### fn
+
+```dart
+LogicalKeyboardKey fn
+```
+
+Represents the logical "Fn" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### fnLock
+
+```dart
+LogicalKeyboardKey fnLock
+```
+
+Represents the logical "Fn Lock" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hyper
+
+```dart
+LogicalKeyboardKey hyper
+```
+
+Represents the logical "Hyper" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numLock
+
+```dart
+LogicalKeyboardKey numLock
+```
+
+Represents the logical "Num Lock" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### scrollLock
+
+```dart
+LogicalKeyboardKey scrollLock
+```
+
+Represents the logical "Scroll Lock" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### superKey
+
+```dart
+LogicalKeyboardKey superKey
+```
+
+Represents the logical "Super" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### symbol
+
+```dart
+LogicalKeyboardKey symbol
+```
+
+Represents the logical "Symbol" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### symbolLock
+
+```dart
+LogicalKeyboardKey symbolLock
+```
+
+Represents the logical "Symbol Lock" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### shiftLevel5
+
+```dart
+LogicalKeyboardKey shiftLevel5
+```
+
+Represents the logical "Shift Level 5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### arrowDown
+
+```dart
+LogicalKeyboardKey arrowDown
+```
+
+Represents the logical "Arrow Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### arrowLeft
+
+```dart
+LogicalKeyboardKey arrowLeft
+```
+
+Represents the logical "Arrow Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### arrowRight
+
+```dart
+LogicalKeyboardKey arrowRight
+```
+
+Represents the logical "Arrow Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### arrowUp
+
+```dart
+LogicalKeyboardKey arrowUp
+```
+
+Represents the logical "Arrow Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### end
+
+```dart
+LogicalKeyboardKey end
+```
+
+Represents the logical "End" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### home
+
+```dart
+LogicalKeyboardKey home
+```
+
+Represents the logical "Home" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pageDown
+
+```dart
+LogicalKeyboardKey pageDown
+```
+
+Represents the logical "Page Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pageUp
+
+```dart
+LogicalKeyboardKey pageUp
+```
+
+Represents the logical "Page Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### clear
+
+```dart
+LogicalKeyboardKey clear
+```
+
+Represents the logical "Clear" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### copy
+
+```dart
+LogicalKeyboardKey copy
+```
+
+Represents the logical "Copy" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### crSel
+
+```dart
+LogicalKeyboardKey crSel
+```
+
+Represents the logical "Cr Sel" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### cut
+
+```dart
+LogicalKeyboardKey cut
+```
+
+Represents the logical "Cut" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### eraseEof
+
+```dart
+LogicalKeyboardKey eraseEof
+```
+
+Represents the logical "Erase Eof" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### exSel
+
+```dart
+LogicalKeyboardKey exSel
+```
+
+Represents the logical "Ex Sel" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### insert
+
+```dart
+LogicalKeyboardKey insert
+```
+
+Represents the logical "Insert" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### paste
+
+```dart
+LogicalKeyboardKey paste
+```
+
+Represents the logical "Paste" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### redo
+
+```dart
+LogicalKeyboardKey redo
+```
+
+Represents the logical "Redo" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### undo
+
+```dart
+LogicalKeyboardKey undo
+```
+
+Represents the logical "Undo" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### accept
+
+```dart
+LogicalKeyboardKey accept
+```
+
+Represents the logical "Accept" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### again
+
+```dart
+LogicalKeyboardKey again
+```
+
+Represents the logical "Again" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### attn
+
+```dart
+LogicalKeyboardKey attn
+```
+
+Represents the logical "Attn" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### cancel
+
+```dart
+LogicalKeyboardKey cancel
+```
+
+Represents the logical "Cancel" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### contextMenu
+
+```dart
+LogicalKeyboardKey contextMenu
+```
+
+Represents the logical "Context Menu" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### execute
+
+```dart
+LogicalKeyboardKey execute
+```
+
+Represents the logical "Execute" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### find
+
+```dart
+LogicalKeyboardKey find
+```
+
+Represents the logical "Find" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### help
+
+```dart
+LogicalKeyboardKey help
+```
+
+Represents the logical "Help" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pause
+
+```dart
+LogicalKeyboardKey pause
+```
+
+Represents the logical "Pause" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### play
+
+```dart
+LogicalKeyboardKey play
+```
+
+Represents the logical "Play" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### props
+
+```dart
+LogicalKeyboardKey props
+```
+
+Represents the logical "Props" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### select
+
+```dart
+LogicalKeyboardKey select
+```
+
+Represents the logical "Select" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### zoomIn
+
+```dart
+LogicalKeyboardKey zoomIn
+```
+
+Represents the logical "Zoom In" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### zoomOut
+
+```dart
+LogicalKeyboardKey zoomOut
+```
+
+Represents the logical "Zoom Out" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### brightnessDown
+
+```dart
+LogicalKeyboardKey brightnessDown
+```
+
+Represents the logical "Brightness Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### brightnessUp
+
+```dart
+LogicalKeyboardKey brightnessUp
+```
+
+Represents the logical "Brightness Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### camera
+
+```dart
+LogicalKeyboardKey camera
+```
+
+Represents the logical "Camera" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### eject
+
+```dart
+LogicalKeyboardKey eject
+```
+
+Represents the logical "Eject" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### logOff
+
+```dart
+LogicalKeyboardKey logOff
+```
+
+Represents the logical "Log Off" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### power
+
+```dart
+LogicalKeyboardKey power
+```
+
+Represents the logical "Power" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### powerOff
+
+```dart
+LogicalKeyboardKey powerOff
+```
+
+Represents the logical "Power Off" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### printScreen
+
+```dart
+LogicalKeyboardKey printScreen
+```
+
+Represents the logical "Print Screen" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hibernate
+
+```dart
+LogicalKeyboardKey hibernate
+```
+
+Represents the logical "Hibernate" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### standby
+
+```dart
+LogicalKeyboardKey standby
+```
+
+Represents the logical "Standby" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### wakeUp
+
+```dart
+LogicalKeyboardKey wakeUp
+```
+
+Represents the logical "Wake Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### allCandidates
+
+```dart
+LogicalKeyboardKey allCandidates
+```
+
+Represents the logical "All Candidates" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### alphanumeric
+
+```dart
+LogicalKeyboardKey alphanumeric
+```
+
+Represents the logical "Alphanumeric" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### codeInput
+
+```dart
+LogicalKeyboardKey codeInput
+```
+
+Represents the logical "Code Input" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### compose
+
+```dart
+LogicalKeyboardKey compose
+```
+
+Represents the logical "Compose" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### convert
+
+```dart
+LogicalKeyboardKey convert
+```
+
+Represents the logical "Convert" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### finalMode
+
+```dart
+LogicalKeyboardKey finalMode
+```
+
+Represents the logical "Final Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### groupFirst
+
+```dart
+LogicalKeyboardKey groupFirst
+```
+
+Represents the logical "Group First" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### groupLast
+
+```dart
+LogicalKeyboardKey groupLast
+```
+
+Represents the logical "Group Last" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### groupNext
+
+```dart
+LogicalKeyboardKey groupNext
+```
+
+Represents the logical "Group Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### groupPrevious
+
+```dart
+LogicalKeyboardKey groupPrevious
+```
+
+Represents the logical "Group Previous" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### modeChange
+
+```dart
+LogicalKeyboardKey modeChange
+```
+
+Represents the logical "Mode Change" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### nextCandidate
+
+```dart
+LogicalKeyboardKey nextCandidate
+```
+
+Represents the logical "Next Candidate" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### nonConvert
+
+```dart
+LogicalKeyboardKey nonConvert
+```
+
+Represents the logical "Non Convert" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### previousCandidate
+
+```dart
+LogicalKeyboardKey previousCandidate
+```
+
+Represents the logical "Previous Candidate" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### process
+
+```dart
+LogicalKeyboardKey process
+```
+
+Represents the logical "Process" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### singleCandidate
+
+```dart
+LogicalKeyboardKey singleCandidate
+```
+
+Represents the logical "Single Candidate" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hangulMode
+
+```dart
+LogicalKeyboardKey hangulMode
+```
+
+Represents the logical "Hangul Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hanjaMode
+
+```dart
+LogicalKeyboardKey hanjaMode
+```
+
+Represents the logical "Hanja Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### junjaMode
+
+```dart
+LogicalKeyboardKey junjaMode
+```
+
+Represents the logical "Junja Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### eisu
+
+```dart
+LogicalKeyboardKey eisu
+```
+
+Represents the logical "Eisu" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hankaku
+
+```dart
+LogicalKeyboardKey hankaku
+```
+
+Represents the logical "Hankaku" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hiragana
+
+```dart
+LogicalKeyboardKey hiragana
+```
+
+Represents the logical "Hiragana" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### hiraganaKatakana
+
+```dart
+LogicalKeyboardKey hiraganaKatakana
+```
+
+Represents the logical "Hiragana Katakana" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### kanaMode
+
+```dart
+LogicalKeyboardKey kanaMode
+```
+
+Represents the logical "Kana Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### kanjiMode
+
+```dart
+LogicalKeyboardKey kanjiMode
+```
+
+Represents the logical "Kanji Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### katakana
+
+```dart
+LogicalKeyboardKey katakana
+```
+
+Represents the logical "Katakana" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### romaji
+
+```dart
+LogicalKeyboardKey romaji
+```
+
+Represents the logical "Romaji" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### zenkaku
+
+```dart
+LogicalKeyboardKey zenkaku
+```
+
+Represents the logical "Zenkaku" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### zenkakuHankaku
+
+```dart
+LogicalKeyboardKey zenkakuHankaku
+```
+
+Represents the logical "Zenkaku Hankaku" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f1
+
+```dart
+LogicalKeyboardKey f1
+```
+
+Represents the logical "F1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f2
+
+```dart
+LogicalKeyboardKey f2
+```
+
+Represents the logical "F2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f3
+
+```dart
+LogicalKeyboardKey f3
+```
+
+Represents the logical "F3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f4
+
+```dart
+LogicalKeyboardKey f4
+```
+
+Represents the logical "F4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f5
+
+```dart
+LogicalKeyboardKey f5
+```
+
+Represents the logical "F5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f6
+
+```dart
+LogicalKeyboardKey f6
+```
+
+Represents the logical "F6" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f7
+
+```dart
+LogicalKeyboardKey f7
+```
+
+Represents the logical "F7" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f8
+
+```dart
+LogicalKeyboardKey f8
+```
+
+Represents the logical "F8" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f9
+
+```dart
+LogicalKeyboardKey f9
+```
+
+Represents the logical "F9" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f10
+
+```dart
+LogicalKeyboardKey f10
+```
+
+Represents the logical "F10" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f11
+
+```dart
+LogicalKeyboardKey f11
+```
+
+Represents the logical "F11" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f12
+
+```dart
+LogicalKeyboardKey f12
+```
+
+Represents the logical "F12" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f13
+
+```dart
+LogicalKeyboardKey f13
+```
+
+Represents the logical "F13" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f14
+
+```dart
+LogicalKeyboardKey f14
+```
+
+Represents the logical "F14" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f15
+
+```dart
+LogicalKeyboardKey f15
+```
+
+Represents the logical "F15" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f16
+
+```dart
+LogicalKeyboardKey f16
+```
+
+Represents the logical "F16" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f17
+
+```dart
+LogicalKeyboardKey f17
+```
+
+Represents the logical "F17" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f18
+
+```dart
+LogicalKeyboardKey f18
+```
+
+Represents the logical "F18" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f19
+
+```dart
+LogicalKeyboardKey f19
+```
+
+Represents the logical "F19" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f20
+
+```dart
+LogicalKeyboardKey f20
+```
+
+Represents the logical "F20" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f21
+
+```dart
+LogicalKeyboardKey f21
+```
+
+Represents the logical "F21" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f22
+
+```dart
+LogicalKeyboardKey f22
+```
+
+Represents the logical "F22" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f23
+
+```dart
+LogicalKeyboardKey f23
+```
+
+Represents the logical "F23" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### f24
+
+```dart
+LogicalKeyboardKey f24
+```
+
+Represents the logical "F24" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft1
+
+```dart
+LogicalKeyboardKey soft1
+```
+
+Represents the logical "Soft 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft2
+
+```dart
+LogicalKeyboardKey soft2
+```
+
+Represents the logical "Soft 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft3
+
+```dart
+LogicalKeyboardKey soft3
+```
+
+Represents the logical "Soft 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft4
+
+```dart
+LogicalKeyboardKey soft4
+```
+
+Represents the logical "Soft 4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft5
+
+```dart
+LogicalKeyboardKey soft5
+```
+
+Represents the logical "Soft 5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft6
+
+```dart
+LogicalKeyboardKey soft6
+```
+
+Represents the logical "Soft 6" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft7
+
+```dart
+LogicalKeyboardKey soft7
+```
+
+Represents the logical "Soft 7" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### soft8
+
+```dart
+LogicalKeyboardKey soft8
+```
+
+Represents the logical "Soft 8" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### close
+
+```dart
+LogicalKeyboardKey close
+```
+
+Represents the logical "Close" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mailForward
+
+```dart
+LogicalKeyboardKey mailForward
+```
+
+Represents the logical "Mail Forward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mailReply
+
+```dart
+LogicalKeyboardKey mailReply
+```
+
+Represents the logical "Mail Reply" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mailSend
+
+```dart
+LogicalKeyboardKey mailSend
+```
+
+Represents the logical "Mail Send" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaPlayPause
+
+```dart
+LogicalKeyboardKey mediaPlayPause
+```
+
+Represents the logical "Media Play Pause" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaStop
+
+```dart
+LogicalKeyboardKey mediaStop
+```
+
+Represents the logical "Media Stop" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaTrackNext
+
+```dart
+LogicalKeyboardKey mediaTrackNext
+```
+
+Represents the logical "Media Track Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaTrackPrevious
+
+```dart
+LogicalKeyboardKey mediaTrackPrevious
+```
+
+Represents the logical "Media Track Previous" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### newKey
+
+```dart
+LogicalKeyboardKey newKey
+```
+
+Represents the logical "New" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### open
+
+```dart
+LogicalKeyboardKey open
+```
+
+Represents the logical "Open" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### print
+
+```dart
+LogicalKeyboardKey print
+```
+
+Represents the logical "Print" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### save
+
+```dart
+LogicalKeyboardKey save
+```
+
+Represents the logical "Save" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### spellCheck
+
+```dart
+LogicalKeyboardKey spellCheck
+```
+
+Represents the logical "Spell Check" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioVolumeDown
+
+```dart
+LogicalKeyboardKey audioVolumeDown
+```
+
+Represents the logical "Audio Volume Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioVolumeUp
+
+```dart
+LogicalKeyboardKey audioVolumeUp
+```
+
+Represents the logical "Audio Volume Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioVolumeMute
+
+```dart
+LogicalKeyboardKey audioVolumeMute
+```
+
+Represents the logical "Audio Volume Mute" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchApplication2
+
+```dart
+LogicalKeyboardKey launchApplication2
+```
+
+Represents the logical "Launch Application 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchCalendar
+
+```dart
+LogicalKeyboardKey launchCalendar
+```
+
+Represents the logical "Launch Calendar" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchMail
+
+```dart
+LogicalKeyboardKey launchMail
+```
+
+Represents the logical "Launch Mail" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchMediaPlayer
+
+```dart
+LogicalKeyboardKey launchMediaPlayer
+```
+
+Represents the logical "Launch Media Player" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchMusicPlayer
+
+```dart
+LogicalKeyboardKey launchMusicPlayer
+```
+
+Represents the logical "Launch Music Player" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchApplication1
+
+```dart
+LogicalKeyboardKey launchApplication1
+```
+
+Represents the logical "Launch Application 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchScreenSaver
+
+```dart
+LogicalKeyboardKey launchScreenSaver
+```
+
+Represents the logical "Launch Screen Saver" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchSpreadsheet
+
+```dart
+LogicalKeyboardKey launchSpreadsheet
+```
+
+Represents the logical "Launch Spreadsheet" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchWebBrowser
+
+```dart
+LogicalKeyboardKey launchWebBrowser
+```
+
+Represents the logical "Launch Web Browser" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchWebCam
+
+```dart
+LogicalKeyboardKey launchWebCam
+```
+
+Represents the logical "Launch Web Cam" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchWordProcessor
+
+```dart
+LogicalKeyboardKey launchWordProcessor
+```
+
+Represents the logical "Launch Word Processor" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchContacts
+
+```dart
+LogicalKeyboardKey launchContacts
+```
+
+Represents the logical "Launch Contacts" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchPhone
+
+```dart
+LogicalKeyboardKey launchPhone
+```
+
+Represents the logical "Launch Phone" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchAssistant
+
+```dart
+LogicalKeyboardKey launchAssistant
+```
+
+Represents the logical "Launch Assistant" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### launchControlPanel
+
+```dart
+LogicalKeyboardKey launchControlPanel
+```
+
+Represents the logical "Launch Control Panel" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserBack
+
+```dart
+LogicalKeyboardKey browserBack
+```
+
+Represents the logical "Browser Back" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserFavorites
+
+```dart
+LogicalKeyboardKey browserFavorites
+```
+
+Represents the logical "Browser Favorites" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserForward
+
+```dart
+LogicalKeyboardKey browserForward
+```
+
+Represents the logical "Browser Forward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserHome
+
+```dart
+LogicalKeyboardKey browserHome
+```
+
+Represents the logical "Browser Home" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserRefresh
+
+```dart
+LogicalKeyboardKey browserRefresh
+```
+
+Represents the logical "Browser Refresh" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserSearch
+
+```dart
+LogicalKeyboardKey browserSearch
+```
+
+Represents the logical "Browser Search" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### browserStop
+
+```dart
+LogicalKeyboardKey browserStop
+```
+
+Represents the logical "Browser Stop" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioBalanceLeft
+
+```dart
+LogicalKeyboardKey audioBalanceLeft
+```
+
+Represents the logical "Audio Balance Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioBalanceRight
+
+```dart
+LogicalKeyboardKey audioBalanceRight
+```
+
+Represents the logical "Audio Balance Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioBassBoostDown
+
+```dart
+LogicalKeyboardKey audioBassBoostDown
+```
+
+Represents the logical "Audio Bass Boost Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioBassBoostUp
+
+```dart
+LogicalKeyboardKey audioBassBoostUp
+```
+
+Represents the logical "Audio Bass Boost Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioFaderFront
+
+```dart
+LogicalKeyboardKey audioFaderFront
+```
+
+Represents the logical "Audio Fader Front" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioFaderRear
+
+```dart
+LogicalKeyboardKey audioFaderRear
+```
+
+Represents the logical "Audio Fader Rear" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioSurroundModeNext
+
+```dart
+LogicalKeyboardKey audioSurroundModeNext
+```
+
+Represents the logical "Audio Surround Mode Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### avrInput
+
+```dart
+LogicalKeyboardKey avrInput
+```
+
+Represents the logical "AVR Input" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### avrPower
+
+```dart
+LogicalKeyboardKey avrPower
+```
+
+Represents the logical "AVR Power" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### channelDown
+
+```dart
+LogicalKeyboardKey channelDown
+```
+
+Represents the logical "Channel Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### channelUp
+
+```dart
+LogicalKeyboardKey channelUp
+```
+
+Represents the logical "Channel Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colorF0Red
+
+```dart
+LogicalKeyboardKey colorF0Red
+```
+
+Represents the logical "Color F0 Red" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colorF1Green
+
+```dart
+LogicalKeyboardKey colorF1Green
+```
+
+Represents the logical "Color F1 Green" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colorF2Yellow
+
+```dart
+LogicalKeyboardKey colorF2Yellow
+```
+
+Represents the logical "Color F2 Yellow" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colorF3Blue
+
+```dart
+LogicalKeyboardKey colorF3Blue
+```
+
+Represents the logical "Color F3 Blue" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colorF4Grey
+
+```dart
+LogicalKeyboardKey colorF4Grey
+```
+
+Represents the logical "Color F4 Grey" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### colorF5Brown
+
+```dart
+LogicalKeyboardKey colorF5Brown
+```
+
+Represents the logical "Color F5 Brown" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### closedCaptionToggle
+
+```dart
+LogicalKeyboardKey closedCaptionToggle
+```
+
+Represents the logical "Closed Caption Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### dimmer
+
+```dart
+LogicalKeyboardKey dimmer
+```
+
+Represents the logical "Dimmer" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### displaySwap
+
+```dart
+LogicalKeyboardKey displaySwap
+```
+
+Represents the logical "Display Swap" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### exit
+
+```dart
+LogicalKeyboardKey exit
+```
+
+Represents the logical "Exit" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteClear0
+
+```dart
+LogicalKeyboardKey favoriteClear0
+```
+
+Represents the logical "Favorite Clear 0" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteClear1
+
+```dart
+LogicalKeyboardKey favoriteClear1
+```
+
+Represents the logical "Favorite Clear 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteClear2
+
+```dart
+LogicalKeyboardKey favoriteClear2
+```
+
+Represents the logical "Favorite Clear 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteClear3
+
+```dart
+LogicalKeyboardKey favoriteClear3
+```
+
+Represents the logical "Favorite Clear 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteRecall0
+
+```dart
+LogicalKeyboardKey favoriteRecall0
+```
+
+Represents the logical "Favorite Recall 0" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteRecall1
+
+```dart
+LogicalKeyboardKey favoriteRecall1
+```
+
+Represents the logical "Favorite Recall 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteRecall2
+
+```dart
+LogicalKeyboardKey favoriteRecall2
+```
+
+Represents the logical "Favorite Recall 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteRecall3
+
+```dart
+LogicalKeyboardKey favoriteRecall3
+```
+
+Represents the logical "Favorite Recall 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteStore0
+
+```dart
+LogicalKeyboardKey favoriteStore0
+```
+
+Represents the logical "Favorite Store 0" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteStore1
+
+```dart
+LogicalKeyboardKey favoriteStore1
+```
+
+Represents the logical "Favorite Store 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteStore2
+
+```dart
+LogicalKeyboardKey favoriteStore2
+```
+
+Represents the logical "Favorite Store 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### favoriteStore3
+
+```dart
+LogicalKeyboardKey favoriteStore3
+```
+
+Represents the logical "Favorite Store 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### guide
+
+```dart
+LogicalKeyboardKey guide
+```
+
+Represents the logical "Guide" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### guideNextDay
+
+```dart
+LogicalKeyboardKey guideNextDay
+```
+
+Represents the logical "Guide Next Day" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### guidePreviousDay
+
+```dart
+LogicalKeyboardKey guidePreviousDay
+```
+
+Represents the logical "Guide Previous Day" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### info
+
+```dart
+LogicalKeyboardKey info
+```
+
+Represents the logical "Info" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### instantReplay
+
+```dart
+LogicalKeyboardKey instantReplay
+```
+
+Represents the logical "Instant Replay" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### link
+
+```dart
+LogicalKeyboardKey link
+```
+
+Represents the logical "Link" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### listProgram
+
+```dart
+LogicalKeyboardKey listProgram
+```
+
+Represents the logical "List Program" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### liveContent
+
+```dart
+LogicalKeyboardKey liveContent
+```
+
+Represents the logical "Live Content" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lock
+
+```dart
+LogicalKeyboardKey lock
+```
+
+Represents the logical "Lock" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaApps
+
+```dart
+LogicalKeyboardKey mediaApps
+```
+
+Represents the logical "Media Apps" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaFastForward
+
+```dart
+LogicalKeyboardKey mediaFastForward
+```
+
+Represents the logical "Media Fast Forward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaLast
+
+```dart
+LogicalKeyboardKey mediaLast
+```
+
+Represents the logical "Media Last" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaPause
+
+```dart
+LogicalKeyboardKey mediaPause
+```
+
+Represents the logical "Media Pause" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaPlay
+
+```dart
+LogicalKeyboardKey mediaPlay
+```
+
+Represents the logical "Media Play" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaRecord
+
+```dart
+LogicalKeyboardKey mediaRecord
+```
+
+Represents the logical "Media Record" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaRewind
+
+```dart
+LogicalKeyboardKey mediaRewind
+```
+
+Represents the logical "Media Rewind" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaSkip
+
+```dart
+LogicalKeyboardKey mediaSkip
+```
+
+Represents the logical "Media Skip" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### nextFavoriteChannel
+
+```dart
+LogicalKeyboardKey nextFavoriteChannel
+```
+
+Represents the logical "Next Favorite Channel" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### nextUserProfile
+
+```dart
+LogicalKeyboardKey nextUserProfile
+```
+
+Represents the logical "Next User Profile" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### onDemand
+
+```dart
+LogicalKeyboardKey onDemand
+```
+
+Represents the logical "On Demand" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pInPDown
+
+```dart
+LogicalKeyboardKey pInPDown
+```
+
+Represents the logical "P In P Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pInPMove
+
+```dart
+LogicalKeyboardKey pInPMove
+```
+
+Represents the logical "P In P Move" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pInPToggle
+
+```dart
+LogicalKeyboardKey pInPToggle
+```
+
+Represents the logical "P In P Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pInPUp
+
+```dart
+LogicalKeyboardKey pInPUp
+```
+
+Represents the logical "P In P Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### playSpeedDown
+
+```dart
+LogicalKeyboardKey playSpeedDown
+```
+
+Represents the logical "Play Speed Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### playSpeedReset
+
+```dart
+LogicalKeyboardKey playSpeedReset
+```
+
+Represents the logical "Play Speed Reset" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### playSpeedUp
+
+```dart
+LogicalKeyboardKey playSpeedUp
+```
+
+Represents the logical "Play Speed Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### randomToggle
+
+```dart
+LogicalKeyboardKey randomToggle
+```
+
+Represents the logical "Random Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### rcLowBattery
+
+```dart
+LogicalKeyboardKey rcLowBattery
+```
+
+Represents the logical "Rc Low Battery" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### recordSpeedNext
+
+```dart
+LogicalKeyboardKey recordSpeedNext
+```
+
+Represents the logical "Record Speed Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### rfBypass
+
+```dart
+LogicalKeyboardKey rfBypass
+```
+
+Represents the logical "Rf Bypass" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### scanChannelsToggle
+
+```dart
+LogicalKeyboardKey scanChannelsToggle
+```
+
+Represents the logical "Scan Channels Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### screenModeNext
+
+```dart
+LogicalKeyboardKey screenModeNext
+```
+
+Represents the logical "Screen Mode Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### settings
+
+```dart
+LogicalKeyboardKey settings
+```
+
+Represents the logical "Settings" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### splitScreenToggle
+
+```dart
+LogicalKeyboardKey splitScreenToggle
+```
+
+Represents the logical "Split Screen Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### stbInput
+
+```dart
+LogicalKeyboardKey stbInput
+```
+
+Represents the logical "STB Input" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### stbPower
+
+```dart
+LogicalKeyboardKey stbPower
+```
+
+Represents the logical "STB Power" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### subtitle
+
+```dart
+LogicalKeyboardKey subtitle
+```
+
+Represents the logical "Subtitle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### teletext
+
+```dart
+LogicalKeyboardKey teletext
+```
+
+Represents the logical "Teletext" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tv
+
+```dart
+LogicalKeyboardKey tv
+```
+
+Represents the logical "TV" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInput
+
+```dart
+LogicalKeyboardKey tvInput
+```
+
+Represents the logical "TV Input" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvPower
+
+```dart
+LogicalKeyboardKey tvPower
+```
+
+Represents the logical "TV Power" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### videoModeNext
+
+```dart
+LogicalKeyboardKey videoModeNext
+```
+
+Represents the logical "Video Mode Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### wink
+
+```dart
+LogicalKeyboardKey wink
+```
+
+Represents the logical "Wink" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### zoomToggle
+
+```dart
+LogicalKeyboardKey zoomToggle
+```
+
+Represents the logical "Zoom Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### dvr
+
+```dart
+LogicalKeyboardKey dvr
+```
+
+Represents the logical "DVR" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaAudioTrack
+
+```dart
+LogicalKeyboardKey mediaAudioTrack
+```
+
+Represents the logical "Media Audio Track" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaSkipBackward
+
+```dart
+LogicalKeyboardKey mediaSkipBackward
+```
+
+Represents the logical "Media Skip Backward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaSkipForward
+
+```dart
+LogicalKeyboardKey mediaSkipForward
+```
+
+Represents the logical "Media Skip Forward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaStepBackward
+
+```dart
+LogicalKeyboardKey mediaStepBackward
+```
+
+Represents the logical "Media Step Backward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaStepForward
+
+```dart
+LogicalKeyboardKey mediaStepForward
+```
+
+Represents the logical "Media Step Forward" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaTopMenu
+
+```dart
+LogicalKeyboardKey mediaTopMenu
+```
+
+Represents the logical "Media Top Menu" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### navigateIn
+
+```dart
+LogicalKeyboardKey navigateIn
+```
+
+Represents the logical "Navigate In" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### navigateNext
+
+```dart
+LogicalKeyboardKey navigateNext
+```
+
+Represents the logical "Navigate Next" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### navigateOut
+
+```dart
+LogicalKeyboardKey navigateOut
+```
+
+Represents the logical "Navigate Out" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### navigatePrevious
+
+```dart
+LogicalKeyboardKey navigatePrevious
+```
+
+Represents the logical "Navigate Previous" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### pairing
+
+```dart
+LogicalKeyboardKey pairing
+```
+
+Represents the logical "Pairing" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mediaClose
+
+```dart
+LogicalKeyboardKey mediaClose
+```
+
+Represents the logical "Media Close" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioBassBoostToggle
+
+```dart
+LogicalKeyboardKey audioBassBoostToggle
+```
+
+Represents the logical "Audio Bass Boost Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioTrebleDown
+
+```dart
+LogicalKeyboardKey audioTrebleDown
+```
+
+Represents the logical "Audio Treble Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### audioTrebleUp
+
+```dart
+LogicalKeyboardKey audioTrebleUp
+```
+
+Represents the logical "Audio Treble Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### microphoneToggle
+
+```dart
+LogicalKeyboardKey microphoneToggle
+```
+
+Represents the logical "Microphone Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### microphoneVolumeDown
+
+```dart
+LogicalKeyboardKey microphoneVolumeDown
+```
+
+Represents the logical "Microphone Volume Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### microphoneVolumeUp
+
+```dart
+LogicalKeyboardKey microphoneVolumeUp
+```
+
+Represents the logical "Microphone Volume Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### microphoneVolumeMute
+
+```dart
+LogicalKeyboardKey microphoneVolumeMute
+```
+
+Represents the logical "Microphone Volume Mute" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### speechCorrectionList
+
+```dart
+LogicalKeyboardKey speechCorrectionList
+```
+
+Represents the logical "Speech Correction List" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### speechInputToggle
+
+```dart
+LogicalKeyboardKey speechInputToggle
+```
+
+Represents the logical "Speech Input Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### appSwitch
+
+```dart
+LogicalKeyboardKey appSwitch
+```
+
+Represents the logical "App Switch" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### call
+
+```dart
+LogicalKeyboardKey call
+```
+
+Represents the logical "Call" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### cameraFocus
+
+```dart
+LogicalKeyboardKey cameraFocus
+```
+
+Represents the logical "Camera Focus" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### endCall
+
+```dart
+LogicalKeyboardKey endCall
+```
+
+Represents the logical "End Call" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### goBack
+
+```dart
+LogicalKeyboardKey goBack
+```
+
+Represents the logical "Go Back" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### goHome
+
+```dart
+LogicalKeyboardKey goHome
+```
+
+Represents the logical "Go Home" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### headsetHook
+
+```dart
+LogicalKeyboardKey headsetHook
+```
+
+Represents the logical "Headset Hook" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lastNumberRedial
+
+```dart
+LogicalKeyboardKey lastNumberRedial
+```
+
+Represents the logical "Last Number Redial" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### notification
+
+```dart
+LogicalKeyboardKey notification
+```
+
+Represents the logical "Notification" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### mannerMode
+
+```dart
+LogicalKeyboardKey mannerMode
+```
+
+Represents the logical "Manner Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### voiceDial
+
+```dart
+LogicalKeyboardKey voiceDial
+```
+
+Represents the logical "Voice Dial" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tv3DMode
+
+```dart
+LogicalKeyboardKey tv3DMode
+```
+
+Represents the logical "TV 3 D Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvAntennaCable
+
+```dart
+LogicalKeyboardKey tvAntennaCable
+```
+
+Represents the logical "TV Antenna Cable" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvAudioDescription
+
+```dart
+LogicalKeyboardKey tvAudioDescription
+```
+
+Represents the logical "TV Audio Description" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvAudioDescriptionMixDown
+
+```dart
+LogicalKeyboardKey tvAudioDescriptionMixDown
+```
+
+Represents the logical "TV Audio Description Mix Down" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvAudioDescriptionMixUp
+
+```dart
+LogicalKeyboardKey tvAudioDescriptionMixUp
+```
+
+Represents the logical "TV Audio Description Mix Up" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvContentsMenu
+
+```dart
+LogicalKeyboardKey tvContentsMenu
+```
+
+Represents the logical "TV Contents Menu" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvDataService
+
+```dart
+LogicalKeyboardKey tvDataService
+```
+
+Represents the logical "TV Data Service" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputComponent1
+
+```dart
+LogicalKeyboardKey tvInputComponent1
+```
+
+Represents the logical "TV Input Component 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputComponent2
+
+```dart
+LogicalKeyboardKey tvInputComponent2
+```
+
+Represents the logical "TV Input Component 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputComposite1
+
+```dart
+LogicalKeyboardKey tvInputComposite1
+```
+
+Represents the logical "TV Input Composite 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputComposite2
+
+```dart
+LogicalKeyboardKey tvInputComposite2
+```
+
+Represents the logical "TV Input Composite 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputHDMI1
+
+```dart
+LogicalKeyboardKey tvInputHDMI1
+```
+
+Represents the logical "TV Input HDMI 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputHDMI2
+
+```dart
+LogicalKeyboardKey tvInputHDMI2
+```
+
+Represents the logical "TV Input HDMI 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputHDMI3
+
+```dart
+LogicalKeyboardKey tvInputHDMI3
+```
+
+Represents the logical "TV Input HDMI 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputHDMI4
+
+```dart
+LogicalKeyboardKey tvInputHDMI4
+```
+
+Represents the logical "TV Input HDMI 4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvInputVGA1
+
+```dart
+LogicalKeyboardKey tvInputVGA1
+```
+
+Represents the logical "TV Input VGA 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvMediaContext
+
+```dart
+LogicalKeyboardKey tvMediaContext
+```
+
+Represents the logical "TV Media Context" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvNetwork
+
+```dart
+LogicalKeyboardKey tvNetwork
+```
+
+Represents the logical "TV Network" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvNumberEntry
+
+```dart
+LogicalKeyboardKey tvNumberEntry
+```
+
+Represents the logical "TV Number Entry" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvRadioService
+
+```dart
+LogicalKeyboardKey tvRadioService
+```
+
+Represents the logical "TV Radio Service" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvSatellite
+
+```dart
+LogicalKeyboardKey tvSatellite
+```
+
+Represents the logical "TV Satellite" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvSatelliteBS
+
+```dart
+LogicalKeyboardKey tvSatelliteBS
+```
+
+Represents the logical "TV Satellite BS" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvSatelliteCS
+
+```dart
+LogicalKeyboardKey tvSatelliteCS
+```
+
+Represents the logical "TV Satellite CS" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvSatelliteToggle
+
+```dart
+LogicalKeyboardKey tvSatelliteToggle
+```
+
+Represents the logical "TV Satellite Toggle" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvTerrestrialAnalog
+
+```dart
+LogicalKeyboardKey tvTerrestrialAnalog
+```
+
+Represents the logical "TV Terrestrial Analog" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvTerrestrialDigital
+
+```dart
+LogicalKeyboardKey tvTerrestrialDigital
+```
+
+Represents the logical "TV Terrestrial Digital" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### tvTimer
+
+```dart
+LogicalKeyboardKey tvTimer
+```
+
+Represents the logical "TV Timer" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### key11
+
+```dart
+LogicalKeyboardKey key11
+```
+
+Represents the logical "Key 11" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### key12
+
+```dart
+LogicalKeyboardKey key12
+```
+
+Represents the logical "Key 12" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### suspend
+
+```dart
+LogicalKeyboardKey suspend
+```
+
+Represents the logical "Suspend" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### resume
+
+```dart
+LogicalKeyboardKey resume
+```
+
+Represents the logical "Resume" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### sleep
+
+```dart
+LogicalKeyboardKey sleep
+```
+
+Represents the logical "Sleep" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### abort
+
+```dart
+LogicalKeyboardKey abort
+```
+
+Represents the logical "Abort" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lang1
+
+```dart
+LogicalKeyboardKey lang1
+```
+
+Represents the logical "Lang 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lang2
+
+```dart
+LogicalKeyboardKey lang2
+```
+
+Represents the logical "Lang 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lang3
+
+```dart
+LogicalKeyboardKey lang3
+```
+
+Represents the logical "Lang 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lang4
+
+```dart
+LogicalKeyboardKey lang4
+```
+
+Represents the logical "Lang 4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### lang5
+
+```dart
+LogicalKeyboardKey lang5
+```
+
+Represents the logical "Lang 5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### intlBackslash
+
+```dart
+LogicalKeyboardKey intlBackslash
+```
+
+Represents the logical "Intl Backslash" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### intlRo
+
+```dart
+LogicalKeyboardKey intlRo
+```
+
+Represents the logical "Intl Ro" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### intlYen
+
+```dart
+LogicalKeyboardKey intlYen
+```
+
+Represents the logical "Intl Yen" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### controlLeft
+
+```dart
+LogicalKeyboardKey controlLeft
+```
+
+Represents the logical "Control Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### controlRight
+
+```dart
+LogicalKeyboardKey controlRight
+```
+
+Represents the logical "Control Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### shiftLeft
+
+```dart
+LogicalKeyboardKey shiftLeft
+```
+
+Represents the logical "Shift Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### shiftRight
+
+```dart
+LogicalKeyboardKey shiftRight
+```
+
+Represents the logical "Shift Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### altLeft
+
+```dart
+LogicalKeyboardKey altLeft
+```
+
+Represents the logical "Alt Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### altRight
+
+```dart
+LogicalKeyboardKey altRight
+```
+
+Represents the logical "Alt Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### metaLeft
+
+```dart
+LogicalKeyboardKey metaLeft
+```
+
+Represents the logical "Meta Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### metaRight
+
+```dart
+LogicalKeyboardKey metaRight
+```
+
+Represents the logical "Meta Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### control
+
+```dart
+LogicalKeyboardKey control
+```
+
+Represents the logical "Control" key on the keyboard.
+
+This key represents the union of the keys {controlLeft, controlRight} when comparing keys. This key will never be generated directly, its main use is in defining key maps.
+
+### shift
+
+```dart
+LogicalKeyboardKey shift
+```
+
+Represents the logical "Shift" key on the keyboard.
+
+This key represents the union of the keys {shiftLeft, shiftRight} when comparing keys. This key will never be generated directly, its main use is in defining key maps.
+
+### alt
+
+```dart
+LogicalKeyboardKey alt
+```
+
+Represents the logical "Alt" key on the keyboard.
+
+This key represents the union of the keys {altLeft, altRight} when comparing keys. This key will never be generated directly, its main use is in defining key maps.
+
+### meta
+
+```dart
+LogicalKeyboardKey meta
+```
+
+Represents the logical "Meta" key on the keyboard.
+
+This key represents the union of the keys {metaLeft, metaRight} when comparing keys. This key will never be generated directly, its main use is in defining key maps.
+
+### numpadEnter
+
+```dart
+LogicalKeyboardKey numpadEnter
+```
+
+Represents the logical "Numpad Enter" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadParenLeft
+
+```dart
+LogicalKeyboardKey numpadParenLeft
+```
+
+Represents the logical "Numpad Paren Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadParenRight
+
+```dart
+LogicalKeyboardKey numpadParenRight
+```
+
+Represents the logical "Numpad Paren Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadMultiply
+
+```dart
+LogicalKeyboardKey numpadMultiply
+```
+
+Represents the logical "Numpad Multiply" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadAdd
+
+```dart
+LogicalKeyboardKey numpadAdd
+```
+
+Represents the logical "Numpad Add" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadComma
+
+```dart
+LogicalKeyboardKey numpadComma
+```
+
+Represents the logical "Numpad Comma" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadSubtract
+
+```dart
+LogicalKeyboardKey numpadSubtract
+```
+
+Represents the logical "Numpad Subtract" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadDecimal
+
+```dart
+LogicalKeyboardKey numpadDecimal
+```
+
+Represents the logical "Numpad Decimal" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadDivide
+
+```dart
+LogicalKeyboardKey numpadDivide
+```
+
+Represents the logical "Numpad Divide" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad0
+
+```dart
+LogicalKeyboardKey numpad0
+```
+
+Represents the logical "Numpad 0" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad1
+
+```dart
+LogicalKeyboardKey numpad1
+```
+
+Represents the logical "Numpad 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad2
+
+```dart
+LogicalKeyboardKey numpad2
+```
+
+Represents the logical "Numpad 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad3
+
+```dart
+LogicalKeyboardKey numpad3
+```
+
+Represents the logical "Numpad 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad4
+
+```dart
+LogicalKeyboardKey numpad4
+```
+
+Represents the logical "Numpad 4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad5
+
+```dart
+LogicalKeyboardKey numpad5
+```
+
+Represents the logical "Numpad 5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad6
+
+```dart
+LogicalKeyboardKey numpad6
+```
+
+Represents the logical "Numpad 6" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad7
+
+```dart
+LogicalKeyboardKey numpad7
+```
+
+Represents the logical "Numpad 7" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad8
+
+```dart
+LogicalKeyboardKey numpad8
+```
+
+Represents the logical "Numpad 8" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpad9
+
+```dart
+LogicalKeyboardKey numpad9
+```
+
+Represents the logical "Numpad 9" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### numpadEqual
+
+```dart
+LogicalKeyboardKey numpadEqual
+```
+
+Represents the logical "Numpad Equal" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton1
+
+```dart
+LogicalKeyboardKey gameButton1
+```
+
+Represents the logical "Game Button 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton2
+
+```dart
+LogicalKeyboardKey gameButton2
+```
+
+Represents the logical "Game Button 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton3
+
+```dart
+LogicalKeyboardKey gameButton3
+```
+
+Represents the logical "Game Button 3" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton4
+
+```dart
+LogicalKeyboardKey gameButton4
+```
+
+Represents the logical "Game Button 4" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton5
+
+```dart
+LogicalKeyboardKey gameButton5
+```
+
+Represents the logical "Game Button 5" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton6
+
+```dart
+LogicalKeyboardKey gameButton6
+```
+
+Represents the logical "Game Button 6" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton7
+
+```dart
+LogicalKeyboardKey gameButton7
+```
+
+Represents the logical "Game Button 7" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton8
+
+```dart
+LogicalKeyboardKey gameButton8
+```
+
+Represents the logical "Game Button 8" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton9
+
+```dart
+LogicalKeyboardKey gameButton9
+```
+
+Represents the logical "Game Button 9" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton10
+
+```dart
+LogicalKeyboardKey gameButton10
+```
+
+Represents the logical "Game Button 10" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton11
+
+```dart
+LogicalKeyboardKey gameButton11
+```
+
+Represents the logical "Game Button 11" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton12
+
+```dart
+LogicalKeyboardKey gameButton12
+```
+
+Represents the logical "Game Button 12" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton13
+
+```dart
+LogicalKeyboardKey gameButton13
+```
+
+Represents the logical "Game Button 13" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton14
+
+```dart
+LogicalKeyboardKey gameButton14
+```
+
+Represents the logical "Game Button 14" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton15
+
+```dart
+LogicalKeyboardKey gameButton15
+```
+
+Represents the logical "Game Button 15" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButton16
+
+```dart
+LogicalKeyboardKey gameButton16
+```
+
+Represents the logical "Game Button 16" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonA
+
+```dart
+LogicalKeyboardKey gameButtonA
+```
+
+Represents the logical "Game Button A" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonB
+
+```dart
+LogicalKeyboardKey gameButtonB
+```
+
+Represents the logical "Game Button B" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonC
+
+```dart
+LogicalKeyboardKey gameButtonC
+```
+
+Represents the logical "Game Button C" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonLeft1
+
+```dart
+LogicalKeyboardKey gameButtonLeft1
+```
+
+Represents the logical "Game Button Left 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonLeft2
+
+```dart
+LogicalKeyboardKey gameButtonLeft2
+```
+
+Represents the logical "Game Button Left 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonMode
+
+```dart
+LogicalKeyboardKey gameButtonMode
+```
+
+Represents the logical "Game Button Mode" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonRight1
+
+```dart
+LogicalKeyboardKey gameButtonRight1
+```
+
+Represents the logical "Game Button Right 1" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonRight2
+
+```dart
+LogicalKeyboardKey gameButtonRight2
+```
+
+Represents the logical "Game Button Right 2" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonSelect
+
+```dart
+LogicalKeyboardKey gameButtonSelect
+```
+
+Represents the logical "Game Button Select" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonStart
+
+```dart
+LogicalKeyboardKey gameButtonStart
+```
+
+Represents the logical "Game Button Start" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonThumbLeft
+
+```dart
+LogicalKeyboardKey gameButtonThumbLeft
+```
+
+Represents the logical "Game Button Thumb Left" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonThumbRight
+
+```dart
+LogicalKeyboardKey gameButtonThumbRight
+```
+
+Represents the logical "Game Button Thumb Right" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonX
+
+```dart
+LogicalKeyboardKey gameButtonX
+```
+
+Represents the logical "Game Button X" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonY
+
+```dart
+LogicalKeyboardKey gameButtonY
+```
+
+Represents the logical "Game Button Y" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### gameButtonZ
+
+```dart
+LogicalKeyboardKey gameButtonZ
+```
+
+Represents the logical "Game Button Z" key on the keyboard.
+
+See the function [RawKeyEvent.logicalKey] for more information.
+
+### knownLogicalKeys
+
+```dart
+Iterable<LogicalKeyboardKey> get knownLogicalKeys
+```
+
+A list of all predefined constant [LogicalKeyboardKey]s.
+
+# PhysicalKeyboardKey
+
+```dart
+class PhysicalKeyboardKey extends KeyboardKey {}
+```
+
+A class with static values that describe the keys that are returned from [RawKeyEvent.physicalKey].
+
+These represent _physical_ keys, which are keys which represent a particular key location on a QWERTY keyboard. It ignores any modifiers, modes, or keyboard layouts which may be in effect. This is contrast to [LogicalKeyboardKey], which represents a logical key interpreted in the context of modifiers, modes, and/or keyboard layouts.
+
+As an example, if you wanted a game where the key next to the CAPS LOCK (the "A" key on a QWERTY keyboard) moved the player to the left, you'd want to look at the physical key to make sure that regardless of the character the key produces, you got the key that is in that location on the keyboard.
+
+Conversely, if you wanted to implement an app where the "Q" key "quit" something, you'd want to look at the logical key to detect this, since you would like to have it match the key with "Q" on it, instead of always looking for "the key next to the TAB key", since on a French keyboard, the key next to the TAB key has an "A" on it.
+
+{@tool dartpad} This example shows how to detect if the user has selected the physical key to the right of the CAPS LOCK key.
+
+** See code in examples/api/lib/services/keyboard_key/physical_keyboard_key.0.dart ** {@end-tool}
+
+See also:
+
+- [RawKeyEvent], the keyboard event object received by widgets that listen to keyboard events.
+- [Focus.onKey], the handler on a widget that lets you handle key events.
+- [RawKeyboardListener], a widget used to listen to keyboard events (but not handle them).
+
+### PhysicalKeyboardKey()
+
+```dart
+PhysicalKeyboardKey(int usbHidUsage)
+```
+
+Creates a new PhysicalKeyboardKey object for a USB HID usage.
+
+### usbHidUsage
+
+```dart
+int usbHidUsage
+```
+
+The unique USB HID usage ID of this physical key on the keyboard.
+
+Due to the variations in platform APIs, this may not be the actual HID usage code from the hardware, but a value derived from available information on the platform.
+
+See <https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf> for the HID usage values and their meanings.
+
+### debugName
+
+```dart
+String? get debugName
+```
+
+The debug string to print for this keyboard key, which will be null in release mode.
+
+### hashCode
+
+```dart
+int get hashCode
+```
+
+### operator ==()
+
+```dart
+bool operator ==(Object other)
+```
+
+### findKeyByCode()
+
+```dart
+PhysicalKeyboardKey? findKeyByCode(int usageCode)
+```
+
+Finds a known [PhysicalKeyboardKey] that matches the given USB HID usage code.
+
+### debugFillProperties()
+
+```dart
+void debugFillProperties(DiagnosticPropertiesBuilder properties)
+```
+
+### hyper
+
+```dart
+PhysicalKeyboardKey hyper
+```
+
+Represents the location of the "Hyper" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### superKey
+
+```dart
+PhysicalKeyboardKey superKey
+```
+
+Represents the location of the "Super Key" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### fn
+
+```dart
+PhysicalKeyboardKey fn
+```
+
+Represents the location of the "Fn" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### fnLock
+
+```dart
+PhysicalKeyboardKey fnLock
+```
+
+Represents the location of the "Fn Lock" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### suspend
+
+```dart
+PhysicalKeyboardKey suspend
+```
+
+Represents the location of the "Suspend" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### resume
+
+```dart
+PhysicalKeyboardKey resume
+```
+
+Represents the location of the "Resume" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### turbo
+
+```dart
+PhysicalKeyboardKey turbo
+```
+
+Represents the location of the "Turbo" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### privacyScreenToggle
+
+```dart
+PhysicalKeyboardKey privacyScreenToggle
+```
+
+Represents the location of the "Privacy Screen Toggle" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### microphoneMuteToggle
+
+```dart
+PhysicalKeyboardKey microphoneMuteToggle
+```
+
+Represents the location of the "Microphone Mute Toggle" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### sleep
+
+```dart
+PhysicalKeyboardKey sleep
+```
+
+Represents the location of the "Sleep" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### wakeUp
+
+```dart
+PhysicalKeyboardKey wakeUp
+```
+
+Represents the location of the "Wake Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### displayToggleIntExt
+
+```dart
+PhysicalKeyboardKey displayToggleIntExt
+```
+
+Represents the location of the "Display Toggle Int Ext" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton1
+
+```dart
+PhysicalKeyboardKey gameButton1
+```
+
+Represents the location of the "Game Button 1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton2
+
+```dart
+PhysicalKeyboardKey gameButton2
+```
+
+Represents the location of the "Game Button 2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton3
+
+```dart
+PhysicalKeyboardKey gameButton3
+```
+
+Represents the location of the "Game Button 3" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton4
+
+```dart
+PhysicalKeyboardKey gameButton4
+```
+
+Represents the location of the "Game Button 4" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton5
+
+```dart
+PhysicalKeyboardKey gameButton5
+```
+
+Represents the location of the "Game Button 5" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton6
+
+```dart
+PhysicalKeyboardKey gameButton6
+```
+
+Represents the location of the "Game Button 6" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton7
+
+```dart
+PhysicalKeyboardKey gameButton7
+```
+
+Represents the location of the "Game Button 7" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton8
+
+```dart
+PhysicalKeyboardKey gameButton8
+```
+
+Represents the location of the "Game Button 8" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton9
+
+```dart
+PhysicalKeyboardKey gameButton9
+```
+
+Represents the location of the "Game Button 9" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton10
+
+```dart
+PhysicalKeyboardKey gameButton10
+```
+
+Represents the location of the "Game Button 10" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton11
+
+```dart
+PhysicalKeyboardKey gameButton11
+```
+
+Represents the location of the "Game Button 11" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton12
+
+```dart
+PhysicalKeyboardKey gameButton12
+```
+
+Represents the location of the "Game Button 12" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton13
+
+```dart
+PhysicalKeyboardKey gameButton13
+```
+
+Represents the location of the "Game Button 13" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton14
+
+```dart
+PhysicalKeyboardKey gameButton14
+```
+
+Represents the location of the "Game Button 14" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton15
+
+```dart
+PhysicalKeyboardKey gameButton15
+```
+
+Represents the location of the "Game Button 15" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButton16
+
+```dart
+PhysicalKeyboardKey gameButton16
+```
+
+Represents the location of the "Game Button 16" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonA
+
+```dart
+PhysicalKeyboardKey gameButtonA
+```
+
+Represents the location of the "Game Button A" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonB
+
+```dart
+PhysicalKeyboardKey gameButtonB
+```
+
+Represents the location of the "Game Button B" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonC
+
+```dart
+PhysicalKeyboardKey gameButtonC
+```
+
+Represents the location of the "Game Button C" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonLeft1
+
+```dart
+PhysicalKeyboardKey gameButtonLeft1
+```
+
+Represents the location of the "Game Button Left 1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonLeft2
+
+```dart
+PhysicalKeyboardKey gameButtonLeft2
+```
+
+Represents the location of the "Game Button Left 2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonMode
+
+```dart
+PhysicalKeyboardKey gameButtonMode
+```
+
+Represents the location of the "Game Button Mode" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonRight1
+
+```dart
+PhysicalKeyboardKey gameButtonRight1
+```
+
+Represents the location of the "Game Button Right 1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonRight2
+
+```dart
+PhysicalKeyboardKey gameButtonRight2
+```
+
+Represents the location of the "Game Button Right 2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonSelect
+
+```dart
+PhysicalKeyboardKey gameButtonSelect
+```
+
+Represents the location of the "Game Button Select" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonStart
+
+```dart
+PhysicalKeyboardKey gameButtonStart
+```
+
+Represents the location of the "Game Button Start" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonThumbLeft
+
+```dart
+PhysicalKeyboardKey gameButtonThumbLeft
+```
+
+Represents the location of the "Game Button Thumb Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonThumbRight
+
+```dart
+PhysicalKeyboardKey gameButtonThumbRight
+```
+
+Represents the location of the "Game Button Thumb Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonX
+
+```dart
+PhysicalKeyboardKey gameButtonX
+```
+
+Represents the location of the "Game Button X" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonY
+
+```dart
+PhysicalKeyboardKey gameButtonY
+```
+
+Represents the location of the "Game Button Y" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### gameButtonZ
+
+```dart
+PhysicalKeyboardKey gameButtonZ
+```
+
+Represents the location of the "Game Button Z" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### usbReserved
+
+```dart
+PhysicalKeyboardKey usbReserved
+```
+
+Represents the location of the "Usb Reserved" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### usbErrorRollOver
+
+```dart
+PhysicalKeyboardKey usbErrorRollOver
+```
+
+Represents the location of the "Usb Error Roll Over" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### usbPostFail
+
+```dart
+PhysicalKeyboardKey usbPostFail
+```
+
+Represents the location of the "Usb Post Fail" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### usbErrorUndefined
+
+```dart
+PhysicalKeyboardKey usbErrorUndefined
+```
+
+Represents the location of the "Usb Error Undefined" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyA
+
+```dart
+PhysicalKeyboardKey keyA
+```
+
+Represents the location of the "Key A" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyB
+
+```dart
+PhysicalKeyboardKey keyB
+```
+
+Represents the location of the "Key B" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyC
+
+```dart
+PhysicalKeyboardKey keyC
+```
+
+Represents the location of the "Key C" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyD
+
+```dart
+PhysicalKeyboardKey keyD
+```
+
+Represents the location of the "Key D" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyE
+
+```dart
+PhysicalKeyboardKey keyE
+```
+
+Represents the location of the "Key E" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyF
+
+```dart
+PhysicalKeyboardKey keyF
+```
+
+Represents the location of the "Key F" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyG
+
+```dart
+PhysicalKeyboardKey keyG
+```
+
+Represents the location of the "Key G" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyH
+
+```dart
+PhysicalKeyboardKey keyH
+```
+
+Represents the location of the "Key H" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyI
+
+```dart
+PhysicalKeyboardKey keyI
+```
+
+Represents the location of the "Key I" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyJ
+
+```dart
+PhysicalKeyboardKey keyJ
+```
+
+Represents the location of the "Key J" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyK
+
+```dart
+PhysicalKeyboardKey keyK
+```
+
+Represents the location of the "Key K" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyL
+
+```dart
+PhysicalKeyboardKey keyL
+```
+
+Represents the location of the "Key L" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyM
+
+```dart
+PhysicalKeyboardKey keyM
+```
+
+Represents the location of the "Key M" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyN
+
+```dart
+PhysicalKeyboardKey keyN
+```
+
+Represents the location of the "Key N" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyO
+
+```dart
+PhysicalKeyboardKey keyO
+```
+
+Represents the location of the "Key O" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyP
+
+```dart
+PhysicalKeyboardKey keyP
+```
+
+Represents the location of the "Key P" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyQ
+
+```dart
+PhysicalKeyboardKey keyQ
+```
+
+Represents the location of the "Key Q" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyR
+
+```dart
+PhysicalKeyboardKey keyR
+```
+
+Represents the location of the "Key R" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyS
+
+```dart
+PhysicalKeyboardKey keyS
+```
+
+Represents the location of the "Key S" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyT
+
+```dart
+PhysicalKeyboardKey keyT
+```
+
+Represents the location of the "Key T" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyU
+
+```dart
+PhysicalKeyboardKey keyU
+```
+
+Represents the location of the "Key U" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyV
+
+```dart
+PhysicalKeyboardKey keyV
+```
+
+Represents the location of the "Key V" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyW
+
+```dart
+PhysicalKeyboardKey keyW
+```
+
+Represents the location of the "Key W" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyX
+
+```dart
+PhysicalKeyboardKey keyX
+```
+
+Represents the location of the "Key X" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyY
+
+```dart
+PhysicalKeyboardKey keyY
+```
+
+Represents the location of the "Key Y" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyZ
+
+```dart
+PhysicalKeyboardKey keyZ
+```
+
+Represents the location of the "Key Z" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit1
+
+```dart
+PhysicalKeyboardKey digit1
+```
+
+Represents the location of the "Digit 1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit2
+
+```dart
+PhysicalKeyboardKey digit2
+```
+
+Represents the location of the "Digit 2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit3
+
+```dart
+PhysicalKeyboardKey digit3
+```
+
+Represents the location of the "Digit 3" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit4
+
+```dart
+PhysicalKeyboardKey digit4
+```
+
+Represents the location of the "Digit 4" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit5
+
+```dart
+PhysicalKeyboardKey digit5
+```
+
+Represents the location of the "Digit 5" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit6
+
+```dart
+PhysicalKeyboardKey digit6
+```
+
+Represents the location of the "Digit 6" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit7
+
+```dart
+PhysicalKeyboardKey digit7
+```
+
+Represents the location of the "Digit 7" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit8
+
+```dart
+PhysicalKeyboardKey digit8
+```
+
+Represents the location of the "Digit 8" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit9
+
+```dart
+PhysicalKeyboardKey digit9
+```
+
+Represents the location of the "Digit 9" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### digit0
+
+```dart
+PhysicalKeyboardKey digit0
+```
+
+Represents the location of the "Digit 0" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### enter
+
+```dart
+PhysicalKeyboardKey enter
+```
+
+Represents the location of the "Enter" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### escape
+
+```dart
+PhysicalKeyboardKey escape
+```
+
+Represents the location of the "Escape" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### backspace
+
+```dart
+PhysicalKeyboardKey backspace
+```
+
+Represents the location of the "Backspace" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### tab
+
+```dart
+PhysicalKeyboardKey tab
+```
+
+Represents the location of the "Tab" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### space
+
+```dart
+PhysicalKeyboardKey space
+```
+
+Represents the location of the "Space" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### minus
+
+```dart
+PhysicalKeyboardKey minus
+```
+
+Represents the location of the "Minus" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### equal
+
+```dart
+PhysicalKeyboardKey equal
+```
+
+Represents the location of the "Equal" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### bracketLeft
+
+```dart
+PhysicalKeyboardKey bracketLeft
+```
+
+Represents the location of the "Bracket Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### bracketRight
+
+```dart
+PhysicalKeyboardKey bracketRight
+```
+
+Represents the location of the "Bracket Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### backslash
+
+```dart
+PhysicalKeyboardKey backslash
+```
+
+Represents the location of the "Backslash" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### semicolon
+
+```dart
+PhysicalKeyboardKey semicolon
+```
+
+Represents the location of the "Semicolon" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### quote
+
+```dart
+PhysicalKeyboardKey quote
+```
+
+Represents the location of the "Quote" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### backquote
+
+```dart
+PhysicalKeyboardKey backquote
+```
+
+Represents the location of the "Backquote" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### comma
+
+```dart
+PhysicalKeyboardKey comma
+```
+
+Represents the location of the "Comma" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### period
+
+```dart
+PhysicalKeyboardKey period
+```
+
+Represents the location of the "Period" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### slash
+
+```dart
+PhysicalKeyboardKey slash
+```
+
+Represents the location of the "Slash" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### capsLock
+
+```dart
+PhysicalKeyboardKey capsLock
+```
+
+Represents the location of the "Caps Lock" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f1
+
+```dart
+PhysicalKeyboardKey f1
+```
+
+Represents the location of the "F1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f2
+
+```dart
+PhysicalKeyboardKey f2
+```
+
+Represents the location of the "F2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f3
+
+```dart
+PhysicalKeyboardKey f3
+```
+
+Represents the location of the "F3" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f4
+
+```dart
+PhysicalKeyboardKey f4
+```
+
+Represents the location of the "F4" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f5
+
+```dart
+PhysicalKeyboardKey f5
+```
+
+Represents the location of the "F5" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f6
+
+```dart
+PhysicalKeyboardKey f6
+```
+
+Represents the location of the "F6" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f7
+
+```dart
+PhysicalKeyboardKey f7
+```
+
+Represents the location of the "F7" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f8
+
+```dart
+PhysicalKeyboardKey f8
+```
+
+Represents the location of the "F8" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f9
+
+```dart
+PhysicalKeyboardKey f9
+```
+
+Represents the location of the "F9" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f10
+
+```dart
+PhysicalKeyboardKey f10
+```
+
+Represents the location of the "F10" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f11
+
+```dart
+PhysicalKeyboardKey f11
+```
+
+Represents the location of the "F11" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f12
+
+```dart
+PhysicalKeyboardKey f12
+```
+
+Represents the location of the "F12" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### printScreen
+
+```dart
+PhysicalKeyboardKey printScreen
+```
+
+Represents the location of the "Print Screen" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### scrollLock
+
+```dart
+PhysicalKeyboardKey scrollLock
+```
+
+Represents the location of the "Scroll Lock" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### pause
+
+```dart
+PhysicalKeyboardKey pause
+```
+
+Represents the location of the "Pause" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### insert
+
+```dart
+PhysicalKeyboardKey insert
+```
+
+Represents the location of the "Insert" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### home
+
+```dart
+PhysicalKeyboardKey home
+```
+
+Represents the location of the "Home" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### pageUp
+
+```dart
+PhysicalKeyboardKey pageUp
+```
+
+Represents the location of the "Page Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### delete
+
+```dart
+PhysicalKeyboardKey delete
+```
+
+Represents the location of the "Delete" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### end
+
+```dart
+PhysicalKeyboardKey end
+```
+
+Represents the location of the "End" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### pageDown
+
+```dart
+PhysicalKeyboardKey pageDown
+```
+
+Represents the location of the "Page Down" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### arrowRight
+
+```dart
+PhysicalKeyboardKey arrowRight
+```
+
+Represents the location of the "Arrow Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### arrowLeft
+
+```dart
+PhysicalKeyboardKey arrowLeft
+```
+
+Represents the location of the "Arrow Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### arrowDown
+
+```dart
+PhysicalKeyboardKey arrowDown
+```
+
+Represents the location of the "Arrow Down" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### arrowUp
+
+```dart
+PhysicalKeyboardKey arrowUp
+```
+
+Represents the location of the "Arrow Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numLock
+
+```dart
+PhysicalKeyboardKey numLock
+```
+
+Represents the location of the "Num Lock" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadDivide
+
+```dart
+PhysicalKeyboardKey numpadDivide
+```
+
+Represents the location of the "Numpad Divide" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadMultiply
+
+```dart
+PhysicalKeyboardKey numpadMultiply
+```
+
+Represents the location of the "Numpad Multiply" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadSubtract
+
+```dart
+PhysicalKeyboardKey numpadSubtract
+```
+
+Represents the location of the "Numpad Subtract" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadAdd
+
+```dart
+PhysicalKeyboardKey numpadAdd
+```
+
+Represents the location of the "Numpad Add" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadEnter
+
+```dart
+PhysicalKeyboardKey numpadEnter
+```
+
+Represents the location of the "Numpad Enter" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad1
+
+```dart
+PhysicalKeyboardKey numpad1
+```
+
+Represents the location of the "Numpad 1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad2
+
+```dart
+PhysicalKeyboardKey numpad2
+```
+
+Represents the location of the "Numpad 2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad3
+
+```dart
+PhysicalKeyboardKey numpad3
+```
+
+Represents the location of the "Numpad 3" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad4
+
+```dart
+PhysicalKeyboardKey numpad4
+```
+
+Represents the location of the "Numpad 4" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad5
+
+```dart
+PhysicalKeyboardKey numpad5
+```
+
+Represents the location of the "Numpad 5" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad6
+
+```dart
+PhysicalKeyboardKey numpad6
+```
+
+Represents the location of the "Numpad 6" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad7
+
+```dart
+PhysicalKeyboardKey numpad7
+```
+
+Represents the location of the "Numpad 7" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad8
+
+```dart
+PhysicalKeyboardKey numpad8
+```
+
+Represents the location of the "Numpad 8" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad9
+
+```dart
+PhysicalKeyboardKey numpad9
+```
+
+Represents the location of the "Numpad 9" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpad0
+
+```dart
+PhysicalKeyboardKey numpad0
+```
+
+Represents the location of the "Numpad 0" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadDecimal
+
+```dart
+PhysicalKeyboardKey numpadDecimal
+```
+
+Represents the location of the "Numpad Decimal" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### intlBackslash
+
+```dart
+PhysicalKeyboardKey intlBackslash
+```
+
+Represents the location of the "Intl Backslash" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### contextMenu
+
+```dart
+PhysicalKeyboardKey contextMenu
+```
+
+Represents the location of the "Context Menu" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### power
+
+```dart
+PhysicalKeyboardKey power
+```
+
+Represents the location of the "Power" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadEqual
+
+```dart
+PhysicalKeyboardKey numpadEqual
+```
+
+Represents the location of the "Numpad Equal" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f13
+
+```dart
+PhysicalKeyboardKey f13
+```
+
+Represents the location of the "F13" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f14
+
+```dart
+PhysicalKeyboardKey f14
+```
+
+Represents the location of the "F14" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f15
+
+```dart
+PhysicalKeyboardKey f15
+```
+
+Represents the location of the "F15" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f16
+
+```dart
+PhysicalKeyboardKey f16
+```
+
+Represents the location of the "F16" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f17
+
+```dart
+PhysicalKeyboardKey f17
+```
+
+Represents the location of the "F17" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f18
+
+```dart
+PhysicalKeyboardKey f18
+```
+
+Represents the location of the "F18" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f19
+
+```dart
+PhysicalKeyboardKey f19
+```
+
+Represents the location of the "F19" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f20
+
+```dart
+PhysicalKeyboardKey f20
+```
+
+Represents the location of the "F20" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f21
+
+```dart
+PhysicalKeyboardKey f21
+```
+
+Represents the location of the "F21" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f22
+
+```dart
+PhysicalKeyboardKey f22
+```
+
+Represents the location of the "F22" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f23
+
+```dart
+PhysicalKeyboardKey f23
+```
+
+Represents the location of the "F23" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### f24
+
+```dart
+PhysicalKeyboardKey f24
+```
+
+Represents the location of the "F24" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### open
+
+```dart
+PhysicalKeyboardKey open
+```
+
+Represents the location of the "Open" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### help
+
+```dart
+PhysicalKeyboardKey help
+```
+
+Represents the location of the "Help" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### select
+
+```dart
+PhysicalKeyboardKey select
+```
+
+Represents the location of the "Select" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### again
+
+```dart
+PhysicalKeyboardKey again
+```
+
+Represents the location of the "Again" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### undo
+
+```dart
+PhysicalKeyboardKey undo
+```
+
+Represents the location of the "Undo" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### cut
+
+```dart
+PhysicalKeyboardKey cut
+```
+
+Represents the location of the "Cut" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### copy
+
+```dart
+PhysicalKeyboardKey copy
+```
+
+Represents the location of the "Copy" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### paste
+
+```dart
+PhysicalKeyboardKey paste
+```
+
+Represents the location of the "Paste" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### find
+
+```dart
+PhysicalKeyboardKey find
+```
+
+Represents the location of the "Find" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### audioVolumeMute
+
+```dart
+PhysicalKeyboardKey audioVolumeMute
+```
+
+Represents the location of the "Audio Volume Mute" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### audioVolumeUp
+
+```dart
+PhysicalKeyboardKey audioVolumeUp
+```
+
+Represents the location of the "Audio Volume Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### audioVolumeDown
+
+```dart
+PhysicalKeyboardKey audioVolumeDown
+```
+
+Represents the location of the "Audio Volume Down" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadComma
+
+```dart
+PhysicalKeyboardKey numpadComma
+```
+
+Represents the location of the "Numpad Comma" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### intlRo
+
+```dart
+PhysicalKeyboardKey intlRo
+```
+
+Represents the location of the "Intl Ro" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### kanaMode
+
+```dart
+PhysicalKeyboardKey kanaMode
+```
+
+Represents the location of the "Kana Mode" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### intlYen
+
+```dart
+PhysicalKeyboardKey intlYen
+```
+
+Represents the location of the "Intl Yen" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### convert
+
+```dart
+PhysicalKeyboardKey convert
+```
+
+Represents the location of the "Convert" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### nonConvert
+
+```dart
+PhysicalKeyboardKey nonConvert
+```
+
+Represents the location of the "Non Convert" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### lang1
+
+```dart
+PhysicalKeyboardKey lang1
+```
+
+Represents the location of the "Lang 1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### lang2
+
+```dart
+PhysicalKeyboardKey lang2
+```
+
+Represents the location of the "Lang 2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### lang3
+
+```dart
+PhysicalKeyboardKey lang3
+```
+
+Represents the location of the "Lang 3" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### lang4
+
+```dart
+PhysicalKeyboardKey lang4
+```
+
+Represents the location of the "Lang 4" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### lang5
+
+```dart
+PhysicalKeyboardKey lang5
+```
+
+Represents the location of the "Lang 5" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### abort
+
+```dart
+PhysicalKeyboardKey abort
+```
+
+Represents the location of the "Abort" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### props
+
+```dart
+PhysicalKeyboardKey props
+```
+
+Represents the location of the "Props" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadParenLeft
+
+```dart
+PhysicalKeyboardKey numpadParenLeft
+```
+
+Represents the location of the "Numpad Paren Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadParenRight
+
+```dart
+PhysicalKeyboardKey numpadParenRight
+```
+
+Represents the location of the "Numpad Paren Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadBackspace
+
+```dart
+PhysicalKeyboardKey numpadBackspace
+```
+
+Represents the location of the "Numpad Backspace" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadMemoryStore
+
+```dart
+PhysicalKeyboardKey numpadMemoryStore
+```
+
+Represents the location of the "Numpad Memory Store" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadMemoryRecall
+
+```dart
+PhysicalKeyboardKey numpadMemoryRecall
+```
+
+Represents the location of the "Numpad Memory Recall" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadMemoryClear
+
+```dart
+PhysicalKeyboardKey numpadMemoryClear
+```
+
+Represents the location of the "Numpad Memory Clear" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadMemoryAdd
+
+```dart
+PhysicalKeyboardKey numpadMemoryAdd
+```
+
+Represents the location of the "Numpad Memory Add" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadMemorySubtract
+
+```dart
+PhysicalKeyboardKey numpadMemorySubtract
+```
+
+Represents the location of the "Numpad Memory Subtract" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadSignChange
+
+```dart
+PhysicalKeyboardKey numpadSignChange
+```
+
+Represents the location of the "Numpad Sign Change" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadClear
+
+```dart
+PhysicalKeyboardKey numpadClear
+```
+
+Represents the location of the "Numpad Clear" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### numpadClearEntry
+
+```dart
+PhysicalKeyboardKey numpadClearEntry
+```
+
+Represents the location of the "Numpad Clear Entry" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### controlLeft
+
+```dart
+PhysicalKeyboardKey controlLeft
+```
+
+Represents the location of the "Control Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### shiftLeft
+
+```dart
+PhysicalKeyboardKey shiftLeft
+```
+
+Represents the location of the "Shift Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### altLeft
+
+```dart
+PhysicalKeyboardKey altLeft
+```
+
+Represents the location of the "Alt Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### metaLeft
+
+```dart
+PhysicalKeyboardKey metaLeft
+```
+
+Represents the location of the "Meta Left" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### controlRight
+
+```dart
+PhysicalKeyboardKey controlRight
+```
+
+Represents the location of the "Control Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### shiftRight
+
+```dart
+PhysicalKeyboardKey shiftRight
+```
+
+Represents the location of the "Shift Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### altRight
+
+```dart
+PhysicalKeyboardKey altRight
+```
+
+Represents the location of the "Alt Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### metaRight
+
+```dart
+PhysicalKeyboardKey metaRight
+```
+
+Represents the location of the "Meta Right" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### info
+
+```dart
+PhysicalKeyboardKey info
+```
+
+Represents the location of the "Info" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### closedCaptionToggle
+
+```dart
+PhysicalKeyboardKey closedCaptionToggle
+```
+
+Represents the location of the "Closed Caption Toggle" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### brightnessUp
+
+```dart
+PhysicalKeyboardKey brightnessUp
+```
+
+Represents the location of the "Brightness Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### brightnessDown
+
+```dart
+PhysicalKeyboardKey brightnessDown
+```
+
+Represents the location of the "Brightness Down" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### brightnessToggle
+
+```dart
+PhysicalKeyboardKey brightnessToggle
+```
+
+Represents the location of the "Brightness Toggle" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### brightnessMinimum
+
+```dart
+PhysicalKeyboardKey brightnessMinimum
+```
+
+Represents the location of the "Brightness Minimum" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### brightnessMaximum
+
+```dart
+PhysicalKeyboardKey brightnessMaximum
+```
+
+Represents the location of the "Brightness Maximum" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### brightnessAuto
+
+```dart
+PhysicalKeyboardKey brightnessAuto
+```
+
+Represents the location of the "Brightness Auto" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### kbdIllumUp
+
+```dart
+PhysicalKeyboardKey kbdIllumUp
+```
+
+Represents the location of the "Kbd Illum Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### kbdIllumDown
+
+```dart
+PhysicalKeyboardKey kbdIllumDown
+```
+
+Represents the location of the "Kbd Illum Down" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaLast
+
+```dart
+PhysicalKeyboardKey mediaLast
+```
+
+Represents the location of the "Media Last" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchPhone
+
+```dart
+PhysicalKeyboardKey launchPhone
+```
+
+Represents the location of the "Launch Phone" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### programGuide
+
+```dart
+PhysicalKeyboardKey programGuide
+```
+
+Represents the location of the "Program Guide" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### exit
+
+```dart
+PhysicalKeyboardKey exit
+```
+
+Represents the location of the "Exit" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### channelUp
+
+```dart
+PhysicalKeyboardKey channelUp
+```
+
+Represents the location of the "Channel Up" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### channelDown
+
+```dart
+PhysicalKeyboardKey channelDown
+```
+
+Represents the location of the "Channel Down" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaPlay
+
+```dart
+PhysicalKeyboardKey mediaPlay
+```
+
+Represents the location of the "Media Play" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaPause
+
+```dart
+PhysicalKeyboardKey mediaPause
+```
+
+Represents the location of the "Media Pause" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaRecord
+
+```dart
+PhysicalKeyboardKey mediaRecord
+```
+
+Represents the location of the "Media Record" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaFastForward
+
+```dart
+PhysicalKeyboardKey mediaFastForward
+```
+
+Represents the location of the "Media Fast Forward" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaRewind
+
+```dart
+PhysicalKeyboardKey mediaRewind
+```
+
+Represents the location of the "Media Rewind" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaTrackNext
+
+```dart
+PhysicalKeyboardKey mediaTrackNext
+```
+
+Represents the location of the "Media Track Next" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaTrackPrevious
+
+```dart
+PhysicalKeyboardKey mediaTrackPrevious
+```
+
+Represents the location of the "Media Track Previous" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaStop
+
+```dart
+PhysicalKeyboardKey mediaStop
+```
+
+Represents the location of the "Media Stop" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### eject
+
+```dart
+PhysicalKeyboardKey eject
+```
+
+Represents the location of the "Eject" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaPlayPause
+
+```dart
+PhysicalKeyboardKey mediaPlayPause
+```
+
+Represents the location of the "Media Play Pause" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### speechInputToggle
+
+```dart
+PhysicalKeyboardKey speechInputToggle
+```
+
+Represents the location of the "Speech Input Toggle" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### bassBoost
+
+```dart
+PhysicalKeyboardKey bassBoost
+```
+
+Represents the location of the "Bass Boost" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mediaSelect
+
+```dart
+PhysicalKeyboardKey mediaSelect
+```
+
+Represents the location of the "Media Select" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchWordProcessor
+
+```dart
+PhysicalKeyboardKey launchWordProcessor
+```
+
+Represents the location of the "Launch Word Processor" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchSpreadsheet
+
+```dart
+PhysicalKeyboardKey launchSpreadsheet
+```
+
+Represents the location of the "Launch Spreadsheet" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchMail
+
+```dart
+PhysicalKeyboardKey launchMail
+```
+
+Represents the location of the "Launch Mail" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchContacts
+
+```dart
+PhysicalKeyboardKey launchContacts
+```
+
+Represents the location of the "Launch Contacts" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchCalendar
+
+```dart
+PhysicalKeyboardKey launchCalendar
+```
+
+Represents the location of the "Launch Calendar" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchApp2
+
+```dart
+PhysicalKeyboardKey launchApp2
+```
+
+Represents the location of the "Launch App2" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchApp1
+
+```dart
+PhysicalKeyboardKey launchApp1
+```
+
+Represents the location of the "Launch App1" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchInternetBrowser
+
+```dart
+PhysicalKeyboardKey launchInternetBrowser
+```
+
+Represents the location of the "Launch Internet Browser" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### logOff
+
+```dart
+PhysicalKeyboardKey logOff
+```
+
+Represents the location of the "Log Off" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### lockScreen
+
+```dart
+PhysicalKeyboardKey lockScreen
+```
+
+Represents the location of the "Lock Screen" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchControlPanel
+
+```dart
+PhysicalKeyboardKey launchControlPanel
+```
+
+Represents the location of the "Launch Control Panel" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### selectTask
+
+```dart
+PhysicalKeyboardKey selectTask
+```
+
+Represents the location of the "Select Task" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchDocuments
+
+```dart
+PhysicalKeyboardKey launchDocuments
+```
+
+Represents the location of the "Launch Documents" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### spellCheck
+
+```dart
+PhysicalKeyboardKey spellCheck
+```
+
+Represents the location of the "Spell Check" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchKeyboardLayout
+
+```dart
+PhysicalKeyboardKey launchKeyboardLayout
+```
+
+Represents the location of the "Launch Keyboard Layout" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchScreenSaver
+
+```dart
+PhysicalKeyboardKey launchScreenSaver
+```
+
+Represents the location of the "Launch Screen Saver" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchAudioBrowser
+
+```dart
+PhysicalKeyboardKey launchAudioBrowser
+```
+
+Represents the location of the "Launch Audio Browser" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### launchAssistant
+
+```dart
+PhysicalKeyboardKey launchAssistant
+```
+
+Represents the location of the "Launch Assistant" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### newKey
+
+```dart
+PhysicalKeyboardKey newKey
+```
+
+Represents the location of the "New Key" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### close
+
+```dart
+PhysicalKeyboardKey close
+```
+
+Represents the location of the "Close" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### save
+
+```dart
+PhysicalKeyboardKey save
+```
+
+Represents the location of the "Save" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### print
+
+```dart
+PhysicalKeyboardKey print
+```
+
+Represents the location of the "Print" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserSearch
+
+```dart
+PhysicalKeyboardKey browserSearch
+```
+
+Represents the location of the "Browser Search" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserHome
+
+```dart
+PhysicalKeyboardKey browserHome
+```
+
+Represents the location of the "Browser Home" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserBack
+
+```dart
+PhysicalKeyboardKey browserBack
+```
+
+Represents the location of the "Browser Back" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserForward
+
+```dart
+PhysicalKeyboardKey browserForward
+```
+
+Represents the location of the "Browser Forward" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserStop
+
+```dart
+PhysicalKeyboardKey browserStop
+```
+
+Represents the location of the "Browser Stop" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserRefresh
+
+```dart
+PhysicalKeyboardKey browserRefresh
+```
+
+Represents the location of the "Browser Refresh" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### browserFavorites
+
+```dart
+PhysicalKeyboardKey browserFavorites
+```
+
+Represents the location of the "Browser Favorites" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### zoomIn
+
+```dart
+PhysicalKeyboardKey zoomIn
+```
+
+Represents the location of the "Zoom In" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### zoomOut
+
+```dart
+PhysicalKeyboardKey zoomOut
+```
+
+Represents the location of the "Zoom Out" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### zoomToggle
+
+```dart
+PhysicalKeyboardKey zoomToggle
+```
+
+Represents the location of the "Zoom Toggle" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### redo
+
+```dart
+PhysicalKeyboardKey redo
+```
+
+Represents the location of the "Redo" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mailReply
+
+```dart
+PhysicalKeyboardKey mailReply
+```
+
+Represents the location of the "Mail Reply" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mailForward
+
+```dart
+PhysicalKeyboardKey mailForward
+```
+
+Represents the location of the "Mail Forward" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### mailSend
+
+```dart
+PhysicalKeyboardKey mailSend
+```
+
+Represents the location of the "Mail Send" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### keyboardLayoutSelect
+
+```dart
+PhysicalKeyboardKey keyboardLayoutSelect
+```
+
+Represents the location of the "Keyboard Layout Select" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### showAllWindows
+
+```dart
+PhysicalKeyboardKey showAllWindows
+```
+
+Represents the location of the "Show All Windows" key on a generalized keyboard.
+
+See the function [RawKeyEvent.physicalKey] for more information.
+
+### knownPhysicalKeys
+
+```dart
+Iterable<PhysicalKeyboardKey> get knownPhysicalKeys
+```
+
+A list of all predefined constant [PhysicalKeyboardKey]s.
