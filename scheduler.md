@@ -1,7 +1,7 @@
-The Flutter Scheduler library.
+Flutter 调度器（Scheduler）库。
 
-To use, import `package:flutter/scheduler.dart`.
+要使用此库，请导入 `package:flutter/scheduler.dart`。
 
-This library is responsible for scheduler frame callbacks, and tasks at given priorities.
+此库负责调度帧回调，以及按给定优先级调度任务。
 
-The library makes sure that tasks are only run when appropriate. For example, an idle-task is only executed when no animation is running.
+该库确保任务只在适当的时候运行。例如，空闲任务（idle-task）只有在没有动画运行时才会执行。

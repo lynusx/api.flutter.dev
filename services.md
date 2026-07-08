@@ -1,5 +1,5 @@
-Platform services exposed to Flutter apps.
+暴露给 Flutter 应用的平台服务。
 
-To use, import `package:flutter/services.dart`.
+要使用此库，请导入 `package:flutter/services.dart`。
 
-This library depends only on core Dart libraries and the `foundation` library.
+此库仅依赖 Dart 核心库和 `foundation` 库。

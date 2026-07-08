@@ -1,7 +1,7 @@
-The Flutter widgets framework.
+Flutter 组件（widgets）框架。
 
-To use, import `package:flutter/widgets.dart`.
+要使用此库，请导入 `package:flutter/widgets.dart`。
 
-See also:
+另请参阅：
 
-- [flutter.dev/widgets](https://flutter.dev/widgets/) for a catalog of commonly-used Flutter widgets.
+- [flutter.dev/widgets](https://flutter.dev/widgets/)，包含常用 Flutter 组件的目录。

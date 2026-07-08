@@ -1,12 +1,10 @@
-The Flutter painting library.
+Flutter 绘制库。
 
-To use, import `package:flutter/painting.dart`.
+要使用此库，请导入 `package:flutter/painting.dart`。
 
-This library includes a variety of classes that wrap the Flutter engine's painting API for more specialized purposes, such as painting scaled images, interpolating between shadows, painting borders around boxes, etc.
+此库包含各种类，用于封装 Flutter 引擎的绘制 API，以实现更专门的用途，例如绘制缩放图片、在阴影之间进行插值、为盒子绘制边框等。
 
-In particular:
+具体而言：
 
-- Use the [TextPainter] class for painting text.
-- Use [Decoration] (and more concretely [BoxDecoration]) for painting boxes.
-
-@docImport 'src/painting/box_decoration.dart'; @docImport 'src/painting/decoration.dart'; @docImport 'src/painting/text_painter.dart';
+- 使用 [TextPainter] 类绘制文本。
+- 使用 [Decoration]（更具体地说是 [BoxDecoration]）绘制盒子。

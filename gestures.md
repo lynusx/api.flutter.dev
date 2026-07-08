@@ -1,3 +1,3 @@
-The Flutter gesture recognizers.
+Flutter 手势识别器。
 
-To use, import `package:flutter/gestures.dart`.
+要使用此库，请导入 `package:flutter/gestures.dart`。

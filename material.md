@@ -1,11 +1,11 @@
-Flutter widgets implementing Material Design.
+实现 Material Design 的 Flutter 组件。
 
-To use, import `package:flutter/material.dart`.
+要使用此库，请导入 `package:flutter/material.dart`。
 
 {@youtube 560 315 https://www.youtube.com/watch?v=DL0Ix1lnC4w}
 
-See also:
+另请参阅：
 
-- [docs.flutter.dev/ui/widgets/material](https://docs.flutter.dev/ui/widgets/material) for a catalog of commonly-used Material component widgets.
-- [m3.material.io](https://m3.material.io/) for the Material 3 specification
-- [m2.material.io](https://m2.material.io/) for the Material 2 specification
+- [docs.flutter.dev/ui/widgets/material](https://docs.flutter.dev/ui/widgets/material)，包含常用 Material 组件的目录。
+- [m3.material.io](https://m3.material.io/)，Material 3 规范
+- [m2.material.io](https://m2.material.io/)，Material 2 规范

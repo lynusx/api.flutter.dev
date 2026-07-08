@@ -1,7 +1,7 @@
-The Flutter semantics package.
+Flutter 语义（semantics）包。
 
-To use, import `package:flutter/semantics.dart`.
+要使用此库，请导入 `package:flutter/semantics.dart`。
 
-The [SemanticsEvent] classes define the protocol for sending semantic events to the platform.
+[SemanticsEvent] 类定义了向平台发送语义事件的协议。
 
-The [SemanticsNode] hierarchy represents the semantic structure of the UI and is used by the platform-specific accessibility services.
+[SemanticsNode] 层次结构表示 UI 的语义结构，供特定平台的无障碍服务使用。

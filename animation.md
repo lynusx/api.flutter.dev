@@ -1,61 +1,59 @@
-The Flutter animation system.
+Flutter 动画系统。
 
-To use, import `package:flutter/animation.dart`.
+要使用此库，请导入 `package:flutter/animation.dart`。
 
-This library provides basic building blocks for implementing animations in Flutter. Other layers of the framework use these building blocks to provide advanced animation support for applications. For example, the widget library includes [ImplicitlyAnimatedWidget]s and [AnimatedWidget]s that make it easy to animate certain properties of a [Widget]. If those animated widgets are not sufficient for a given use case, the basic building blocks provided by this library can be used to implement custom animated effects.
+此库提供了在 Flutter 中实现动画的基本构建模块。框架的其他层使用这些构建模块为应用程序提供高级动画支持。例如，widgets 库包含 [ImplicitlyAnimatedWidget] 和 [AnimatedWidget]，它们可以轻松地为 [Widget] 的某些属性设置动画。如果这些动画组件不能满足特定用例的需求，则可以使用此库提供的基本构建模块来实现自定义动画效果。
 
-This library depends only on core Dart libraries and the `physics.dart` library.
+此库仅依赖 Dart 核心库和 `physics.dart` 库。
 
-### Foundations: the Animation class
+### 基础：Animation 类
 
-Flutter represents an animation as a value that changes over a given duration, and that value may be of any type. For example, it could be a [double] indicating the current opacity of a [Widget] as it fades out. Or, it could be the current background [Color] of a widget that transitions smoothly from one color to another. The current value of an animation is represented by an [Animation] object, which is the central class of the animation library. In addition to the current animation value, the [Animation] object also stores the current [AnimationStatus]. The status indicates whether the animation is currently conceptually running from the beginning to the end or the other way around. It may also indicate that the animation is currently stopped at the beginning or the end.
+Flutter 将动画表示为在给定时长内变化的值，该值可以是任意类型。例如，它可以是一个 [double]，表示 [Widget] 淡出时的当前不透明度；也可以是组件在两种颜色之间平滑过渡时的当前背景 [Color]。动画的当前值由一个 [Animation] 对象表示，它是动画库的核心类。除了当前动画值之外，[Animation] 对象还存储当前的 [AnimationStatus]。该状态表示动画在概念上是从起点运行到终点，还是反向运行；它也可能表示动画当前停止在起点或终点。
 
-Other objects can register listeners on an [Animation] to be informed whenever the animation value and/or the animation status changes. A [Widget] may register such a _value_ listener via [Animation.addListener] to rebuild itself with the current animation value whenever that value changes. For example, a widget might listen to an animation to update its opacity to the animation's value every time that value changes. Likewise, registering a _status_ listener via [Animation.addStatusListener] may be useful to trigger another action when the current animation has ended.
+其他对象可以在 [Animation] 上注册监听器，以便在动画值和/或动画状态发生变化时收到通知。[Widget] 可以通过 [Animation.addListener] 注册这样的 _值_ 监听器，以便每当该值变化时使用当前动画值重建自身。例如，一个组件可能会监听某个动画，以便在其值每次变化时更新自身的不透明度。同样，通过 [Animation.addStatusListener] 注册 _状态_ 监听器，在当前动画结束时触发其他操作也很有用。
 
-As an example, the following video shows the changes over time in the current animation status and animation value for the opacity animation of a widget. This [Animation] is driven by an [AnimationController] (see next section). Before the animation triggers, the animation status is "dismissed" and the value is 0.0. As the value runs from 0.0 to 1.0 to fade in the widget, the status changes to "forward". When the widget is fully faded in at an animation value of 1.0, the status is "completed". When the animation triggers again to fade the widget back out, the animation status changes to "reverse" and the animation value runs back to 0.0. At that point the widget is fully faded out and the animation status switches back to "dismissed" until the animation is triggered again.
+作为示例，以下视频展示了某个组件的不透明度动画中，当前动画状态和动画值随时间的变化情况。此 [Animation] 由一个 [AnimationController]（见下一节）驱动。动画触发之前，动画状态为 "dismissed"，值为 0.0。当值从 0.0 变化到 1.0 以使组件淡入时，状态变为 "forward"。当组件在动画值为 1.0 时完全淡入后，状态变为 "completed"。当动画再次触发以将组件淡出时，动画状态变为 "reverse"，动画值回到 0.0。此时组件完全淡出，动画状态切回 "dismissed"，直到动画再次被触发。
 
 {@animation 420 100 https://flutter.github.io/assets-for-api-docs/assets/animation/animation_status_value.mp4}
 
-Although you can't instantiate [Animation] directly (it is an abstract class), you can create one using an [AnimationController].
+尽管你不能直接实例化 [Animation]（它是一个抽象类），但你可以使用 [AnimationController] 来创建一个。
 
-### Powering animations: AnimationController
+### 驱动动画：AnimationController
 
-An [AnimationController] is a special kind of [Animation] that advances its animation value whenever the device running the application is ready to display a new frame (typically, this rate is around 60 values per second). An [AnimationController] can be used wherever an [Animation] is expected. As the name implies, an [AnimationController] also provides control over its [Animation]: It implements methods to stop the animation at any time and to run it forward as well as in the reverse direction.
+[AnimationController] 是一种特殊的 [Animation]，每当运行应用程序的设备准备好显示新的一帧时，它就会推进其动画值（通常这个速率约为每秒 60 个值）。凡是需要 [Animation] 的地方都可以使用 [AnimationController]。顾名思义，[AnimationController] 还提供了对其 [Animation] 的控制：它实现了在任意时刻停止动画、以及正向和反向运行动画的方法。
 
-By default, an [AnimationController] increases its animation value linearly over the given duration from 0.0 to 1.0 when run in the forward direction. For many use cases you might want the value to be of a different type, change the range of the animation values, or change how the animation moves between values. This is achieved by wrapping the animation: Wrapping it in an [Animatable] (see below) changes the range of animation values to a different range or type (for example to animate [Color]s or [Rect]s). Furthermore, a [Curve] can be applied to the animation by wrapping it in a [CurvedAnimation]. Instead of linearly increasing the animation value, a curved animation changes its value according to the provided curve. The framework ships with many built-in curves (see [Curves]). As an example, [Curves.easeOutCubic] increases the animation value quickly at the beginning of the animation and then slows down until the target value is reached:
+默认情况下，[AnimationController] 在正向运行时，会在给定时长内将其动画值从 0.0 到 1.0 线性递增。在许多用例中，你可能希望值是不同的类型、改变动画值的范围，或者改变动画在各个值之间移动的方式。这可以通过包装动画来实现：将其包装在 [Animatable]（见下文）中可以将动画值的范围改变为不同的范围或类型（例如对 [Color] 或 [Rect] 进行动画处理）。此外，通过将动画包装在 [CurvedAnimation] 中，还可以为其应用 [Curve]。曲线动画不是线性递增动画值，而是根据提供的曲线来改变其值。框架内置了许多曲线（见 [Curves]）。例如，[Curves.easeOutCubic] 会在动画开始时快速增加动画值，然后减速，直到到达目标值：
 
 {@animation 464 192 https://flutter.github.io/assets-for-api-docs/assets/animation/curve_ease_out_cubic.mp4}
 
-### Animating different types: Animatable
+### 对不同类型进行动画处理：Animatable
 
-An `Animatable<T>` is an object that takes an `Animation<double>` as input and produces a value of type `T`. Objects of these types can be used to translate the animation value range of an [AnimationController] (or any other [Animation] of type [double]) to a different range. That new range doesn't even have to be of type double anymore. With the help of an [Animatable] like a [Tween] or a [TweenSequence] (see sections below) an [AnimationController] can be used to smoothly transition [Color]s, [Rect]s, [Size]s and many more types from one value to another over a given duration.
+`Animatable<T>` 是一个以 `Animation<double>` 作为输入并生成类型为 `T` 的值的对象。此类对象可用于将 [AnimationController]（或任何其他类型为 [double] 的 [Animation]）的动画值范围转换为不同的范围，而这个新范围甚至不必再是 double 类型。借助 [Tween] 或 [TweenSequence]（见下文各节）这样的 [Animatable]，[AnimationController] 可以在给定时长内，将 [Color]、[Rect]、[Size] 等多种类型从一个值平滑过渡到另一个值。
 
-### Interpolating values: Tweens
+### 插值：Tween
 
-A [Tween] is applied to an [Animation] of type [double] to change the range and type of the animation value. For example, to transition the background of a [Widget] smoothly between two [Color]s, a [ColorTween] can be used. Each [Tween] specifies a start and an end value. As the animation value of the [Animation] powering the [Tween] progresses from 0.0 to 1.0 it produces interpolated values between its start and end value. The values produced by the [Tween] usually move closer and closer to its end value as the animation value of the powering [Animation] approaches 1.0.
+[Tween] 应用于类型为 [double] 的 [Animation]，以改变动画值的范围和类型。例如，要使 [Widget] 的背景在两种 [Color] 之间平滑过渡，可以使用 [ColorTween]。每个 [Tween] 都指定一个起始值和一个结束值。当驱动该 [Tween] 的 [Animation] 的动画值从 0.0 变化到 1.0 时，它会在起始值和结束值之间产生插值。随着驱动 [Animation] 的动画值接近 1.0，[Tween] 产生的值通常会越来越接近其结束值。
 
-The following video shows example values produced by an [IntTween], a `Tween<double>`, and a [ColorTween] as the animation value runs from 0.0 to 1.0 and back to 0.0:
+以下视频展示了当动画值从 0.0 变化到 1.0 再变回 0.0 时，[IntTween]、`Tween<double>` 和 [ColorTween] 所产生的示例值：
 
 {@animation 530 150 https://flutter.github.io/assets-for-api-docs/assets/animation/tweens.mp4}
 
-An [Animation] or [AnimationController] can power multiple [Tween]s. For example, to animate the size and the color of a widget in parallel, create one [AnimationController] that powers a [SizeTween] and a [ColorTween].
+一个 [Animation] 或 [AnimationController] 可以驱动多个 [Tween]。例如，要并行地对某个组件的大小和颜色进行动画处理，可以创建一个 [AnimationController] 来同时驱动 [SizeTween] 和 [ColorTween]。
 
-The framework ships with many [Tween] subclasses ([IntTween], [SizeTween], [RectTween], etc.) to animate common properties.
+框架内置了许多 [Tween] 子类（如 [IntTween]、[SizeTween]、[RectTween] 等），用于对常见属性进行动画处理。
 
-### Staggered animations: TweenSequences
+### 分阶段动画：TweenSequence
 
-A [TweenSequence] can help animate a given property smoothly in stages. Each [Tween] in the sequence is responsible for a different stage and has an associated weight. When the animation runs, the stages execute one after another. For example, let's say you want to animate the background of a widget from yellow to green and then, after a short pause, to red. For this you can specify three tweens within a tween sequence: One [ColorTween] animating from yellow to green, one [ConstantTween] that just holds the color green, and another [ColorTween] animating from green to red. For each tween you need to pick a weight indicating the ratio of time spent on that tween compared to all other tweens. If we assign a weight of 2 to both of the [ColorTween]s and a weight of 1 to the [ConstantTween] the transition described by the [ColorTween]s would take twice as long as the [ConstantTween]. A [TweenSequence] is driven by an [Animation] just like a regular [Tween]: As the powering [Animation] runs from 0.0 to 1.0 the [TweenSequence] runs through all of its stages.
+[TweenSequence] 可以帮助按阶段平滑地对给定属性进行动画处理。序列中的每个 [Tween] 负责一个不同的阶段，并具有相关联的权重。动画运行时，各阶段依次执行。例如，假设你想让某个组件的背景从黄色动画过渡到绿色，短暂停留后再过渡到红色。为此，你可以在一个 tween 序列中指定三个 tween：一个从黄色到绿色的 [ColorTween]，一个仅保持绿色的 [ConstantTween]，以及另一个从绿色到红色的 [ColorTween]。对于每个 tween，你需要选择一个权重，表示该 tween 相对于所有其他 tween 所占用的时间比例。如果我们为两个 [ColorTween] 都分配权重 2，为 [ConstantTween] 分配权重 1，那么 [ColorTween] 所描述的过渡所花费的时间将是 [ConstantTween] 的两倍。与常规 [Tween] 一样，[TweenSequence] 也由 [Animation] 驱动：当驱动的 [Animation] 从 0.0 运行到 1.0 时，[TweenSequence] 会依次运行完它的所有阶段。
 
-The following video shows the animation described in the previous paragraph:
+以下视频展示了上一段中描述的动画：
 
 {@animation 646 250 https://flutter.github.io/assets-for-api-docs/assets/animation/tween_sequence.mp4}
 
-See also:
+另请参阅：
 
-- [Introduction to animations](https://docs.flutter.dev/ui/animations) on flutter.dev.
-- [Animations tutorial](https://docs.flutter.dev/ui/animations/tutorial) on flutter.dev.
-- [Sample app](https://github.com/flutter/samples/tree/main/animations), which showcases Flutter's animation features.
-- [ImplicitlyAnimatedWidget] and its subclasses, which are [Widget]s that implicitly animate changes to their properties.
-- [AnimatedWidget] and its subclasses, which are [Widget]s that take an explicit [Animation] to animate their properties.
-
-@docImport 'package:flutter/material.dart';
+- flutter.dev 上的 [动画简介](https://docs.flutter.dev/ui/animations)。
+- flutter.dev 上的 [动画教程](https://docs.flutter.dev/ui/animations/tutorial)。
+- [示例应用](https://github.com/flutter/samples/tree/main/animations)，展示了 Flutter 的动画特性。
+- [ImplicitlyAnimatedWidget] 及其子类，它们是能够隐式地为自身属性变化添加动画效果的 [Widget]。
+- [AnimatedWidget] 及其子类，它们是接受显式 [Animation] 以对自身属性进行动画处理的 [Widget]。

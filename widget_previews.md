@@ -1,5 +1,5 @@
-The Flutter widget preview annotations and data classes.
+Flutter 组件预览注解和数据类。
 
-To use, import `package:flutter/widget_previews.dart`.
+要使用此库，请导入 `package:flutter/widget_previews.dart`。
 
-See [flutter.dev/to/widget-previews](https://flutter.dev/to/widget-previews) for more details on getting started with widget previews.
+更多关于组件预览入门的详情，请参阅 [flutter.dev/to/widget-previews](https://flutter.dev/to/widget-previews)。

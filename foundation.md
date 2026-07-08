@@ -1,3 +1,3 @@
-Core Flutter framework primitives.
+Flutter 框架的核心基元。
 
-The features defined in this library are the lowest-level utility classes and functions used by all the other layers of the Flutter framework.
+此库中定义的功能是最底层的工具类和函数，供 Flutter 框架的所有其他层使用。
