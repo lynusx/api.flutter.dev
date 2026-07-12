@@ -2,7 +2,7 @@
 
 要使用此库，请导入 `package:flutter/material.dart`。
 
-{@youtube 560 315 https://www.youtube.com/watch?v=DL0Ix1lnC4w}
+https://www.youtube.com/watch?v=DL0Ix1lnC4w
 
 另请参阅：
 

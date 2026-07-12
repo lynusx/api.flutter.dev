@@ -71,60 +71,60 @@ Flutter 拥有丰富的包生态系统，这些包由 Flutter 团队和广泛的
 
 ## 库
 
-- [animation](https://api.flutter.dev/flutter/animation/)
+- [animation](https://www.yuque.com/thyname/flutter.animation)
 
   Flutter 动画系统。
 
-- [cupertino](https://api.flutter.dev/flutter/cupertino/)
+- [cupertino](https://www.yuque.com/thyname/flutter.cupertino)
 
   实现当前 iOS 设计语言的 Flutter 组件。
 
-- [foundation](https://api.flutter.dev/flutter/foundation/)
+- [foundation](https://www.yuque.com/thyname/flutter.foundation)
 
   Flutter 框架的核心基元。
 
-- [gestures](https://api.flutter.dev/flutter/gestures/)
+- [gestures](https://www.yuque.com/thyname/flutter.gestures)
 
   Flutter 手势识别器。
 
-- [material](https://api.flutter.dev/flutter/material/)
+- [material](https://www.yuque.com/thyname/flutter.material)
 
   实现 Material Design 的 Flutter 组件。
 
-- [painting](https://api.flutter.dev/flutter/painting/)
+- [painting](https://www.yuque.com/thyname/flutter.painting)
 
   Flutter 绘制库。
 
-- [physics](https://api.flutter.dev/flutter/physics/)
+- [physics](https://www.yuque.com/thyname/flutter.physics)
 
   简单的一维物理模拟（如弹簧、摩擦力和重力），用于用户界面动画。
 
-- [rendering](https://api.flutter.dev/flutter/rendering/)
+- [rendering](https://www.yuque.com/thyname/flutter.rendering)
 
   Flutter 渲染树。
 
-- [scheduler](https://api.flutter.dev/flutter/scheduler/)
+- [scheduler](https://www.yuque.com/thyname/flutter.scheduler)
 
   Flutter 调度器（Scheduler）库。
 
-- [semantics](https://api.flutter.dev/flutter/semantics/)
+- [semantics](https://www.yuque.com/thyname/flutter.semantics)
 
   Flutter 语义（semantics）包。
 
-- [services](https://api.flutter.dev/flutter/services/)
+- [services](https://www.yuque.com/thyname/flutter.services)
 
   暴露给 Flutter 应用的平台服务。
 
-- [widget_previews](https://api.flutter.dev/flutter/widget_previews/)
+- [widget_previews](https://www.yuque.com/thyname/flutter.widget_previews)
 
   Flutter 组件预览注解和数据类。
 
-- [widgets](https://api.flutter.dev/flutter/widgets/)
+- [widgets](https://www.yuque.com/thyname/flutter.widgets)
 
   Flutter 组件（widgets）框架。
 
 ## Dart
 
-- [dart:ui](https://api.flutter.dev/flutter/dart-ui/)
+- [dart:ui](https://www.yuque.com/thyname/dart.ui)
 
   Flutter 应用程序的内置类型和核心基元。
