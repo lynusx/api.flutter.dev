@@ -8,7 +8,7 @@ enum Assertiveness {}
 
 确定无障碍播报的紧急程度级别。
 
-[AnnounceSemanticsEvent] 使用它来确定辅助技术处理播报的优先级。
+[AnnounceSemanticsEvent](https://www.yuque.com/thyname/flutter.semantics/announcesemanticsevent) 使用它来确定辅助技术处理播报的优先级。
 
 辅助技术会在用户空闲时朗读变更内容。
 
@@ -34,7 +34,7 @@ SemanticsEvent(String type)
 
 初始化内部字段。
 
-[type] 是用于标识该类 [SemanticsEvent] 的字符串。
+[type] 是用于标识该类 [SemanticsEvent](https://www.yuque.com/thyname/flutter.semantics/semanticsevent) 的字符串。
 
 ### type
 
@@ -52,7 +52,7 @@ String type
 Map<String, dynamic> toMap({int? nodeId})
 ```
 
-将此事件转换为可使用 [StandardMessageCodec] 编码的 Map。
+将此事件转换为可使用 [StandardMessageCodec](https://www.yuque.com/thyname/flutter.services/standardmessagecodec) 编码的 Map。
 
 [nodeId] 是与该事件关联的语义节点的唯一标识符；如果该事件未关联任何语义节点，则为 null。
 
@@ -82,11 +82,11 @@ class AnnounceSemanticsEvent extends SemanticsEvent {}
 
 例如，相机应用程序可以使用此方法针对取景器中的对象发出无障碍播报。
 
-在可能的情况下，应优先使用 [Semantics] 等机制隐式触发播报，而不是使用此事件。
+在可能的情况下，应优先使用 [Semantics](https://www.yuque.com/thyname/flutter.widgets/semantics) 等机制隐式触发播报，而不是使用此事件。
 
 ### Android
 
-Android 已[弃用播报事件][1]，因为它会带来干扰性行为，迫使 TalkBack 清空其语音队列并朗读所提供的文本。请改用 [Semantics] 等机制隐式触发播报。
+Android 已[弃用播报事件][1]，因为它会带来干扰性行为，迫使 TalkBack 清空其语音队列并朗读所提供的文本。请改用 [Semantics](https://www.yuque.com/thyname/flutter.widgets/semantics) 等机制隐式触发播报。
 
 [1]: https://developer.android.com/reference/android/view/View#announceForAccessibility(java.lang.CharSequence)
 

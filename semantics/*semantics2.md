@@ -46,9 +46,9 @@ int get id
 
 此节点的唯一标识符。
 
-根节点的 id 为零。其他节点在附加到 [SemanticsOwner] 时会被赋予一个唯一 id。如果节点被分离,则其 id 将失效,不应再使用。
+根节点的 id 为零。其他节点在附加到 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner) 时会被赋予一个唯一 id。如果节点被分离,则其 id 将失效,不应再使用。
 
-在极少数情况下,如果此节点被分离后又重新附加到 [SemanticsOwner],id 可能会发生变化。这种情况只应在应用生成了过多语义节点时发生。
+在极少数情况下,如果此节点被分离后又重新附加到 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner),id 可能会发生变化。这种情况只应在应用生成了过多语义节点时发生。
 
 ### transform
 
@@ -90,9 +90,9 @@ Rect? parentSemanticsClipRect
 
 以该节点的坐标系表示。如果没有应用裁剪,则可能为 null。
 
-位于此矩形之外的后代 [SemanticsNode] 将从语义树中排除。与此矩形重叠但位于 [parentPaintClipRect] 之外的后代 [SemanticsNode] 将被包含在树中,但会被标记为隐藏,因为它们被认为在屏幕上不可见。
+位于此矩形之外的后代 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 将从语义树中排除。与此矩形重叠但位于 [parentPaintClipRect] 之外的后代 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 将被包含在树中,但会被标记为隐藏,因为它们被认为在屏幕上不可见。
 
-如果此矩形为 null,则所有位于 [parentPaintClipRect] 之外的后代 [SemanticsNode] 都将从树中排除。
+如果此矩形为 null,则所有位于 [parentPaintClipRect] 之外的后代 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 都将从树中排除。
 
 如果此矩形非空,则它必须完全包含 [parentPaintClipRect]。如果 [parentPaintClipRect] 为 null,则此属性也为 null。
 
@@ -106,7 +106,7 @@ Rect? parentPaintClipRect
 
 以该节点的坐标系表示。如果没有应用裁剪,则可能为 null。
 
-位于此矩形之外的后代 [SemanticsNode] 要么从语义树中排除(如果它们与 [parentSemanticsClipRect] 没有重叠),要么被包含并标记为隐藏(如果它们与 [parentSemanticsClipRect] 重叠)。
+位于此矩形之外的后代 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 要么从语义树中排除(如果它们与 [parentSemanticsClipRect] 没有重叠),要么被包含并标记为隐藏(如果它们与 [parentSemanticsClipRect] 重叠)。
 
 此矩形完全被 [parentSemanticsClipRect] 包含。
 
@@ -158,7 +158,7 @@ bool get areUserActionsBlocked
 
 用户是否可以在辅助技术中与此节点交互。
 
-即使此值为 true,此节点仍可以接收辅助功能焦点。将其设置为 true 会阻止用户激活与指针相关的 [SemanticsAction],例如 [SemanticsAction.tap] 或 [SemanticsAction.longPress]。
+即使此值为 true,此节点仍可以接收辅助功能焦点。将其设置为 true 会阻止用户激活与指针相关的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction),例如 [SemanticsAction.tap] 或 [SemanticsAction.longPress]。
 
 ### areUserActionsBlocked
 
@@ -239,7 +239,7 @@ SemanticsOwner? get owner
 bool get attached
 ```
 
-此节点所属的语义树是否已附加到 [SemanticsOwner]。
+此节点所属的语义树是否已附加到 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner)。
 
 在调用 [attach] 期间,此值变为 true。
 
@@ -263,7 +263,7 @@ SemanticsNode? get traversalParent
 
 此节点在遍历顺序中的实际父节点。
 
-这对于 [OverlayPortal] 或类似场景很有用,在这些场景中,节点的命中测试父节点(即 [parent])与其遍历父节点(即 [traversalParent])不同。如果此节点表示一个 overlay portal 子节点,则 [traversalParent] 是遍历顺序中的 overlay portal 父节点。否则,它与 [parent] 相同。当需要按遍历顺序更新此节点的变换时,将使用 [traversalParent]。
+这对于 [OverlayPortal](https://www.yuque.com/thyname/flutter.widgets/overlayportal) 或类似场景很有用,在这些场景中,节点的命中测试父节点(即 [parent])与其遍历父节点(即 [traversalParent])不同。如果此节点表示一个 overlay portal 子节点,则 [traversalParent] 是遍历顺序中的 overlay portal 父节点。否则,它与 [parent] 相同。当需要按遍历顺序更新此节点的变换时,将使用 [traversalParent]。
 
 ### traversalParent
 
@@ -317,7 +317,7 @@ bool? get debugIsDirty
 Set<SemanticsTag>? tags
 ```
 
-此节点被标记的 [SemanticsTag]。
+此节点被标记的 [SemanticsTag](https://www.yuque.com/thyname/flutter.semantics/semanticstag)。
 
 标签用于构建语义树。它们不会被传递到引擎。
 
@@ -343,7 +343,7 @@ SemanticsFlags get flagsCollection
 bool hasFlag(SemanticsFlag flag)
 ```
 
-此节点当前是否具有给定的 [SemanticsFlag]。
+此节点当前是否具有给定的 [SemanticsFlag](https://www.yuque.com/thyname/dart.ui/semanticsflag)。
 
 ### identifier
 
@@ -387,7 +387,7 @@ String get label
 AttributedString get attributedLabel
 ```
 
-此节点的文本描述,以 [AttributedString] 格式表示。
+此节点的文本描述,以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 阅读方向由 [textDirection] 给出。
 
@@ -411,7 +411,7 @@ String get value
 AttributedString get attributedValue
 ```
 
-节点当前值的文本描述,以 [AttributedString] 格式表示。
+节点当前值的文本描述,以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 阅读方向由 [textDirection] 给出。
 
@@ -437,7 +437,7 @@ String get increasedValue
 AttributedString get attributedIncreasedValue
 ```
 
-在执行 [SemanticsAction.increase] 操作后, [value] 或 [attributedValue] 将具有的 [AttributedString] 格式的值。
+在执行 [SemanticsAction.increase] 操作后, [value] 或 [attributedValue] 将具有的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式的值。
 
 此属性仅在此节点上 [SemanticsAction.increase] 操作可用时有效。
 
@@ -465,7 +465,7 @@ String get decreasedValue
 AttributedString get attributedDecreasedValue
 ```
 
-在执行 [SemanticsAction.decrease] 操作后, [value] 或 [attributedValue] 将具有的 [AttributedString] 格式的值。
+在执行 [SemanticsAction.decrease] 操作后, [value] 或 [attributedValue] 将具有的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式的值。
 
 此属性仅在此节点上 [SemanticsAction.decrease] 操作可用时有效。
 
@@ -491,7 +491,7 @@ String get hint
 AttributedString get attributedHint
 ```
 
-对在此节点上执行操作的结果的简要描述,以 [AttributedString] 格式表示。
+对在此节点上执行操作的结果的简要描述,以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 阅读方向由 [textDirection] 给出。
 
@@ -621,8 +621,8 @@ int? get platformViewId
 
 另请参阅:
 
-- [AndroidView],这是 Android 的平台视图。
-- [UiKitView],这是 iOS 的平台视图。
+- [AndroidView](https://www.yuque.com/thyname/flutter.widgets/androidview),这是 Android 的平台视图。
+- [UiKitView](https://www.yuque.com/thyname/flutter.widgets/uikitview),这是 iOS 的平台视图。
 
 ### maxValueLength
 
@@ -675,7 +675,7 @@ SemanticsRole get role
 
 节点的角色有助于屏幕阅读器等辅助技术正确理解和与 UI 交互。
 
-有关可能角色的列表,请参阅 [SemanticsRole]。
+有关可能角色的列表,请参阅 [SemanticsRole](https://www.yuque.com/thyname/dart.ui/semanticsrole)。
 {@endtemplate}
 
 ### controlsNodes
@@ -746,7 +746,7 @@ void updateWith({required SemanticsConfiguration? config, List<SemanticsNode>? c
 
 这些参数可以为 null;这表示一个空配置(所有值均为默认值,没有子节点)。
 
-不会保留对 [SemanticsConfiguration] 对象的引用,但子节点列表会按原样使用,因此在此调用之后不应更改它。
+不会保留对 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 对象的引用,但子节点列表会按原样使用,因此在此调用之后不应更改它。
 
 ### getSemanticsData()
 
@@ -764,7 +764,7 @@ SemanticsData getSemanticsData()
 void sendEvent(SemanticsEvent event)
 ```
 
-发送与此 [SemanticsNode] 关联的 [SemanticsEvent]。
+发送与此 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 关联的 [SemanticsEvent](https://www.yuque.com/thyname/flutter.semantics/semanticsevent)。
 
 应发送语义事件,以将 UI 变更告知相关方(如操作系统的辅助功能系统)。
 
@@ -788,7 +788,7 @@ String toStringDeep({String prefixLineOne = '', String? prefixOtherLines, Diagno
 
 返回此节点及其后代的字符串表示形式。
 
-[SemanticsNode] 子节点的打印顺序由 [childOrder] 参数控制。
+[SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 子节点的打印顺序由 [childOrder] 参数控制。
 
 ### toDiagnosticsNode()
 
@@ -816,9 +816,9 @@ List<SemanticsNode> debugListChildrenInOrder(DebugSemanticsDumpOrder childOrder)
 class SemanticsOwner extends ChangeNotifier {}
 ```
 
-拥有 [SemanticsNode] 对象,并在渲染树语义发生变化时通知监听者。
+拥有 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 对象,并在渲染树语义发生变化时通知监听者。
 
-要监听语义更新,请调用 [SemanticsBinding.ensureSemantics] 或 [PipelineOwner.ensureSemantics] 以获取 [SemanticsHandle]。这将在必要时创建一个 [SemanticsOwner]。
+要监听语义更新,请调用 [SemanticsBinding.ensureSemantics] 或 [PipelineOwner.ensureSemantics] 以获取 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle)。这将在必要时创建一个 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner)。
 
 ### SemanticsOwner()
 
@@ -826,7 +826,7 @@ class SemanticsOwner extends ChangeNotifier {}
 SemanticsOwner({required SemanticsUpdateCallback onSemanticsUpdate})
 ```
 
-创建一个管理零个或多个 [SemanticsNode] 对象的 [SemanticsOwner]。
+创建一个管理零个或多个 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 对象的 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner)。
 
 ### onSemanticsUpdate
 
@@ -834,9 +834,9 @@ SemanticsOwner({required SemanticsUpdateCallback onSemanticsUpdate})
 SemanticsUpdateCallback onSemanticsUpdate
 ```
 
-[onSemanticsUpdate] 回调预期会将 [SemanticsUpdate] 分派给与此 [PipelineOwner] 和/或 [SemanticsOwner] 关联的 [FlutterView]。
+[onSemanticsUpdate] 回调预期会将 [SemanticsUpdate](https://www.yuque.com/thyname/dart.ui/semanticsupdate) 分派给与此 [PipelineOwner](https://www.yuque.com/thyname/flutter.rendering/pipelineowner) 和/或 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner) 关联的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)。
 
-[SemanticsOwner] 会在 [sendSemanticsUpdate] 期间调用 [onSemanticsUpdate],此时机在 [SemanticsUpdate] 构建完成之后,但在 [SemanticsOwner] 的监听者收到通知之前。
+[SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner) 会在 [sendSemanticsUpdate] 期间调用 [onSemanticsUpdate],此时机在 [SemanticsUpdate](https://www.yuque.com/thyname/dart.ui/semanticsupdate) 构建完成之后,但在 [SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner) 的监听者收到通知之前。
 
 ### rootSemanticsNode
 
@@ -854,7 +854,7 @@ SemanticsNode? get rootSemanticsNode
 SemanticsNode? getSemanticsNode(int id)
 ```
 
-返回具有给定 [id] 的 [SemanticsNode](如果存在)。
+返回具有给定 [id] 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
 ### dispose()
 
@@ -876,9 +876,9 @@ void sendSemanticsUpdate()
 void performAction(int id, SemanticsAction action, [Object? args])
 ```
 
-要求具有给定 id 的 [SemanticsNode] 执行给定的操作。
+要求具有给定 id 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 执行给定的操作。
 
-如果 [SemanticsNode] 未表明它可以执行该操作,则此函数不执行任何操作。
+如果 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 未表明它可以执行该操作,则此函数不执行任何操作。
 
 如果给定的 `action` 需要参数,则需要通过 `args` 参数传递。
 
@@ -888,9 +888,9 @@ void performAction(int id, SemanticsAction action, [Object? args])
 void performActionAt(Offset position, SemanticsAction action, [Object? args])
 ```
 
-要求给定位置的 [SemanticsNode] 执行给定的操作。
+要求给定位置的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 执行给定的操作。
 
-如果 [SemanticsNode] 未表明它可以执行该操作,则此函数不执行任何操作。
+如果 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 未表明它可以执行该操作,则此函数不执行任何操作。
 
 如果给定的 `action` 需要参数,则需要通过 `args` 参数传递。
 

@@ -22,9 +22,9 @@ void initInstances()
 SemanticsBinding get instance
 ```
 
-当前的 [SemanticsBinding]（如果已创建）。
+当前的 [SemanticsBinding](https://www.yuque.com/thyname/flutter.semantics/semanticsbinding)（如果已创建）。
 
-提供对此 mixin 所公开功能的访问。必须先初始化该绑定才能使用此 getter；这通常通过调用 [runApp] 或 [WidgetsFlutterBinding.ensureInitialized] 完成。
+提供对此 mixin 所公开功能的访问。必须先初始化该绑定才能使用此 getter；这通常通过调用 [runApp](https://www.yuque.com/thyname/flutter.widgets/runapp) 或 [WidgetsFlutterBinding.ensureInitialized] 完成。
 
 ### semanticsEnabled
 
@@ -111,11 +111,11 @@ int get debugOutstandingSemanticsHandles
 SemanticsHandle ensureSemantics()
 ```
 
-创建一个新的 [SemanticsHandle] 并请求收集语义信息。
+创建一个新的 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 并请求收集语义信息。
 
-只有当存在对语义信息感兴趣的客户端时，才会收集语义信息。这些客户端通过持有一个 [SemanticsHandle] 来表达其兴趣。
+只有当存在对语义信息感兴趣的客户端时，才会收集语义信息。这些客户端通过持有一个 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 来表达其兴趣。
 
-客户端可以通过调用 [SemanticsHandle.dispose] 来关闭其 [SemanticsHandle]。一旦所有未完成的 [SemanticsHandle] 对象都被关闭，将不再收集语义信息。
+客户端可以通过调用 [SemanticsHandle.dispose] 来关闭其 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle)。一旦所有未完成的 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 对象都被关闭，将不再收集语义信息。
 
 ### performSemanticsAction()
 
@@ -123,11 +123,11 @@ SemanticsHandle ensureSemantics()
 void performSemanticsAction(ui.SemanticsActionEvent action)
 ```
 
-每当平台请求对某个 [SemanticsNode] 执行操作时调用。
+每当平台请求对某个 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 执行操作时调用。
 
 当用户通过辅助功能服务（例如 TalkBack 和 VoiceOver）与应用交互，并在获得焦点的节点上发起某个操作时，会调用此回调。
 
-混入 [SemanticsBinding] 的绑定必须实现此方法，并对由 [ui.SemanticsActionEvent.nodeId] 指定的 [SemanticsNode] 执行给定的 `action`。
+混入 [SemanticsBinding](https://www.yuque.com/thyname/flutter.semantics/semanticsbinding) 的绑定必须实现此方法，并对由 [ui.SemanticsActionEvent.nodeId] 指定的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 执行给定的 `action`。
 
 参见 [dart:ui.PlatformDispatcher.onSemanticsActionEvent]。
 
@@ -141,7 +141,7 @@ ui.AccessibilityFeatures get accessibilityFeatures
 
 此值在绑定首次初始化时设置，并在标志发生变化时更新。
 
-要监听辅助功能特性的变化，请创建一个 [WidgetsBindingObserver] 并监听 [WidgetsBindingObserver.didChangeAccessibilityFeatures]。
+要监听辅助功能特性的变化，请创建一个 [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver) 并监听 [WidgetsBindingObserver.didChangeAccessibilityFeatures]。
 
 ### handleAccessibilityFeaturesChanged()
 
@@ -163,7 +163,7 @@ ui.SemanticsUpdateBuilder createSemanticsUpdateBuilder()
 
 调用方负责填写语义节点的更新内容。
 
-[SemanticsOwner] 使用此方法为其所有语义更新创建构建器。
+[SemanticsOwner](https://www.yuque.com/thyname/flutter.semantics/semanticsowner) 使用此方法为其所有语义更新创建构建器。
 
 ### disableAnimations
 
@@ -173,7 +173,7 @@ bool get disableAnimations
 
 平台正在请求禁用或简化动画。
 
-可以通过设置 [debugSemanticsDisableAnimations] 在测试或调试时覆盖此设置。
+可以通过设置 [debugSemanticsDisableAnimations](https://www.yuque.com/thyname/flutter.semantics/debugsemanticsdisableanimations) 在测试或调试时覆盖此设置。
 
 # SemanticsHandle
 
@@ -183,9 +183,9 @@ class SemanticsHandle {}
 
 对框架生成的语义信息的引用。
 
-只有当存在对语义信息感兴趣的客户端时，才会收集语义信息。这些客户端通过持有一个 [SemanticsHandle] 来表达其兴趣。当客户端不再需要语义信息时，必须在 [SemanticsHandle] 上调用 [dispose] 以将其关闭。当所有已打开的 [SemanticsHandle] 都被释放后，框架将停止更新语义信息。
+只有当存在对语义信息感兴趣的客户端时，才会收集语义信息。这些客户端通过持有一个 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 来表达其兴趣。当客户端不再需要语义信息时，必须在 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 上调用 [dispose] 以将其关闭。当所有已打开的 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 都被释放后，框架将停止更新语义信息。
 
-要获取 [SemanticsHandle]，请调用 [SemanticsBinding.ensureSemantics]。
+要获取 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle)，请调用 [SemanticsBinding.ensureSemantics]。
 
 ### dispose()
 
@@ -195,4 +195,4 @@ void dispose()
 
 关闭语义句柄。
 
-当所有未完成的 [SemanticsHandle] 对象都被关闭后，框架将停止生成语义信息。
+当所有未完成的 [SemanticsHandle](https://www.yuque.com/thyname/flutter.semantics/semanticshandle) 对象都被关闭后，框架将停止生成语义信息。

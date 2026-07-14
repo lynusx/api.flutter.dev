@@ -8,7 +8,7 @@
 typedef SemanticsNodeVisitor = bool Function(SemanticsNode node)
 ```
 
-为每个 [SemanticsNode] 调用的函数签名。
+为每个 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 调用的函数签名。
 
 返回 false 以停止访问节点。
 
@@ -20,7 +20,7 @@ typedef SemanticsNodeVisitor = bool Function(SemanticsNode node)
 typedef MoveCursorHandler = void Function(bool extendSelection)
 ```
 
-用于移动光标的 [SemanticsAction] 的函数签名。
+用于移动光标的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 的函数签名。
 
 如果 `extendSelection` 设置为 true，则光标移动应扩展当前选区（或者，如果当前没有选中任何内容，则开始一个新的选区）。
 
@@ -54,7 +54,7 @@ typedef ScrollToOffsetHandler = void Function(Offset targetOffset)
 typedef SemanticsActionHandler = void Function(Object? args)
 ```
 
-[SemanticsAction] 处理器的函数签名。
+[SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 处理器的函数签名。
 
 由 [SemanticsConfiguration.getActionHandler] 返回。
 
@@ -76,11 +76,11 @@ typedef ChildSemanticsConfigurationsDelegate = ChildSemanticsConfigurationsResul
 
 [SemanticsConfiguration.childConfigurationsDelegate] 的函数签名。
 
-输入列表包含所有希望向上合并的渲染子级所对应的 [SemanticsConfiguration]。可以用 [SemanticsTag] 标记某个渲染子级，并通过 [SemanticsConfiguration.tagsChildrenWith] 查找其 [SemanticsConfiguration]。
+输入列表包含所有希望向上合并的渲染子级所对应的 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration)。可以用 [SemanticsTag](https://www.yuque.com/thyname/flutter.semantics/semanticstag) 标记某个渲染子级，并通过 [SemanticsConfiguration.tagsChildrenWith] 查找其 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration)。
 
 返回值是这些配置的排列方式，包括哪些配置继续向上合并，哪些配置组成兄弟合并组。
 
-使用 [ChildSemanticsConfigurationsResultBuilder] 生成返回值。
+使用 [ChildSemanticsConfigurationsResultBuilder](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresultbuilder) 生成返回值。
 
 # AccessibilityFocusBlockType
 
@@ -92,7 +92,7 @@ enum AccessibilityFocusBlockType {}
 
 通常用于防止屏幕阅读器聚焦到 UI 的某些部分。
 
-设置此属性还会阻止该语义节点报告键盘可聚焦性，但不会影响由 [FocusNode] 处理的实际键盘焦点。
+设置此属性还会阻止该语义节点报告键盘可聚焦性，但不会影响由 [FocusNode](https://www.yuque.com/thyname/flutter.widgets/focusnode) 处理的实际键盘焦点。
 
 无障碍焦点**未被阻止**。
 
@@ -108,11 +108,11 @@ enum AccessibilityFocusBlockType {}
 class SemanticsTag {}
 ```
 
-[SemanticsNode] 的标签。
+[SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的标签。
 
-标签可以被 [SemanticsNode] 的父节点解读，父节点可以根据标签的存在与否来决定如何将带标签的节点添加为子节点。标签不会被发送到引擎。
+标签可以被 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的父节点解读，父节点可以根据标签的存在与否来决定如何将带标签的节点添加为子节点。标签不会被发送到引擎。
 
-例如，[RenderSemanticsGestureHandler] 使用标签来确定某个子节点是否应从可滚动区域中排除（就语义而言）。
+例如，[RenderSemanticsGestureHandler](https://www.yuque.com/thyname/flutter.rendering/rendersemanticsgesturehandler) 使用标签来确定某个子节点是否应从可滚动区域中排除（就语义而言）。
 
 提供的 [name] 仅用于调试。使用 `new` 操作符创建的两个具有相同 [name] 的标签并不被视为相同。但是，使用 `const` 操作符创建的两个具有相同 [name] 的标签始终相同。
 
@@ -122,7 +122,7 @@ class SemanticsTag {}
 SemanticsTag(String name)
 ```
 
-创建一个 [SemanticsTag]。
+创建一个 [SemanticsTag](https://www.yuque.com/thyname/flutter.semantics/semanticstag)。
 
 提供的 [name] 仅用于调试。使用 `new` 操作符创建的两个具有相同 [name] 的标签并不被视为相同。但是，使用 `const` 操作符创建的两个具有相同 [name] 的标签始终相同。
 
@@ -148,11 +148,11 @@ String toString()
 class ChildSemanticsConfigurationsResult {}
 ```
 
-包含子级 [SemanticsConfiguration] 排列方式的结果。
+包含子级 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 排列方式的结果。
 
-当 [PipelineOwner] 构建语义树时，它使用 [SemanticsConfiguration.childConfigurationsDelegate] 返回的 [ChildSemanticsConfigurationsResult] 来决定语义节点应如何形成。
+当 [PipelineOwner](https://www.yuque.com/thyname/flutter.rendering/pipelineowner) 构建语义树时，它使用 [SemanticsConfiguration.childConfigurationsDelegate] 返回的 [ChildSemanticsConfigurationsResult](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresult) 来决定语义节点应如何形成。
 
-使用 [ChildSemanticsConfigurationsResultBuilder] 构建该结果。
+使用 [ChildSemanticsConfigurationsResultBuilder](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresultbuilder) 构建该结果。
 
 ### mergeUp
 
@@ -160,9 +160,9 @@ class ChildSemanticsConfigurationsResult {}
 List<SemanticsConfiguration> mergeUp
 ```
 
-返回应合并到父语义节点中的 [SemanticsConfiguration]。
+返回应合并到父语义节点中的 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration)。
 
-属于语义边界或与其他 [SemanticsConfiguration] 存在冲突的 [SemanticsConfiguration] 将形成独立的语义节点。其余的都将合并到父节点中。
+属于语义边界或与其他 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 存在冲突的 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 将形成独立的语义节点。其余的都将合并到父节点中。
 
 ### siblingMergeGroups
 
@@ -170,11 +170,11 @@ List<SemanticsConfiguration> mergeUp
 List<List<SemanticsConfiguration>> siblingMergeGroups
 ```
 
-希望合并在一起并形成一个兄弟 [SemanticsNode] 的子级语义配置组。
+希望合并在一起并形成一个兄弟 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的子级语义配置组。
 
-在给定组中，属于语义边界或与同组中其他 [SemanticsConfiguration] 存在冲突的所有 [SemanticsConfiguration] 都将从该兄弟合并组中排除，并照常形成独立的语义节点。
+在给定组中，属于语义边界或与同组中其他 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 存在冲突的所有 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 都将从该兄弟合并组中排除，并照常形成独立的语义节点。
 
-合并所产生的结果 [SemanticsNode] 将作为直接父语义节点的兄弟节点被附加上去。例如，`RenderObjectA` 有一个渲染子级 `RenderObjectB`。如果它们都各自形成自己的语义节点 `SemanticsNodeA` 和 `SemanticsNodeB`，那么由 `RenderObjectB` 的兄弟合并组产生的任何语义节点都将作为 `SemanticsNodeB` 的兄弟节点附加到 `SemanticsNodeA` 上。
+合并所产生的结果 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 将作为直接父语义节点的兄弟节点被附加上去。例如，`RenderObjectA` 有一个渲染子级 `RenderObjectB`。如果它们都各自形成自己的语义节点 `SemanticsNodeA` 和 `SemanticsNodeB`，那么由 `RenderObjectB` 的兄弟合并组产生的任何语义节点都将作为 `SemanticsNodeB` 的兄弟节点附加到 `SemanticsNodeA` 上。
 
 # ChildSemanticsConfigurationsResultBuilder
 
@@ -182,9 +182,9 @@ List<List<SemanticsConfiguration>> siblingMergeGroups
 class ChildSemanticsConfigurationsResultBuilder {}
 ```
 
-用于根据注解构建 [ChildSemanticsConfigurationsResult] 的构建器。
+用于根据注解构建 [ChildSemanticsConfigurationsResult](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresult) 的构建器。
 
-要使用此构建器，可以使用 [markAsMergeUp] 和 [markAsSiblingMergeGroup] 来标注 [SemanticsConfiguration] 的排列方式。一旦所有配置都完成标注，就可以使用 [build] 生成 [ChildSemanticsConfigurationsResult]。
+要使用此构建器，可以使用 [markAsMergeUp] 和 [markAsSiblingMergeGroup] 来标注 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 的排列方式。一旦所有配置都完成标注，就可以使用 [build] 生成 [ChildSemanticsConfigurationsResult](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresult)。
 
 ### ChildSemanticsConfigurationsResultBuilder()
 
@@ -192,7 +192,7 @@ class ChildSemanticsConfigurationsResultBuilder {}
 ChildSemanticsConfigurationsResultBuilder()
 ```
 
-创建一个 [ChildSemanticsConfigurationsResultBuilder]。
+创建一个 [ChildSemanticsConfigurationsResultBuilder](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresultbuilder)。
 
 ### markAsMergeUp()
 
@@ -200,9 +200,9 @@ ChildSemanticsConfigurationsResultBuilder()
 void markAsMergeUp(SemanticsConfiguration config)
 ```
 
-将该 [SemanticsConfiguration] 标记为需要合并到父语义节点中。
+将该 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 标记为需要合并到父语义节点中。
 
-该 [SemanticsConfiguration] 将被添加到此构建器所构建的 [ChildSemanticsConfigurationsResult.mergeUp] 中。
+该 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 将被添加到此构建器所构建的 [ChildSemanticsConfigurationsResult.mergeUp] 中。
 
 ### markAsSiblingMergeGroup()
 
@@ -210,9 +210,9 @@ void markAsMergeUp(SemanticsConfiguration config)
 void markAsSiblingMergeGroup(List<SemanticsConfiguration> configs)
 ```
 
-将一组 [SemanticsConfiguration] 标记为需要合并在一起，并形成一个兄弟 [SemanticsNode]。
+将一组 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 标记为需要合并在一起，并形成一个兄弟 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
-这组 [SemanticsConfiguration] 将被添加到此构建器所构建的 [ChildSemanticsConfigurationsResult.siblingMergeGroups] 中。
+这组 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 将被添加到此构建器所构建的 [ChildSemanticsConfigurationsResult.siblingMergeGroups] 中。
 
 ### build()
 
@@ -220,7 +220,7 @@ void markAsSiblingMergeGroup(List<SemanticsConfiguration> configs)
 ChildSemanticsConfigurationsResult build()
 ```
 
-构建一个包含该排列方式的 [ChildSemanticsConfigurationsResult]。
+构建一个包含该排列方式的 [ChildSemanticsConfigurationsResult](https://www.yuque.com/thyname/flutter.semantics/childsemanticsconfigurationsresult)。
 
 # CustomSemanticsAction
 
@@ -240,7 +240,7 @@ class CustomSemanticsAction {}
 
 另请参阅：
 
-- [SemanticsProperties]，其中提供了自定义操作的处理器。
+- [SemanticsProperties](https://www.yuque.com/thyname/flutter.semantics/semanticsproperties)，其中提供了自定义操作的处理器。
 
 ### CustomSemanticsAction()
 
@@ -248,7 +248,7 @@ class CustomSemanticsAction {}
 CustomSemanticsAction({required String? label})
 ```
 
-创建一个新的 [CustomSemanticsAction]。
+创建一个新的 [CustomSemanticsAction](https://www.yuque.com/thyname/flutter.semantics/customsemanticsaction)。
 
 [label] 不能为空。
 
@@ -258,7 +258,7 @@ CustomSemanticsAction({required String? label})
 CustomSemanticsAction.overridingAction({required String? hint, required SemanticsAction? action})
 ```
 
-创建一个覆盖标准语义操作的新 [CustomSemanticsAction]。
+创建一个覆盖标准语义操作的新 [CustomSemanticsAction](https://www.yuque.com/thyname/flutter.semantics/customsemanticsaction)。
 
 [hint] 不能为空。
 
@@ -334,7 +334,7 @@ void resetForTests()
 class AttributedString {}
 ```
 
-携带 [StringAttribute] 列表的字符串。
+携带 [StringAttribute](https://www.yuque.com/thyname/dart.ui/stringattribute) 列表的字符串。
 
 ### AttributedString()
 
@@ -344,7 +344,7 @@ AttributedString(String string, {List<StringAttribute> attributes = const <Strin
 
 创建一个带属性的字符串。
 
-[attributes] 中的 [TextRange] 必须在 [string] 的长度范围内。
+[attributes] 中的 [TextRange](https://www.yuque.com/thyname/dart.ui/textrange) 必须在 [string] 的长度范围内。
 
 创建带属性字符串后，不得更改 [attributes]。
 
@@ -372,9 +372,9 @@ List<StringAttribute> attributes
 AttributedString operator +(AttributedString other)
 ```
 
-通过连接操作数返回一个新的 [AttributedString]
+通过连接操作数返回一个新的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring)
 
-返回的 [AttributedString] 的字符串属性列表将包含来自两个操作数、并已更新文本范围的字符串属性。
+返回的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 的字符串属性列表将包含来自两个操作数、并已更新文本范围的字符串属性。
 
 ### operator ==()
 
@@ -382,7 +382,7 @@ AttributedString operator +(AttributedString other)
 bool operator ==(Object other)
 ```
 
-如果两个 [AttributedString] 的字符串和属性均相等，则它们相等。
+如果两个 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 的字符串和属性均相等，则它们相等。
 
 ### hashCode
 
@@ -402,7 +402,7 @@ String toString()
 class AttributedStringProperty extends DiagnosticsProperty<AttributedString> {}
 ```
 
-用于 [AttributedString] 的 [DiagnosticsProperty]，在没有属性时显示字符串，否则显示更多细节。
+用于 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 的 [DiagnosticsProperty](https://www.yuque.com/thyname/flutter.foundation/diagnosticsproperty)，在没有属性时显示字符串，否则显示更多细节。
 
 ### AttributedStringProperty()
 
@@ -410,9 +410,9 @@ class AttributedStringProperty extends DiagnosticsProperty<AttributedString> {}
 AttributedStringProperty(String name, dynamic value, {dynamic showName, bool showWhenEmpty = false, dynamic defaultValue, dynamic level, dynamic description})
 ```
 
-为 [AttributedString] 对象创建诊断属性。
+为 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 对象创建诊断属性。
 
-此类属性用于 [SemanticsData] 对象。
+此类属性用于 [SemanticsData](https://www.yuque.com/thyname/flutter.semantics/semanticsdata) 对象。
 
 ### showWhenEmpty
 
@@ -420,7 +420,7 @@ AttributedStringProperty(String name, dynamic value, {dynamic showName, bool sho
 bool showWhenEmpty
 ```
 
-当 [value] 是一个其 [AttributedString.string] 为空字符串的 [AttributedString] 时，是否显示该属性。
+当 [value] 是一个其 [AttributedString.string] 为空字符串的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 时，是否显示该属性。
 
 此设置会覆盖 [defaultValue]。
 
@@ -470,7 +470,7 @@ String label = builder.build(); // "Welcome \u202Bمرحبا\u202C" (with Unicod
 SemanticsLabelBuilder({String separator = ' ', TextDirection? textDirection})
 ```
 
-创建一个新的 [SemanticsLabelBuilder]。
+创建一个新的 [SemanticsLabelBuilder](https://www.yuque.com/thyname/flutter.semantics/semanticslabelbuilder)。
 
 [separator] 用于文本部分之间（默认为空格）。[textDirection] 指定拼接后标签的整体文本方向。
 
@@ -540,7 +540,7 @@ void clear()
 class SemanticsData with Diagnosticable {}
 ```
 
-关于 [SemanticsNode] 对象的摘要信息。
+关于 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 对象的摘要信息。
 
 某个语义节点可能会 [SemanticsNode.mergeAllDescendantsIntoThisNode]，这意味着该语义节点上的各个字段无法完整描述该节点处的语义。此数据结构包含该节点的完整语义信息。
 
@@ -562,7 +562,7 @@ SemanticsData({required SemanticsFlags flagsCollection, required int actions, re
 int get flags
 ```
 
-适用于此节点的 [SemanticsFlag] 位字段。
+适用于此节点的 [SemanticsFlag](https://www.yuque.com/thyname/dart.ui/semanticsflag) 位字段。
 
 ### flagsCollection
 
@@ -578,7 +578,7 @@ SemanticsFlags flagsCollection
 int actions
 ```
 
-适用于此节点的 [SemanticsAction] 位字段。
+适用于此节点的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 位字段。
 
 ### identifier
 
@@ -622,7 +622,7 @@ String get label
 AttributedString attributedLabel
 ```
 
-以 [AttributedString] 格式表示的此节点当前标签的文本描述。
+以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示的此节点当前标签的文本描述。
 
 阅读方向由 [textDirection] 给出。
 
@@ -646,7 +646,7 @@ String get value
 AttributedString attributedValue
 ```
 
-以 [AttributedString] 格式表示的此节点当前值的文本描述。
+以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示的此节点当前值的文本描述。
 
 阅读方向由 [textDirection] 给出。
 
@@ -670,7 +670,7 @@ String get increasedValue
 AttributedString attributedIncreasedValue
 ```
 
-以 [AttributedString] 格式表示的、执行 [SemanticsAction.increase] 操作后 [value] 将变为的值。
+以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示的、执行 [SemanticsAction.increase] 操作后 [value] 将变为的值。
 
 阅读方向由 [textDirection] 给出。
 
@@ -694,7 +694,7 @@ String get decreasedValue
 AttributedString attributedDecreasedValue
 ```
 
-以 [AttributedString] 格式表示的、执行 [SemanticsAction.decrease] 操作后 [value] 将变为的值。
+以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示的、执行 [SemanticsAction.decrease] 操作后 [value] 将变为的值。
 
 阅读方向由 [textDirection] 给出。
 
@@ -718,7 +718,7 @@ String get hint
 AttributedString attributedHint
 ```
 
-以 [AttributedString] 格式表示的、对该节点执行操作后所产生结果的简要文本描述。
+以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示的、对该节点执行操作后所产生结果的简要文本描述。
 
 阅读方向由 [textDirection] 给出。
 
@@ -832,8 +832,8 @@ int? platformViewId
 
 另请参阅：
 
-- [AndroidView]，Android 的平台视图。
-- [UiKitView]，iOS 的平台视图。
+- [AndroidView](https://www.yuque.com/thyname/flutter.widgets/androidview)，Android 的平台视图。
+- [UiKitView](https://www.yuque.com/thyname/flutter.widgets/uikitview)，iOS 的平台视图。
 
 ### maxValueLength
 
@@ -885,7 +885,7 @@ Rect rect
 Set<SemanticsTag>? tags
 ```
 
-与该节点关联的 [SemanticsTag] 集合。
+与该节点关联的 [SemanticsTag](https://www.yuque.com/thyname/flutter.semantics/semanticstag) 集合。
 
 ### transform
 
@@ -909,7 +909,7 @@ List<int>? customSemanticsActionIds
 
 另请参阅：
 
-- [CustomSemanticsAction]，其中说明了自定义操作。
+- [CustomSemanticsAction](https://www.yuque.com/thyname/flutter.semantics/customsemanticsaction)，其中说明了自定义操作。
 
 ### role
 
@@ -1099,7 +1099,7 @@ class SemanticsProperties extends DiagnosticableTree {}
 
 包含辅助技术用于使应用程序更易于访问的属性。
 
-此类的属性用于在语义树中生成 [SemanticsNode]。
+此类的属性用于在语义树中生成 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
 ### SemanticsProperties()
 
@@ -1151,7 +1151,7 @@ bool? expanded
 
 如果不为 null，表示该子树代表可以处于"展开"或"折叠"状态的内容。
 
-例如，如果某个 [SubmenuButton] 被打开，则应将此属性设置为 true；否则应设置为 false。
+例如，如果某个 [SubmenuButton](https://www.yuque.com/thyname/flutter.material/submenubutton) 被打开，则应将此属性设置为 true；否则应设置为 false。
 
 ### toggled
 
@@ -1375,7 +1375,7 @@ bool? liveRegion
 
 实时区域表示对该语义节点的更新很重要。平台可以利用此信息向用户发出礼貌性播报，以告知其该节点的更新情况。
 
-实时区域的一个例子是 [SnackBar] Widget。在 Android 和 iOS 上，即使该 Widget 没有无障碍焦点，实时区域也会自动触发礼貌性播报。如果操作系统的无障碍服务已经在播报其他内容（例如朗读已获得焦点的 Widget 的标签，或提供系统播报），则该播报可能不会被朗读。
+实时区域的一个例子是 [SnackBar](https://www.yuque.com/thyname/flutter.material/snackbar) Widget。在 Android 和 iOS 上，即使该 Widget 没有无障碍焦点，实时区域也会自动触发礼貌性播报。如果操作系统的无障碍服务已经在播报其他内容（例如朗读已获得焦点的 Widget 的标签，或提供系统播报），则该播报可能不会被朗读。
 
 另请参阅：
 
@@ -1436,7 +1436,7 @@ String? identifier
 
 它通常用于通过按原生无障碍进行查询的工具（如 UIAutomator、XCUITest 或 Appium）进行 UI 测试。它可以与 [CommonFinders.bySemanticsIdentifier] 匹配。
 
-设置此属性会隐式强制创建一个新的 [SemanticsNode]（等同于在 [Semantics] 中将 `container` 设置为 true）。这确保了该标识符始终附加在其自身的节点上，而不会被合并到祖先节点中。
+设置此属性会隐式强制创建一个新的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)（等同于在 [Semantics](https://www.yuque.com/thyname/flutter.widgets/semantics) 中将 `container` 设置为 true）。这确保了该标识符始终附加在其自身的节点上，而不会被合并到祖先节点中。
 
 在 Android 上，此项用于 `AccessibilityNodeInfo.setViewIdResourceName`。它将在无障碍层级结构中以 `resource-id` 的形式出现。
 
@@ -1452,7 +1452,7 @@ Object? traversalParentIdentifier
 
 {@template flutter.semantics.SemanticsProperties.traversalParentIdentifier} 用于在语义遍历树中建立父子关系的标识符。
 
-此属性用于在可能未在 Widget 树中直接连接的语义节点之间创建逻辑父子关系。它主要与 [OverlayPortal] 一起使用，以确保当浮层内容需要在语义上与其父 Widget 连接时，能有正确的无障碍遍历顺序。
+此属性用于在可能未在 Widget 树中直接连接的语义节点之间创建逻辑父子关系。它主要与 [OverlayPortal](https://www.yuque.com/thyname/flutter.widgets/overlayportal) 一起使用，以确保当浮层内容需要在语义上与其父 Widget 连接时，能有正确的无障碍遍历顺序。
 
 当某个语义节点具有 [traversalParentIdentifier] 时，表示该节点可以作为其他引用了此标识符的节点（通过其 [traversalChildIdentifier]）的父节点。这使得辅助技术能够以正确的逻辑顺序浏览 UI。
 
@@ -1466,7 +1466,7 @@ Object? traversalChildIdentifier
 
 {@template flutter.semantics.SemanticsProperties.traversalChildIdentifier} 用于在语义遍历树中建立父子关系的标识符。
 
-此属性用于在可能未在 Widget 树中直接连接的语义节点之间创建逻辑父子关系。它主要与 [OverlayPortal] 一起使用，以确保当浮层内容需要在语义上与其父 Widget 连接时，能有正确的无障碍遍历顺序。
+此属性用于在可能未在 Widget 树中直接连接的语义节点之间创建逻辑父子关系。它主要与 [OverlayPortal](https://www.yuque.com/thyname/flutter.widgets/overlayportal) 一起使用，以确保当浮层内容需要在语义上与其父 Widget 连接时，能有正确的无障碍遍历顺序。
 
 当某个语义节点具有 [traversalChildIdentifier] 时，表示该节点应被视为另一个以相同标识符作为其 [traversalParentIdentifier] 的节点的子节点。这使得辅助技术能够以正确的逻辑顺序浏览 UI。
 
@@ -1480,14 +1480,14 @@ String? label
 
 提供该 Widget 的文本描述。
 
-如果提供了 label，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 label，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 调用者不得同时提供 [label] 和 [attributedLabel]。两者中必须有一个为 null。
 
 另请参阅：
 
 - [SemanticsConfiguration.label]，描述了它在 TalkBack 和 VoiceOver 中的暴露方式。
-- [attributedLabel]，此属性的 [AttributedString] 版本。
+- [attributedLabel]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
 ### attributedLabel
 
@@ -1495,9 +1495,9 @@ String? label
 AttributedString? attributedLabel
 ```
 
-提供该 Widget 文本描述的 [AttributedString] 版本。
+提供该 Widget 文本描述的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
-如果提供了 [attributedLabel]，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 [attributedLabel]，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 调用者不得同时提供 [label] 和 [attributedLabel]。两者中必须有一个为 null。
 
@@ -1514,14 +1514,14 @@ String? value
 
 提供该 Widget 值的文本描述。
 
-如果提供了 value，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 value，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 调用者不得同时提供 [value] 和 [attributedValue]。两者中必须有一个为 null。
 
 另请参阅：
 
 - [SemanticsConfiguration.value]，描述了它在 TalkBack 和 VoiceOver 中的暴露方式。
-- [attributedLabel]，此属性的 [AttributedString] 版本。
+- [attributedLabel]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
 ### attributedValue
 
@@ -1529,9 +1529,9 @@ String? value
 AttributedString? attributedValue
 ```
 
-提供该 Widget 值的文本描述的 [AttributedString] 版本。
+提供该 Widget 值的文本描述的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
-如果提供了 [attributedValue]，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 [attributedValue]，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 调用者不得同时提供 [value] 和 [attributedValue]。两者中必须有一个为 null。
 
@@ -1548,14 +1548,14 @@ String? increasedValue
 
 在对该 Widget 执行 [SemanticsAction.increase] 操作后，[value] 或 [attributedValue] 将变为的值。
 
-如果提供了该值，则还必须设置 [onIncrease]，并且必须存在环境 [Directionality]，或必须提供显式的 [textDirection]。
+如果提供了该值，则还必须设置 [onIncrease]，并且必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或必须提供显式的 [textDirection]。
 
 调用者不得同时提供 [increasedValue] 和 [attributedIncreasedValue]。两者中必须有一个为 null。
 
 另请参阅：
 
 - [SemanticsConfiguration.increasedValue]，描述了它在 TalkBack 和 VoiceOver 中的暴露方式。
-- [attributedIncreasedValue]，此属性的 [AttributedString] 版本。
+- [attributedIncreasedValue]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
 ### attributedIncreasedValue
 
@@ -1563,9 +1563,9 @@ String? increasedValue
 AttributedString? attributedIncreasedValue
 ```
 
-在对该 Widget 执行 [SemanticsAction.increase] 操作后，[value] 或 [attributedValue] 将变为的 [AttributedString]。
+在对该 Widget 执行 [SemanticsAction.increase] 操作后，[value] 或 [attributedValue] 将变为的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring)。
 
-如果提供了 [attributedIncreasedValue]，则还必须设置 [onIncrease]，并且必须存在环境 [Directionality]，或必须提供显式的 [textDirection]。
+如果提供了 [attributedIncreasedValue]，则还必须设置 [onIncrease]，并且必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或必须提供显式的 [textDirection]。
 
 调用者不得同时提供 [increasedValue] 和 [attributedIncreasedValue]。两者中必须有一个为 null。
 
@@ -1582,14 +1582,14 @@ String? decreasedValue
 
 在对该 Widget 执行 [SemanticsAction.decrease] 操作后，[value] 或 [attributedValue] 将变为的值。
 
-如果提供了该值，则还必须设置 [onDecrease]，并且必须存在环境 [Directionality]，或必须提供显式的 [textDirection]。
+如果提供了该值，则还必须设置 [onDecrease]，并且必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或必须提供显式的 [textDirection]。
 
 调用者不得同时提供 [decreasedValue] 和 [attributedDecreasedValue]。两者中必须有一个为 null。
 
 另请参阅：
 
 - [SemanticsConfiguration.decreasedValue]，描述了它在 TalkBack 和 VoiceOver 中的暴露方式。
-- [attributedDecreasedValue]，此属性的 [AttributedString] 版本。
+- [attributedDecreasedValue]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
 ### attributedDecreasedValue
 
@@ -1597,9 +1597,9 @@ String? decreasedValue
 AttributedString? attributedDecreasedValue
 ```
 
-在对该 Widget 执行 [SemanticsAction.decrease] 操作后，[value] 或 [attributedValue] 将变为的 [AttributedString]。
+在对该 Widget 执行 [SemanticsAction.decrease] 操作后，[value] 或 [attributedValue] 将变为的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring)。
 
-如果提供了 [attributedDecreasedValue]，则还必须设置 [onDecrease]，并且必须存在环境 [Directionality]，或必须提供显式的 [textDirection]。
+如果提供了 [attributedDecreasedValue]，则还必须设置 [onDecrease]，并且必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或必须提供显式的 [textDirection]。
 
 调用者不得同时提供 [decreasedValue] 和 [attributedDecreasedValue]。两者中必须有一个为 null。
 
@@ -1616,14 +1616,14 @@ String? hint
 
 提供对该 Widget 执行操作所产生结果的简要文本描述。
 
-如果提供了 hint，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 hint，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 调用者不得同时提供 [hint] 和 [attributedHint]。两者中必须有一个为 null。
 
 另请参阅：
 
 - [SemanticsConfiguration.hint]，描述了它在 TalkBack 和 VoiceOver 中的暴露方式。
-- [attributedHint]，此属性的 [AttributedString] 版本。
+- [attributedHint]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
 ### attributedHint
 
@@ -1631,9 +1631,9 @@ String? hint
 AttributedString? attributedHint
 ```
 
-提供对该 Widget 执行操作所产生结果的简要文本描述的 [AttributedString] 版本。
+提供对该 Widget 执行操作所产生结果的简要文本描述的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 版本。
 
-如果提供了 [attributedHint]，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 [attributedHint]，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 调用者不得同时提供 [hint] 和 [attributedHint]。两者中必须有一个为 null。
 
@@ -1652,7 +1652,7 @@ String? tooltip
 
 在 Android 中，此属性设置 `AccessibilityNodeInfo.setTooltipText`。在 iOS 中，此属性会被追加到 `UIAccessibilityElement.accessibilityLabel` 的末尾。
 
-如果提供了 [tooltip]，则必须存在环境 [Directionality]，或应提供显式的 [textDirection]。
+如果提供了 [tooltip]，则必须存在环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)，或应提供显式的 [textDirection]。
 
 ### headingLevel
 
@@ -1703,7 +1703,7 @@ TextDirection? textDirection
 
 [label]、[value]、[increasedValue]、[decreasedValue] 和 [hint] 的阅读方向。
 
-默认为环境 [Directionality]。
+默认为环境 [Directionality](https://www.yuque.com/thyname/flutter.widgets/directionality)。
 
 ### sortKey
 
@@ -1721,9 +1721,9 @@ SemanticsSortKey? sortKey
 SemanticsTag? tagForChildren
 ```
 
-应用于该 Widget 的子级 [SemanticsNode] 的标签。
+应用于该 Widget 的子级 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的标签。
 
-该标签会被添加到所有经过此 Widget 所对应的 RenderObject、并试图附加到父 SemanticsNode 上的子级 [SemanticsNode]。
+该标签会被添加到所有经过此 Widget 所对应的 RenderObject、并试图附加到父 SemanticsNode 上的子级 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
 标签用于向父 SemanticsNode 传达某个子级 SemanticsNode 曾经过某个特定的 RenderObject。父节点可以利用此信息来确定语义树的结构。
 
@@ -1973,7 +1973,7 @@ VoidCallback? onDidGainAccessibilityFocus
 
 - [onDidLoseAccessibilityFocus]，当无障碍焦点从该节点移除时会被调用。
 - [onFocus]，当辅助技术请求某个 Widget 获得输入焦点时会被调用。
-- [FocusNode]、[FocusScope]、[FocusManager]，用于管理输入焦点。
+- [FocusNode](https://www.yuque.com/thyname/flutter.widgets/focusnode)、[FocusScope](https://www.yuque.com/thyname/flutter.widgets/focusscope)、[FocusManager](https://www.yuque.com/thyname/flutter.widgets/focusmanager)，用于管理输入焦点。
 
 ### onDidLoseAccessibilityFocus
 
@@ -1990,7 +1990,7 @@ VoidCallback? onDidLoseAccessibilityFocus
 另请参阅：
 
 - [onDidGainAccessibilityFocus]，当节点获得无障碍焦点时会被调用。
-- [FocusNode]、[FocusScope]、[FocusManager]，用于管理输入焦点。
+- [FocusNode](https://www.yuque.com/thyname/flutter.widgets/focusnode)、[FocusScope](https://www.yuque.com/thyname/flutter.widgets/focusscope)、[FocusManager](https://www.yuque.com/thyname/flutter.widgets/focusmanager)，用于管理输入焦点。
 
 ### onFocus
 
@@ -2000,7 +2000,7 @@ VoidCallback? onFocus
 
 {@template flutter.semantics.SemanticsProperties.onFocus} [SemanticsAction.focus] 的处理器。
 
-当辅助技术请求与该语义节点对应的可聚焦 Widget 获得输入焦点时，会调用此处理器。管理该 Widget 焦点的 [FocusNode] 必须获得焦点。该 Widget 必须开始响应相关的按键事件。例如：
+当辅助技术请求与该语义节点对应的可聚焦 Widget 获得输入焦点时，会调用此处理器。管理该 Widget 焦点的 [FocusNode](https://www.yuque.com/thyname/flutter.widgets/focusnode) 必须获得焦点。该 Widget 必须开始响应相关的按键事件。例如：
 
 - 按钮必须响应通过键盘快捷键产生的点击/单击事件。
 - 文本字段必须获得焦点并变为可编辑，如有必要，还应显示屏幕键盘。
@@ -2054,13 +2054,13 @@ VoidCallback? onCollapse
 Map<CustomSemanticsAction, VoidCallback>? customSemanticsActions
 ```
 
-从每个受支持的 [CustomSemanticsAction] 到所提供处理器的映射。
+从每个受支持的 [CustomSemanticsAction](https://www.yuque.com/thyname/flutter.semantics/customsemanticsaction) 到所提供处理器的映射。
 
 每当收到类型为 [SemanticsAction.customAction] 的语义操作时，就会调用与每个自定义操作关联的处理器。所提供的参数将是一个标识符，用于从该映射中检索自定义操作实例，然后再从该实例中获取正确的处理器。
 
 另请参阅：
 
-- [CustomSemanticsAction]，其中说明了自定义操作。
+- [CustomSemanticsAction](https://www.yuque.com/thyname/flutter.semantics/customsemanticsaction)，其中说明了自定义操作。
 
 ### role
 
@@ -2074,7 +2074,7 @@ SemanticsRole? role
 
 如果未设置，则默认为 [SemanticsRole.none]，表示该子树不代表任何复杂的 UI 或控件。
 
-有关可用角色的列表，请参阅 [SemanticsRole]。{@endtemplate}
+有关可用角色的列表，请参阅 [SemanticsRole](https://www.yuque.com/thyname/dart.ui/semanticsrole)。{@endtemplate}
 
 ### controlsNodes
 
@@ -2084,7 +2084,7 @@ Set<String>? controlsNodes
 
 该子树所控制的 Widget 的 [SemanticsNode.identifier]。
 
-{@template flutter.semantics.SemanticsProperties.controlsNodes} 如果某个 Widget 正在控制另一个 Widget 的可见性或内容——例如 [Tab] 控制 [TabBarView] 子级的可见性，或 [ExpansionTile] 控制其展开内容的可见性——则必须为该内容分配一个 [SemanticsNode.identifier]，并向该属性提供一组标识符，其中包括该内容的标识符。{@endtemplate}
+{@template flutter.semantics.SemanticsProperties.controlsNodes} 如果某个 Widget 正在控制另一个 Widget 的可见性或内容——例如 [Tab](https://www.yuque.com/thyname/flutter.material/tab) 控制 [TabBarView](https://www.yuque.com/thyname/flutter.material/tabbarview) 子级的可见性，或 [ExpansionTile](https://www.yuque.com/thyname/flutter.material/expansiontile) 控制其展开内容的可见性——则必须为该内容分配一个 [SemanticsNode.identifier]，并向该属性提供一组标识符，其中包括该内容的标识符。{@endtemplate}
 
 ### validationResult
 
@@ -2098,7 +2098,7 @@ SemanticsValidationResult validationResult
 
 如果未设置，则默认为 [SemanticsValidationResult.none]，表示该语义节点没有可用的验证信息。
 
-有关可用验证结果的列表，请参阅 [SemanticsValidationResult]。{@endtemplate}
+有关可用验证结果的列表，请参阅 [SemanticsValidationResult](https://www.yuque.com/thyname/dart.ui/semanticsvalidationresult)。{@endtemplate}
 
 ### hitTestBehavior
 

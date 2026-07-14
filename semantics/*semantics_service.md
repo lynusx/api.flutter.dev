@@ -10,7 +10,7 @@ abstract final class SemanticsService {}
 
 此服务发送的事件由 Flutter 引擎中特定于平台的辅助功能桥接层处理。
 
-如果可能，请优先使用像 [Semantics] 这样的机制隐式触发播报，而不是使用此事件。
+如果可能，请优先使用像 [Semantics](https://www.yuque.com/thyname/flutter.widgets/semantics) 这样的机制隐式触发播报，而不是使用此事件。
 
 ### announce()
 
@@ -32,7 +32,7 @@ Future<void> announce(String message, TextDirection textDirection, {Assertivenes
 
 ### Android
 
-由于其对 TalkBack 的干扰性行为——会强制清空其语音队列并朗读所提供的文本——Android 已经[弃用了播报事件][1]。请改用像 [Semantics] 这样的机制隐式触发播报。
+由于其对 TalkBack 的干扰性行为——会强制清空其语音队列并朗读所提供的文本——Android 已经[弃用了播报事件][1]。请改用像 [Semantics](https://www.yuque.com/thyname/flutter.widgets/semantics) 这样的机制隐式触发播报。
 
 [1]: https://developer.android.com/reference/android/view/View#announceForAccessibility(java.lang.CharSequence) {@endtemplate}
 
@@ -44,7 +44,7 @@ Future<void> sendAnnouncement(FlutterView view, String message, TextDirection te
 
 为特定视图发送语义播报。
 
-可以使用 [View.of] 获取当前的 [FlutterView]。
+可以使用 [View.of] 获取当前的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)。
 
 {@macro flutter.semantics.service.announce}
 

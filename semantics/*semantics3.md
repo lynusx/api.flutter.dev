@@ -4,7 +4,7 @@
 class SemanticsConfiguration {}
 ```
 
-描述与拥有该配置的 [RenderObject] 相关联的语义信息。
+描述与拥有该配置的 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 相关联的语义信息。
 
 配置中提供的信息用于生成语义树。
 
@@ -14,11 +14,11 @@ class SemanticsConfiguration {}
 bool get isSemanticBoundary
 ```
 
-此配置的拥有者 [RenderObject] 是否希望拥有自己的 [SemanticsNode]。
+此配置的拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否希望拥有自己的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
-当设置为 true 时，与此配置的拥有者 [RenderObject] 或其任何后代相关联的语义信息将不会泄漏到父级中。由此配置生成的 [SemanticsNode] 将充当边界。
+当设置为 true 时，与此配置的拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 或其任何后代相关联的语义信息将不会泄漏到父级中。由此配置生成的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 将充当边界。
 
-拥有者 [RenderObject] 的后代是否可以将其语义信息添加到此配置引入的 [SemanticsNode] 中，由 [explicitChildNodes] 控制。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的后代是否可以将其语义信息添加到此配置引入的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 中，由 [explicitChildNodes] 控制。
 
 如果 [isMergingSemanticsOfDescendants] 也为 true，则此项必须为 true。
 
@@ -62,11 +62,11 @@ bool isBlockingUserActions
 
 是否阻止渲染子树的指针相关用户操作。
 
-将此项设置为 true 将阻止用户通过辅助技术中与指针相关的 [SemanticsAction] 与产生此语义配置的渲染对象及其子树进行交互。
+将此项设置为 true 将阻止用户通过辅助技术中与指针相关的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 与产生此语义配置的渲染对象及其子树进行交互。
 
-由此语义配置创建的 [SemanticsNode] 仍可被辅助技术聚焦。仅会阻止与指针相关的 [SemanticsAction]，例如 [SemanticsAction.tap] 及其同类操作。
+由此语义配置创建的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 仍可被辅助技术聚焦。仅会阻止与指针相关的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction)，例如 [SemanticsAction.tap] 及其同类操作。
 
-如果此语义配置被合并到父语义节点中，则仅会阻止来自此渲染对象及其子树中渲染对象的 [SemanticsAction]。
+如果此语义配置被合并到父语义节点中，则仅会阻止来自此渲染对象及其子树中渲染对象的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction)。
 
 ### explicitChildNodes
 
@@ -74,9 +74,9 @@ bool isBlockingUserActions
 bool explicitChildNodes
 ```
 
-此配置是否强制要求拥有者 [RenderObject] 的所有希望贡献语义信息到语义树的子级，都必须以显式 [SemanticsNode] 的形式进行。
+此配置是否强制要求拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的所有希望贡献语义信息到语义树的子级，都必须以显式 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的形式进行。
 
-当设置为 false 时，拥有者 [RenderObject] 的子级可以将它们想要贡献的语义信息标注到父级的 [SemanticsNode] 上。当设置为 true 时，拥有者 [RenderObject] 的子级向语义树贡献语义信息的唯一方式是向树中引入新的显式 [SemanticsNode]。
+当设置为 false 时，拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的子级可以将它们想要贡献的语义信息标注到父级的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 上。当设置为 true 时，拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的子级向语义树贡献语义信息的唯一方式是向树中引入新的显式 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
 此设置通常与 [isSemanticBoundary] 结合使用，以创建对子级可写或不可写的语义边界。
 
@@ -86,7 +86,7 @@ bool explicitChildNodes
 bool isBlockingSemanticsOfPreviouslyPaintedNodes
 ```
 
-拥有者 [RenderObject] 是否使同一语义边界内先前绘制的其他 [RenderObject] 在无障碍功能中不可达。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否使同一语义边界内先前绘制的其他 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 在无障碍功能中不可达。
 
 如果设置为 true，则在深度优先前序遍历中位于此节点之前的所有兄弟节点和表亲节点的语义信息，都会从语义树中被丢弃，直至到达一个语义边界（由 [isSemanticBoundary] 定义）为止。
 
@@ -116,7 +116,7 @@ VoidCallback? get onTap
 
 iOS 上的 VoiceOver 用户和 Android 上的 TalkBack 用户可以通过在元素获得焦点时双击屏幕来触发此操作。
 
-在 Android Oreo 之前的版本上，当具有 [onTap] 处理程序的元素获得焦点时双击屏幕，不会调用已注册的处理程序。相反，Android 会在获得焦点元素的中心模拟一次指针按下和抬起事件。这些指针事件的处理方式将与禁用 TalkBack 时的常规轻触相同：这些事件将由任何在该元素中心监听手势的 [GestureDetector] 处理。因此，为确保 [onTap] 处理程序在 Oreo 之前的 Android 版本上正常工作，具有语义 [onTap] 处理程序的元素应始终被带有 onTap 处理程序的 [GestureDetector] 包裹。默认情况下，[GestureDetector] 会注册自己遵循此原则的语义 [onTap] 处理程序。
+在 Android Oreo 之前的版本上，当具有 [onTap] 处理程序的元素获得焦点时双击屏幕，不会调用已注册的处理程序。相反，Android 会在获得焦点元素的中心模拟一次指针按下和抬起事件。这些指针事件的处理方式将与禁用 TalkBack 时的常规轻触相同：这些事件将由任何在该元素中心监听手势的 [GestureDetector](https://www.yuque.com/thyname/flutter.widgets/gesturedetector) 处理。因此，为确保 [onTap] 处理程序在 Oreo 之前的 Android 版本上正常工作，具有语义 [onTap] 处理程序的元素应始终被带有 onTap 处理程序的 [GestureDetector](https://www.yuque.com/thyname/flutter.widgets/gesturedetector) 包裹。默认情况下，[GestureDetector](https://www.yuque.com/thyname/flutter.widgets/gesturedetector) 会注册自己遵循此原则的语义 [onTap] 处理程序。
 
 ### onTap
 
@@ -485,7 +485,7 @@ VoidCallback? get onDidGainAccessibilityFocus
 另请参阅：
 
 - [onDidLoseAccessibilityFocus]，当无障碍焦点从该节点移除时调用。
-- [FocusNode]、[FocusScope]、[FocusManager]，用于管理输入焦点。
+- [FocusNode](https://www.yuque.com/thyname/flutter.widgets/focusnode)、[FocusScope](https://www.yuque.com/thyname/flutter.widgets/focusscope)、[FocusManager](https://www.yuque.com/thyname/flutter.widgets/focusmanager)，用于管理输入焦点。
 
 ### onDidGainAccessibilityFocus
 
@@ -508,7 +508,7 @@ VoidCallback? get onDidLoseAccessibilityFocus
 另请参阅：
 
 - [onDidGainAccessibilityFocus]，当节点获得无障碍焦点时调用。
-- [FocusNode]、[FocusScope]、[FocusManager]，用于管理输入焦点。
+- [FocusNode](https://www.yuque.com/thyname/flutter.widgets/focusnode)、[FocusScope](https://www.yuque.com/thyname/flutter.widgets/focusscope)、[FocusManager](https://www.yuque.com/thyname/flutter.widgets/focusmanager)，用于管理输入焦点。
 
 ### onDidLoseAccessibilityFocus
 
@@ -568,11 +568,11 @@ set onCollapse(VoidCallback? value)
 ChildSemanticsConfigurationsDelegate? get childConfigurationsDelegate
 ```
 
-决定如何处理由 Widget 子树产生的 [SemanticsConfiguration] 的委托。
+决定如何处理由 Widget 子树产生的 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 的委托。
 
-这些 [SemanticsConfiguration] 由子树中的渲染对象产生，并希望向上合并到其父级。此委托可以决定其中哪些应合并在一起以形成兄弟 SemanticsNode，哪些应向上合并到父 SemanticsNode 中。
+这些 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 由子树中的渲染对象产生，并希望向上合并到其父级。此委托可以决定其中哪些应合并在一起以形成兄弟 SemanticsNode，哪些应向上合并到父 SemanticsNode 中。
 
-如果此语义配置的渲染对象是叶子节点，或者子渲染对象不贡献语义信息，则输入的 [SemanticsConfiguration] 列表可以为空。
+如果此语义配置的渲染对象是叶子节点，或者子渲染对象不贡献语义信息，则输入的 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 列表可以为空。
 
 ### childConfigurationsDelegate
 
@@ -598,7 +598,7 @@ SemanticsSortKey? get sortKey
 
 这用于描述平台上的无障碍服务（例如 iOS 上的 VoiceOver 和 Android 上的 TalkBack）应遍历该语义节点的顺序。
 
-此排序键是否会影响 [SemanticsNode] 的排序顺序，取决于此配置的使用方式。例如，[absorb] 方法在合并多个 [SemanticsConfiguration] 对象时可能决定不使用此键。
+此排序键是否会影响 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的排序顺序，取决于此配置的使用方式。例如，[absorb] 方法在合并多个 [SemanticsConfiguration](https://www.yuque.com/thyname/flutter.semantics/semanticsconfiguration) 对象时可能决定不使用此键。
 
 ### sortKey
 
@@ -708,9 +708,9 @@ set currentValueLength(int? value)
 bool get isMergingSemanticsOfDescendants
 ```
 
-拥有者 [RenderObject] 及其所有后代提供的语义信息是否应被视为一个逻辑实体。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 及其所有后代提供的语义信息是否应被视为一个逻辑实体。
 
-如果设置为 true，拥有者 [RenderObject] 的 [SemanticsNode] 的后代将把它们的语义信息合并到代表该拥有者 [RenderObject] 的 [SemanticsNode] 中。
+如果设置为 true，拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的后代将把它们的语义信息合并到代表该拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 中。
 
 将此项设置为 true 要求 [isSemanticBoundary] 也为 true。
 
@@ -726,7 +726,7 @@ set isMergingSemanticsOfDescendants(bool value)
 Map<CustomSemanticsAction, VoidCallback> get customSemanticsActions
 ```
 
-每个支持的 [CustomSemanticsAction] 的处理程序。
+每个支持的 [CustomSemanticsAction](https://www.yuque.com/thyname/flutter.semantics/customsemanticsaction) 的处理程序。
 
 每当向节点添加自定义无障碍操作时，都会自动添加 [SemanticsAction.customAction] 操作。系统会创建一个处理程序，该处理程序使用传入的参数在此映射中查找自定义操作处理程序，如果存在则调用它。
 
@@ -798,7 +798,7 @@ set role(SemanticsRole value)
 String get label
 ```
 
-拥有者 [RenderObject] 的文本描述。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的文本描述。
 
 设置此属性将覆盖 [attributedLabel]。
 
@@ -806,7 +806,7 @@ String get label
 
 另请参阅：
 
-- [attributedLabel]，此属性的 [AttributedString] 形式。
+- [attributedLabel]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 形式。
 
 ### label
 
@@ -820,7 +820,7 @@ set label(String label)
 AttributedString get attributedLabel
 ```
 
-拥有者 [RenderObject] 的文本描述，以 [AttributedString] 格式表示。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的文本描述，以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 在 iOS 上，此项用于 `UIAccessibility` 协议中定义的 `accessibilityAttributedLabel` 属性。在 Android 上，它会按以下顺序与 [attributedValue] 和 [attributedHint] 拼接在一起：[attributedValue]、[attributedLabel]、[attributedHint]。拼接后的值随后被用作 `Text` 描述。
 
@@ -842,7 +842,7 @@ set attributedLabel(AttributedString attributedLabel)
 String get value
 ```
 
-拥有者 [RenderObject] 当前值的文本描述。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 当前值的文本描述。
 
 设置此属性将覆盖 [attributedValue]。
 
@@ -850,7 +850,7 @@ String get value
 
 另请参阅：
 
-- [attributedValue]，此属性的 [AttributedString] 形式。
+- [attributedValue]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 形式。
 - [increasedValue] 和 [attributedIncreasedValue]，描述执行 [SemanticsAction.increase] 后 [value] 将变为的值。
 - [decreasedValue] 和 [attributedDecreasedValue]，描述执行 [SemanticsAction.decrease] 后 [value] 将变为的值。
 
@@ -866,7 +866,7 @@ set value(String value)
 AttributedString get attributedValue
 ```
 
-拥有者 [RenderObject] 当前值的文本描述，以 [AttributedString] 格式表示。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 当前值的文本描述，以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 在 iOS 上，此项用于 `UIAccessibility` 协议中定义的 `accessibilityAttributedValue` 属性。在 Android 上，它会按以下顺序与 [attributedLabel] 和 [attributedHint] 拼接在一起：[attributedValue]、[attributedLabel]、[attributedHint]。拼接后的值随后被用作 `Text` 描述。
 
@@ -900,7 +900,7 @@ String get increasedValue
 
 另请参阅：
 
-- [attributedIncreasedValue]，此属性的 [AttributedString] 形式。
+- [attributedIncreasedValue]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 形式。
 
 ### increasedValue
 
@@ -914,7 +914,7 @@ set increasedValue(String increasedValue)
 AttributedString get attributedIncreasedValue
 ```
 
-执行 [SemanticsAction.increase] 操作后 [value] 将具有的值，以 [AttributedString] 格式表示。
+执行 [SemanticsAction.increase] 操作后 [value] 将具有的值，以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 如果提供了 [SemanticsAction.increase] 的处理程序，并且设置了 [value] 或 [attributedValue] 之一，则必须设置 [attributedIncreasedValue] 或 [increasedValue] 之一。
 
@@ -944,7 +944,7 @@ String get decreasedValue
 
 阅读方向由 [textDirection] 给出。
 
-- [attributedDecreasedValue]，此属性的 [AttributedString] 形式。
+- [attributedDecreasedValue]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 形式。
 
 ### decreasedValue
 
@@ -958,7 +958,7 @@ set decreasedValue(String decreasedValue)
 AttributedString get attributedDecreasedValue
 ```
 
-执行 [SemanticsAction.decrease] 操作后 [value] 将具有的值，以 [AttributedString] 格式表示。
+执行 [SemanticsAction.decrease] 操作后 [value] 将具有的值，以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 如果提供了 [SemanticsAction.decrease] 的处理程序，并且设置了 [value] 或 [attributedValue] 之一，则必须设置 [attributedDecreasedValue] 或 [decreasedValue] 之一。
 
@@ -988,7 +988,7 @@ String get hint
 
 另请参阅：
 
-- [attributedHint]，此属性的 [AttributedString] 形式。
+- [attributedHint]，此属性的 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 形式。
 
 ### hint
 
@@ -1002,7 +1002,7 @@ set hint(String hint)
 AttributedString get attributedHint
 ```
 
-对该节点执行操作后结果的简要描述，以 [AttributedString] 格式表示。
+对该节点执行操作后结果的简要描述，以 [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring) 格式表示。
 
 在 iOS 上，此项用于 `UIAccessibility` 协议中定义的 `accessibilityAttributedHint` 属性。在 Android 上，它会按以下顺序与 [attributedLabel] 和 [attributedValue] 拼接在一起：[attributedValue]、[attributedLabel]、[attributedHint]。拼接后的值随后被用作 `Text` 描述。
 
@@ -1108,7 +1108,7 @@ bool get liveRegion
 
 实时区域表示对该语义节点的更新很重要。平台可以利用此信息，向用户礼貌地播报以告知其此节点的更新。
 
-实时区域的一个例子是 [SnackBar] Widget。在 Android 和 iOS 上，即使该 Widget 没有获得无障碍焦点，实时区域也会自动触发一次礼貌播报。如果操作系统的无障碍服务已经在播报其他内容（例如正在朗读获得焦点 Widget 的标签或提供系统播报），则此播报可能不会被朗读。
+实时区域的一个例子是 [SnackBar](https://www.yuque.com/thyname/flutter.material/snackbar) Widget。在 Android 和 iOS 上，即使该 Widget 没有获得无障碍焦点，实时区域也会自动触发一次礼貌播报。如果操作系统的无障碍服务已经在播报其他内容（例如正在朗读获得焦点 Widget 的标签或提供系统播报），则此播报可能不会被朗读。
 
 另请参阅：
 
@@ -1140,9 +1140,9 @@ set textDirection(TextDirection? textDirection)
 bool get isSelected
 ```
 
-拥有者 [RenderObject] 是否被选中（true）或未被选中（false）。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否被选中（true）或未被选中（false）。
 
-这与是否具有无障碍焦点不同。获得无障碍焦点的元素可能被选中，也可能未被选中；例如，[ListTile] 可以获得无障碍焦点，但其 [ListTile.selected] 属性设置为 false，此时它不会被标记为已选中。
+这与是否具有无障碍焦点不同。获得无障碍焦点的元素可能被选中，也可能未被选中；例如，[ListTile](https://www.yuque.com/thyname/flutter.material/listtile) 可以获得无障碍焦点，但其 [ListTile.selected] 属性设置为 false，此时它不会被标记为已选中。
 
 ### isSelected
 
@@ -1158,9 +1158,9 @@ bool? get isExpanded
 
 如果此节点具有可由用户控制的布尔状态，则该状态是展开还是折叠，分别对应 true 和 false。
 
-如果拥有者 [RenderObject] 不具有可由用户控制的展开/折叠状态，请勿调用此字段的设置器。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有可由用户控制的展开/折叠状态，请勿调用此字段的设置器。
 
-如果拥有者 [RenderObject] 不具有展开/折叠状态，获取器将返回 null。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有展开/折叠状态，获取器将返回 null。
 
 ### isExpanded
 
@@ -1174,15 +1174,15 @@ set isExpanded(bool? value)
 bool? get isEnabled
 ```
 
-拥有者 [RenderObject] 当前是否已启用。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 当前是否已启用。
 
 已禁用的对象不响应用户交互。只有通常会响应用户交互、但当前不响应（例如被禁用的按钮）的对象，才应被标记为已禁用。
 
 对于从不响应用户交互的对象（例如静态文本），不应调用此设置器。
 
-如果拥有者 [RenderObject] 不支持启用/禁用的概念，获取器将返回 null。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不支持启用/禁用的概念，获取器将返回 null。
 
-此属性不控制是否启用语义功能。如果希望为特定 Widget 禁用语义功能，应使用 [ExcludeSemantics] Widget。
+此属性不控制是否启用语义功能。如果希望为特定 Widget 禁用语义功能，应使用 [ExcludeSemantics](https://www.yuque.com/thyname/flutter.widgets/excludesemantics) Widget。
 
 ### isEnabled
 
@@ -1198,9 +1198,9 @@ bool? get isChecked
 
 如果此节点具有可由用户控制的布尔状态，则该状态是选中还是未选中，分别对应 true 和 false。
 
-如果拥有者 [RenderObject] 不具有可由用户控制的选中/未选中状态，请勿调用此字段的设置器。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有可由用户控制的选中/未选中状态，请勿调用此字段的设置器。
 
-如果拥有者 [RenderObject] 不具有选中/未选中状态，获取器将返回 null。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有选中/未选中状态，获取器将返回 null。
 
 ### isChecked
 
@@ -1216,9 +1216,9 @@ bool? get isCheckStateMixed
 
 如果此节点具有可由用户控制的三态，则该状态是否处于混合状态。
 
-如果拥有者 [RenderObject] 不具有可由用户控制的选中/未选中状态，请勿调用此字段的设置器。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有可由用户控制的选中/未选中状态，请勿调用此字段的设置器。
 
-如果拥有者 [RenderObject] 不具有混合选中状态，获取器将返回 null。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有混合选中状态，获取器将返回 null。
 
 ### isCheckStateMixed
 
@@ -1234,9 +1234,9 @@ bool? get isToggled
 
 如果此节点具有可由用户控制的布尔状态，则该状态是开启还是关闭，分别对应 true 和 false。
 
-如果拥有者 [RenderObject] 不具有可由用户控制的开/关状态，请勿调用此字段的设置器。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有可由用户控制的开/关状态，请勿调用此字段的设置器。
 
-如果拥有者 [RenderObject] 不具有开/关状态，获取器将返回 null。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有开/关状态，获取器将返回 null。
 
 ### isToggled
 
@@ -1252,7 +1252,7 @@ bool get isInMutuallyExclusiveGroup
 
 拥有该配置的 RenderObject 是否对应于允许用户从多个互斥选项中选择一个的 UI。
 
-例如，[Radio] 按钮属于互斥组，因为该组中只能有一个单选按钮被标记为 [isChecked]。
+例如，[Radio](https://www.yuque.com/thyname/flutter.material/radio) 按钮属于互斥组，因为该组中只能有一个单选按钮被标记为 [isChecked]。
 
 ### isInMutuallyExclusiveGroup
 
@@ -1266,7 +1266,7 @@ set isInMutuallyExclusiveGroup(bool value)
 bool get isFocusable
 ```
 
-拥有者 [RenderObject] 是否可以持有输入焦点。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否可以持有输入焦点。
 
 ### isFocusable
 
@@ -1280,7 +1280,7 @@ set isFocusable(bool value)
 bool? get isFocused
 ```
 
-拥有者 [RenderObject] 当前是否持有输入焦点。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 当前是否持有输入焦点。
 
 ### isFocused
 
@@ -1294,7 +1294,7 @@ set isFocused(bool? value)
 AccessibilityFocusBlockType get accessibilityFocusBlockType
 ```
 
-拥有者 [RenderObject] 及其子树在无障碍焦点（不同于输入焦点）方面是否被阻止。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 及其子树在无障碍焦点（不同于输入焦点）方面是否被阻止。
 
 ### accessibilityFocusBlockType
 
@@ -1308,7 +1308,7 @@ set accessibilityFocusBlockType(AccessibilityFocusBlockType value)
 bool get isButton
 ```
 
-拥有者 [RenderObject] 是否为按钮（true）或不是（false）。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为按钮（true）或不是（false）。
 
 ### isButton
 
@@ -1322,7 +1322,7 @@ set isButton(bool value)
 bool get isLink
 ```
 
-拥有者 [RenderObject] 是否为链接（true）或不是（false）。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为链接（true）或不是（false）。
 
 ### isLink
 
@@ -1336,7 +1336,7 @@ set isLink(bool value)
 Uri? get linkUrl
 ```
 
-拥有者 [RenderObject] 所链接到的 URL。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 所链接到的 URL。
 
 ### linkUrl
 
@@ -1350,7 +1350,7 @@ set linkUrl(Uri? value)
 bool get isHeader
 ```
 
-拥有者 [RenderObject] 是否为标题（true）或不是（false）。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为标题（true）或不是（false）。
 
 ### isHeader
 
@@ -1380,7 +1380,7 @@ set headingLevel(int value)
 bool get isSlider
 ```
 
-拥有者 [RenderObject] 是否为滑块（true）或不是（false）。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为滑块（true）或不是（false）。
 
 ### isSlider
 
@@ -1394,7 +1394,7 @@ set isSlider(bool value)
 bool get isKeyboardKey
 ```
 
-拥有者 [RenderObject] 是否为键盘按键（true）或不是（false）。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为键盘按键（true）或不是（false）。
 
 ### isKeyboardKey
 
@@ -1408,7 +1408,7 @@ set isKeyboardKey(bool value)
 bool get isHidden
 ```
 
-拥有者 [RenderObject] 是否被视为隐藏。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否被视为隐藏。
 
 隐藏元素当前在屏幕上不可见。它们可能被其他元素遮挡，或者位于视口可见区域之外。
 
@@ -1430,7 +1430,7 @@ set isHidden(bool value)
 bool get isTextField
 ```
 
-拥有者 [RenderObject] 是否为文本字段。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为文本字段。
 
 ### isTextField
 
@@ -1444,7 +1444,7 @@ set isTextField(bool value)
 bool get isReadOnly
 ```
 
-拥有者 [RenderObject] 是否为只读。
+拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 是否为只读。
 
 仅当 [isTextField] 为 true 时适用。
 
@@ -1494,9 +1494,9 @@ bool? get isRequired
 
 该语义节点是否具有必填状态。
 
-如果拥有者 [RenderObject] 不具有可由用户控制的必填状态，请勿调用此字段的设置器。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有可由用户控制的必填状态，请勿调用此字段的设置器。
 
-如果拥有者 [RenderObject] 不具有必填状态，获取器将返回 null。
+如果拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 不具有必填状态，获取器将返回 null。
 
 另请参阅：
 
@@ -1516,7 +1516,7 @@ bool get hasImplicitScrolling
 
 当用户尝试将焦点移动到屏幕外的子节点时，平台是否可以滚动该语义节点。
 
-例如，[ListView] Widget 具有隐式滚动功能，以便用户可以轻松移动到下一组可见子节点。[TabBar] Widget 不具有隐式滚动功能，以便用户在到达标签栏末尾时可以导航到标签页主体内容。
+例如，[ListView](https://www.yuque.com/thyname/flutter.widgets/listview) Widget 具有隐式滚动功能，以便用户可以轻松移动到下一组可见子节点。[TabBar](https://www.yuque.com/thyname/flutter.material/tabbar) Widget 不具有隐式滚动功能，以便用户在到达标签栏末尾时可以导航到标签页主体内容。
 
 ### hasImplicitScrolling
 
@@ -1688,7 +1688,7 @@ set minValue(String? value)
 Iterable<SemanticsTag>? get tagsForChildren
 ```
 
-此配置希望添加到所有子 [SemanticsNode] 的标签集合。
+此配置希望添加到所有子 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的标签集合。
 
 另请参阅：
 
@@ -1700,7 +1700,7 @@ Iterable<SemanticsTag>? get tagsForChildren
 bool tagsChildrenWith(SemanticsTag tag)
 ```
 
-此配置是否会用给定的 [SemanticsTag] 标记子语义节点。
+此配置是否会用给定的 [SemanticsTag](https://www.yuque.com/thyname/flutter.semantics/semanticstag) 标记子语义节点。
 
 ### addTagForChildren()
 
@@ -1708,11 +1708,11 @@ bool tagsChildrenWith(SemanticsTag tag)
 void addTagForChildren(SemanticsTag tag)
 ```
 
-指定此配置希望应用于所有子 [SemanticsNode] 的 [SemanticsTag]。
+指定此配置希望应用于所有子 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的 [SemanticsTag](https://www.yuque.com/thyname/flutter.semantics/semanticstag)。
 
-在寻求附加到父 [SemanticsNode] 的过程中，该标签会被添加到所有经过此配置拥有者 [RenderObject] 的 [SemanticsNode]。
+在寻求附加到父 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的过程中，该标签会被添加到所有经过此配置拥有者 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode)。
 
-标签用于向父 [SemanticsNode] 传达子 [SemanticsNode] 经过了某个特定 [RenderObject] 的信息。父节点可以利用此信息确定语义树的形状。
+标签用于向父 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 传达子 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 经过了某个特定 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的信息。父节点可以利用此信息确定语义树的形状。
 
 另请参阅：
 
@@ -1726,7 +1726,7 @@ bool isCompatibleWith(SemanticsConfiguration? other)
 
 此配置是否与提供的 `other` 配置兼容。
 
-如果两个配置可以添加到同一个 [SemanticsNode] 而不丢失任何语义信息，则称它们是兼容的。
+如果两个配置可以添加到同一个 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 而不丢失任何语义信息，则称它们是兼容的。
 
 ### absorb()
 
@@ -1738,7 +1738,7 @@ void absorb(SemanticsConfiguration child)
 
 这会将两个配置的语义信息相加，并将结果保存在此配置中。
 
-拥有 `child` 配置的 [RenderObject] 必须是拥有此配置的 [RenderObject] 的后代。
+拥有 `child` 配置的 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 必须是拥有此配置的 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 的后代。
 
 只有将 [explicitChildNodes] 设置为 false 的配置才能吸收其他配置，并且建议仅吸收由 [isCompatibleWith] 确定为兼容的配置。
 
@@ -1756,11 +1756,11 @@ SemanticsConfiguration copy()
 enum DebugSemanticsDumpOrder {}
 ```
 
-由 [debugDumpSemanticsTree] 使用，用于指定子节点的打印顺序。
+由 [debugDumpSemanticsTree](https://www.yuque.com/thyname/flutter.rendering/debugdumpsemanticstree) 使用，用于指定子节点的打印顺序。
 
 按反向命中测试顺序打印节点。
 
-在反向命中测试顺序中，[SemanticsNode] 的最后一个子节点将首先被询问是否要响应用户交互，其次是倒数第二个，依此类推，直到找到接受者为止。
+在反向命中测试顺序中，[SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的最后一个子节点将首先被询问是否要响应用户交互，其次是倒数第二个，依此类推，直到找到接受者为止。
 
 按语义遍历顺序打印节点。
 
@@ -1782,7 +1782,7 @@ abstract class SemanticsSortKey with Diagnosticable implements Comparable<Semant
 
 另请参阅：
 
-- [OrdinalSortKey]，一种使用序数进行排序的排序键。
+- [OrdinalSortKey](https://www.yuque.com/thyname/flutter.semantics/ordinalsortkey)，一种使用序数进行排序的排序键。
 
 ### SemanticsSortKey()
 
@@ -1834,11 +1834,11 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties)
 class OrdinalSortKey extends SemanticsSortKey {}
 ```
 
-一种根据给定的 `double` 值进行排序的 [SemanticsSortKey]。
+一种根据给定的 `double` 值进行排序的 [SemanticsSortKey](https://www.yuque.com/thyname/flutter.semantics/semanticssortkey)。
 
-[OrdinalSortKey] 会与其他 [OrdinalSortKey] 进行比较，以按照给定的顺序进行排序。
+[OrdinalSortKey](https://www.yuque.com/thyname/flutter.semantics/ordinalsortkey) 会与其他 [OrdinalSortKey](https://www.yuque.com/thyname/flutter.semantics/ordinalsortkey) 进行比较，以按照给定的顺序进行排序。
 
-[OrdinalSortKey] 先按可选的 [name] 排序，然后按其 [order] 排序。如果 [SemanticsProperties.sortKey] 是 [OrdinalSortKey]，则同一语义组中指定的所有其他排序键也必须是 [OrdinalSortKey]。
+[OrdinalSortKey](https://www.yuque.com/thyname/flutter.semantics/ordinalsortkey) 先按可选的 [name] 排序，然后按其 [order] 排序。如果 [SemanticsProperties.sortKey] 是 [OrdinalSortKey](https://www.yuque.com/thyname/flutter.semantics/ordinalsortkey)，则同一语义组中指定的所有其他排序键也必须是 [OrdinalSortKey](https://www.yuque.com/thyname/flutter.semantics/ordinalsortkey)。
 
 没有 [name] 的键会与其他没有 [name] 的键进行比较，并且会在具有 [name] 的键之前被遍历。
 
@@ -1850,7 +1850,7 @@ class OrdinalSortKey extends SemanticsSortKey {}
 OrdinalSortKey(double order, {String? name})
 ```
 
-创建一个使用 [double] 作为其键值的 const 语义排序键。
+创建一个使用 [double](https://www.yuque.com/thyname/dart.core/double) 作为其键值的 const 语义排序键。
 
 [order] 必须是有限数。
 
