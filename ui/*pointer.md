@@ -74,7 +74,7 @@ enum PointerDeviceKind {}
 
 当用户在物理触控板上做出缩放、平移、滚动或旋转手势时，支持的平台会派发 kind 为 [trackpad] 的事件。
 
-kind 为 [trackpad] 的事件的 [PointerChange] 只能是 `add`、`remove` 以及与平移缩放相关的值。
+kind 为 [trackpad] 的事件的 [PointerChange](https://www.yuque.com/thyname/dart.ui/pointerchange) 只能是 `add`、`remove` 以及与平移缩放相关的值。
 
 部分平台不支持（或未完全支持）触控板手势，可能会将触控板手势转换为模拟拖动的伪指针事件。这些事件通常的 kind 为 [touch] 或 [mouse] 而非 [trackpad]。这包括（但不限于）Web 端，以及 `Info.plist` 中未设置 `UIApplicationSupportsIndirectInputEvents` 或该值返回 NO 时的 iOS。
 
@@ -134,7 +134,7 @@ PointerData({int viewId = 0, int embedderId = 0, Duration timeStamp = Duration.z
 int viewId
 ```
 
-此 [PointerEvent] 所源自的 [FlutterView] 的 ID。
+此 [PointerEvent](https://www.yuque.com/thyname/flutter.gestures/pointerevent) 所源自的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的 ID。
 
 ### embedderId
 
@@ -142,7 +142,7 @@ int viewId
 int embedderId
 ```
 
-将 [PointerEvent] 与创建它的嵌入端事件相关联的唯一标识符。
+将 [PointerEvent](https://www.yuque.com/thyname/flutter.gestures/pointerevent) 与创建它的嵌入端事件相关联的唯一标识符。
 
 任意两个指针事件都不会拥有相同的 [embedderId]。这与用于命中测试的 [pointerIdentifier] 不同，[embedderId] 用于标识平台事件。
 
@@ -464,7 +464,7 @@ double rotation
 void respond({required bool allowPlatformDefault})
 ```
 
-框架/应用可调用此方法，以响应触发此 [PointerData] 的原生事件。
+框架/应用可调用此方法，以响应触发此 [PointerData](https://www.yuque.com/thyname/dart.ui/pointerdata) 的原生事件。
 
 参数 [allowPlatformDefault] 设置为 `true` 时，允许平台执行与该原生事件关联的默认操作。
 
@@ -472,9 +472,9 @@ void respond({required bool allowPlatformDefault})
 
 如果 `allowPlatformDefault` 从未被设置为 `true`，Flutter 引擎将消费该事件，使其不会被平台看到。在 Web 端，这意味着在触发该 `PointerData` 的 DOM 事件上会调用 `preventDefault`。参见 [Event: preventDefault() method in MDN][EpDmiMDN]。
 
-此方法的具体实现由 [PointerData] 构造函数的 `onRespond` 参数配置。
+此方法的具体实现由 [PointerData](https://www.yuque.com/thyname/dart.ui/pointerdata) 构造函数的 `onRespond` 参数配置。
 
-另请参阅 [PointerDataRespondCallback]。
+另请参阅 [PointerDataRespondCallback](https://www.yuque.com/thyname/dart.ui/pointerdatarespondcallback)。
 
 [EpDmiMDN]: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
 

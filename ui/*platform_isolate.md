@@ -6,7 +6,7 @@ Future<R> runOnPlatformThread<R>(FutureOr<R> Function() computation)
 
 在平台线程上运行 [computation] 并返回结果。
 
-此方法可能会在单独的 isolate 中运行该计算。该 isolate 将被复用于后续的 [runOnPlatformThread] 调用，这意味着该 isolate 中的全局状态会在多次调用之间保持不变。
+此方法可能会在单独的 isolate 中运行该计算。该 isolate 将被复用于后续的 [runOnPlatformThread](https://www.yuque.com/thyname/dart.ui/runonplatformthread) 调用，这意味着该 isolate 中的全局状态会在多次调用之间保持不变。
 
 [computation] 及其捕获的任何状态都可能被发送到该 isolate。有关可发送类型的信息，请参阅 [SendPort.send]。
 

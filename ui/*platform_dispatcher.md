@@ -14,7 +14,7 @@ typedef FrameCallback = void Function(Duration duration)
 
 [PlatformDispatcher.onBeginFrame] 的回调函数签名。
 
-`duration` 参数表示当前帧间隔开始的时间点，以自某个纪元以来的时长表示。所有帧的纪元都相同，但可能与 [DateTime] 的纪元不一致。
+`duration` 参数表示当前帧间隔开始的时间点，以自某个纪元以来的时长表示。所有帧的纪元都相同，但可能与 [DateTime](https://www.yuque.com/thyname/dart.core/datetime) 的纪元不一致。
 
 对于满足帧号 `a` 小于帧号 `b` 的任意两帧 `a` 和 `b`，`a` 的 duration 参数将小于或等于 `b` 的 duration 参数。
 
@@ -26,7 +26,7 @@ typedef TimingsCallback = void Function(List<FrameTiming> timings)
 
 [PlatformDispatcher.onReportTimings] 的回调函数签名。
 
-{@template dart.ui.TimingsCallback.list} 该回调接收一个 [FrameTiming] 列表，因为它可能不会在每一帧后立即触发。相反，Flutter 会尝试将多帧批量处理，一次性发送它们的时间信息以降低开销（因为这在发布模式下也可用）。该列表按时间升序排列（最早的帧排在最前）。即使没有后续帧可供批处理，任何一帧的时间信息也会在大约 1 秒内发送（在 profile/debug 模式下为 100ms）。第一帧的时间信息会立即发送，不进行批处理。{@endtemplate}
+{@template dart.ui.TimingsCallback.list} 该回调接收一个 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming) 列表，因为它可能不会在每一帧后立即触发。相反，Flutter 会尝试将多帧批量处理，一次性发送它们的时间信息以降低开销（因为这在发布模式下也可用）。该列表按时间升序排列（最早的帧排在最前）。即使没有后续帧可供批处理，任何一帧的时间信息也会在大约 1 秒内发送（在 profile/debug 模式下为 100ms）。第一帧的时间信息会立即发送，不进行批处理。{@endtemplate}
 
 # PointerDataPacketCallback
 
@@ -134,7 +134,7 @@ class PlatformDispatcher {}
 PlatformDispatcher get instance
 ```
 
-[PlatformDispatcher] 单例。
+[PlatformDispatcher](https://www.yuque.com/thyname/dart.ui/platformdispatcher) 单例。
 
 请考虑避免通过 [PlatformDispatcher.instance] 静态引用此单例，而是优先使用绑定进行依赖解析，例如 `WidgetsBinding.instance.platformDispatcher`。
 
@@ -168,7 +168,7 @@ Iterable<Display> get displays
 
 如果其中任何一个的配置发生变化，将调用 [onMetricsChanged]。
 
-要获取某个 [FlutterView] 所在的显示器，请使用 [FlutterView.display]。
+要获取某个 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 所在的显示器，请使用 [FlutterView.display]。
 
 平台可能会限制应用程序可获取的关于次要显示器和/或没有活动应用窗口的显示器的信息。
 
@@ -190,7 +190,7 @@ Iterable<FlutterView> get views
 FlutterView? view({required int id})
 ```
 
-如果存在具有给定 ID 的 [FlutterView]，则返回该视图，否则返回 null。
+如果存在具有给定 ID 的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)，则返回该视图，否则返回 null。
 
 ### implicitView
 
@@ -198,18 +198,18 @@ FlutterView? view({required int id})
 FlutterView? get implicitView
 ```
 
-当平台无法创建窗口时，由引擎提供的 [FlutterView]；或者出于向后兼容性考虑而提供。
+当平台无法创建窗口时，由引擎提供的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)；或者出于向后兼容性考虑而提供。
 
 如果平台提供了隐式视图，可用它来引导框架启动。这在为单视图应用程序设计的平台（如具有单一显示器的移动设备）上很常见。
 
-应用程序和库不应依赖此属性一定被设置，因为它可能因引擎配置而为 null。请考虑使用 [View.of] 来查找当前 [BuildContext] 所绘制的 [FlutterView]。
+应用程序和库不应依赖此属性一定被设置，因为它可能因引擎配置而为 null。请考虑使用 [View.of] 来查找当前 [BuildContext](https://www.yuque.com/thyname/flutter.widgets/buildcontext) 所绘制的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)。
 
-虽然所引用的 [FlutterView] 上的属性可能会变化，但该引用本身在应用程序的生命周期内保证不会改变：如果此属性在启动时为 null，则它将在应用程序的整个生命周期内保持为 null。如果它指向某个特定的 [FlutterView]，它将一直指向同一个视图，直到应用程序关闭（尽管引擎可能会自行决定替换或移除该视图的底层支持表面）。
+虽然所引用的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 上的属性可能会变化，但该引用本身在应用程序的生命周期内保证不会改变：如果此属性在启动时为 null，则它将在应用程序的整个生命周期内保持为 null。如果它指向某个特定的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)，它将一直指向同一个视图，直到应用程序关闭（尽管引擎可能会自行决定替换或移除该视图的底层支持表面）。
 
 另请参阅：
 
 - [View.of]，用于访问当前视图。
-- [PlatformDispatcher.views]，获取平台提供的所有 [FlutterView] 的列表。
+- [PlatformDispatcher.views]，获取平台提供的所有 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的列表。
 
 ### onMetricsChanged
 
@@ -217,7 +217,7 @@ FlutterView? get implicitView
 VoidCallback? get onMetricsChanged
 ```
 
-每当任何 [views] 的 [ViewConfiguration] 发生变化时被调用的回调。
+每当任何 [views] 的 [ViewConfiguration](https://www.yuque.com/thyname/flutter.rendering/viewconfiguration) 发生变化时被调用的回调。
 
 例如，当设备旋转或应用程序被调整大小时（例如在 Android 上以分屏方式显示应用程序），会调用 `onMetricsChanged`。
 
@@ -227,7 +227,7 @@ VoidCallback? get onMetricsChanged
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层注册此回调调用通知的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层注册此回调调用通知的机制。
 - [MediaQuery.of]，实现相同功能的更简单机制。
 
 ### onMetricsChanged
@@ -250,26 +250,26 @@ int? get engineId
 ViewFocusChangeCallback? get onViewFocusChange
 ```
 
-在焦点跨 [FlutterView] 转移后立即调用的回调。
+在焦点跨 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 转移后立即调用的回调。
 
-当平台将焦点从一个 [FlutterView] 移动到另一个时，会调用此回调，指示获得焦点的新视图以及焦点接收的方向。例如，如果焦点以前向方向（可能是按 Tab 键的结果）移动到 ID 为 2 的 [FlutterView]，该回调会收到一个带有 [ViewFocusState.focused] 和 [ViewFocusDirection.forward] 的 [ViewFocusEvent]。
+当平台将焦点从一个 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 移动到另一个时，会调用此回调，指示获得焦点的新视图以及焦点接收的方向。例如，如果焦点以前向方向（可能是按 Tab 键的结果）移动到 ID 为 2 的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)，该回调会收到一个带有 [ViewFocusState.focused] 和 [ViewFocusDirection.forward] 的 [ViewFocusEvent](https://www.yuque.com/thyname/dart.ui/viewfocusevent)。
 
-通常，该事件的接收者会将焦点移动到 ID 为 2 的 [FlutterView] 内的第一个可获得焦点的组件来响应。如果某个视图在反向方向上获得焦点（可能是按 Shift + Tab 键的结果），通常会聚焦该视图内的最后一个可获得焦点的组件。
+通常，该事件的接收者会将焦点移动到 ID 为 2 的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 内的第一个可获得焦点的组件来响应。如果某个视图在反向方向上获得焦点（可能是按 Shift + Tab 键的结果），通常会聚焦该视图内的最后一个可获得焦点的组件。
 
-平台可能会移除某个 [FlutterView] 的焦点。例如，在 Web 上，浏览器可以将焦点移动到另一个元素，或移动到浏览器的内置 UI。在桌面上，操作系统可以切换到另一个窗口（例如在 Windows 上使用 Alt + Tab）。在这些场景中，将调用 [onViewFocusChange]，并传入 [ViewFocusState.unfocused] 和 [ViewFocusDirection.undefined]。
+平台可能会移除某个 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的焦点。例如，在 Web 上，浏览器可以将焦点移动到另一个元素，或移动到浏览器的内置 UI。在桌面上，操作系统可以切换到另一个窗口（例如在 Windows 上使用 Alt + Tab）。在这些场景中，将调用 [onViewFocusChange]，并传入 [ViewFocusState.unfocused] 和 [ViewFocusDirection.undefined]。
 
 接收者通常通过移除应用中的所有焦点指示来响应此事件。
 
-应用程序也可以通过调用 [requestViewFocusChange] 以编程方式请求将焦点移动到指定的 [FlutterView]。
+应用程序也可以通过调用 [requestViewFocusChange] 以编程方式请求将焦点移动到指定的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)。
 
 该回调在设置该回调时所处的相同 zone 中调用。
 
 另请参阅：
 
-- [requestViewFocusChange]，以编程方式指示平台将焦点移动到不同的 [FlutterView]。
-- [ViewFocusState]，列出了允许的焦点转换状态。
-- [ViewFocusDirection]，列出了允许的焦点方向。
-- [ViewFocusEvent]，提供给该回调的事件对象。
+- [requestViewFocusChange]，以编程方式指示平台将焦点移动到不同的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)。
+- [ViewFocusState](https://www.yuque.com/thyname/dart.ui/viewfocusstate)，列出了允许的焦点转换状态。
+- [ViewFocusDirection](https://www.yuque.com/thyname/dart.ui/viewfocusdirection)，列出了允许的焦点方向。
+- [ViewFocusEvent](https://www.yuque.com/thyname/dart.ui/viewfocusevent)，提供给该回调的事件对象。
 
 ### onViewFocusChange
 
@@ -283,9 +283,9 @@ set onViewFocusChange(ViewFocusChangeCallback? callback)
 void requestViewFocusChange({required int viewId, required ViewFocusState state, required ViewFocusDirection direction})
 ```
 
-请求更改 ID 为 [viewId] 的 [FlutterView] 的焦点。
+请求更改 ID 为 [viewId] 的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的焦点。
 
-如果应用程序希望请求引擎以前向方向将焦点移动到 ID 为 1 的 [FlutterView]，应使用 [ViewFocusState.focused] 和 [ViewFocusDirection.forward] 调用此方法。
+如果应用程序希望请求引擎以前向方向将焦点移动到 ID 为 1 的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview)，应使用 [ViewFocusState.focused] 和 [ViewFocusDirection.forward] 调用此方法。
 
 如果相关视图已经拥有焦点，则无需调用此方法，因为这不会产生任何效果。
 
@@ -303,7 +303,7 @@ FrameCallback? get onBeginFrame
 
 当任意视图开始一帧时调用的回调。
 
-用于通知应用程序现在是使用 [SceneBuilder] API 和 [FlutterView.render] 方法提供场景的适当时机的回调。
+用于通知应用程序现在是使用 [SceneBuilder](https://www.yuque.com/thyname/dart.ui/scenebuilder) API 和 [FlutterView.render] 方法提供场景的适当时机的回调。
 
 在可能的情况下，此回调由所连接屏幕中 VSync 速率最高的硬件 VSync 信号驱动。仅当自上次调用此回调以来已调用过 [PlatformDispatcher.scheduleFrame] 时才会调用它。
 
@@ -341,7 +341,7 @@ PointerDataPacketCallback? get onPointerDataPacket
 
 另请参阅：
 
-- [GestureBinding]，Flutter 框架中管理指针事件的类。
+- [GestureBinding](https://www.yuque.com/thyname/flutter.gestures/gesturebinding)，Flutter 框架中管理指针事件的类。
 
 ### onPointerDataPacket
 
@@ -373,13 +373,13 @@ set onKeyData(KeyDataCallback? callback)
 TimingsCallback? get onReportTimings
 ```
 
-用于报告最近光栅化帧的 [FrameTiming] 的回调。
+用于报告最近光栅化帧的 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming) 的回调。
 
 相比直接使用 [onReportTimings]，更推荐使用 [SchedulerBinding.addTimingsCallback]，因为 [SchedulerBinding.addTimingsCallback] 允许注册多个回调。
 
 可用于查看应用程序是否丢帧（通过 [FrameTiming.buildDuration] 和 [FrameTiming.rasterDuration]），或是否存在高延迟（通过 [FrameTiming.totalSpan]）。
 
-与 [Timeline] 不同，此处的时间信息在发布模式下也可用（此外还包括 profile 和 debug 模式）。因此可用它来监控应用程序在实际使用中的性能。
+与 [Timeline](https://www.yuque.com/thyname/dart.developer/timeline) 不同，此处的时间信息在发布模式下也可用（此外还包括 profile 和 debug 模式）。因此可用它来监控应用程序在实际使用中的性能。
 
 {@macro dart.ui.TimingsCallback.list}
 
@@ -409,7 +409,7 @@ void sendPlatformMessage(String name, ByteData? data, PlatformMessageResponseCal
 void sendPortPlatformMessage(String name, ByteData? data, int identifier, SendPort port)
 ```
 
-通过 [SendPort] 向特定平台的插件发送消息。
+通过 [SendPort](https://www.yuque.com/thyname/dart.isolate/sendport) 向特定平台的插件发送消息。
 
 此操作与 [sendPlatformMessage] 类似，但用于从后台 isolate 发送消息。[port] 参数使 Flutter 能够知道应将结果发送到哪个 isolate。[name] 参数是通信所在通道的名称。[data] 参数是消息的负载。[identifier] 参数是分配给该消息的唯一整数。
 
@@ -481,7 +481,7 @@ void requestDartPerformanceMode(DartPerformanceMode mode)
 
 此操作在 Web 上为空操作（no-op）。引擎可能会忽略性能模式更改请求，或者不会以可预测的方式响应。
 
-有关各性能模式的更多信息，请参阅 [DartPerformanceMode]。
+有关各性能模式的更多信息，请参阅 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode)。
 
 ### getPersistentIsolateData()
 
@@ -505,7 +505,7 @@ void scheduleFrame()
 
 另请参阅：
 
-- [SchedulerBinding]，Flutter 框架中管理帧调度的类。
+- [SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding)，Flutter 框架中管理帧调度的类。
 - [scheduleWarmUpFrame]，该方法仅应用于调度预热帧。
 
 ### scheduleWarmUpFrame()
@@ -603,7 +603,7 @@ List<Locale> get locales
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层观察此值变化的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察此值变化的机制。
 
 ### computePlatformResolvedLocale()
 
@@ -631,7 +631,7 @@ VoidCallback? get onLocaleChanged
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层观察此回调何时被调用的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察此回调何时被调用的机制。
 
 ### onLocaleChanged
 
@@ -659,7 +659,7 @@ bool get alwaysUse24HourFormat
 
 指示时间是否应始终以 24 小时制显示的设置。
 
-此选项由 [showTimePicker] 使用。
+此选项由 [showTimePicker](https://www.yuque.com/thyname/flutter.material/showtimepicker) 使用。
 
 ### lineHeightScaleFactorOverride
 
@@ -669,7 +669,7 @@ double? get lineHeightScaleFactorOverride
 
 系统建议的文本高度，以字体大小的倍数表示。
 
-此值优先于应用层指定的任何文本高度。例如，在框架层，[Text]、[SelectableText] 和 [EditableText] 组件的 [TextStyle] 中，此值会覆盖 [TextStyle.height] 和 [StrutStyle.height] 的现有值。
+此值优先于应用层指定的任何文本高度。例如，在框架层，[Text](https://www.yuque.com/thyname/flutter.widgets/text)、[SelectableText](https://www.yuque.com/thyname/flutter.material/selectabletext) 和 [EditableText](https://www.yuque.com/thyname/flutter.widgets/editabletext) 组件的 [TextStyle](https://www.yuque.com/thyname/dart.ui/textstyle) 中，此值会覆盖 [TextStyle.height] 和 [StrutStyle.height] 的现有值。
 
 如果系统未设置覆盖值，则返回 null。
 
@@ -685,7 +685,7 @@ double? get letterSpacingOverride
 
 可使用负值使字母间距更紧凑。
 
-此值优先于应用层指定的任何文本字母间距。例如，在框架层，[Text]、[SelectableText] 和 [EditableText] 组件的 [TextStyle] 中，此值会覆盖 [TextStyle.letterSpacing] 的现有值。
+此值优先于应用层指定的任何文本字母间距。例如，在框架层，[Text](https://www.yuque.com/thyname/flutter.widgets/text)、[SelectableText](https://www.yuque.com/thyname/flutter.material/selectabletext) 和 [EditableText](https://www.yuque.com/thyname/flutter.widgets/editabletext) 组件的 [TextStyle](https://www.yuque.com/thyname/dart.ui/textstyle) 中，此值会覆盖 [TextStyle.letterSpacing] 的现有值。
 
 如果系统未设置覆盖值，则返回 null。
 
@@ -701,7 +701,7 @@ double? get wordSpacingOverride
 
 可使用负值使单词间距更紧凑。
 
-此值优先于应用层指定的任何文本单词间距。例如，在框架层，[Text]、[SelectableText] 和 [EditableText] 组件的 [TextStyle] 中，此值会覆盖 [TextStyle.wordSpacing] 的现有值。
+此值优先于应用层指定的任何文本单词间距。例如，在框架层，[Text](https://www.yuque.com/thyname/flutter.widgets/text)、[SelectableText](https://www.yuque.com/thyname/flutter.material/selectabletext) 和 [EditableText](https://www.yuque.com/thyname/flutter.widgets/editabletext) 组件的 [TextStyle](https://www.yuque.com/thyname/dart.ui/textstyle) 中，此值会覆盖 [TextStyle.wordSpacing] 的现有值。
 
 如果系统未设置覆盖值，则返回 null。
 
@@ -735,7 +735,7 @@ double get textScaleFactor
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层观察此值变化的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察此值变化的机制。
 
 ### onTextScaleFactorChanged
 
@@ -749,7 +749,7 @@ VoidCallback? get onTextScaleFactorChanged
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层观察此回调何时被调用的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察此回调何时被调用的机制。
 
 ### onTextScaleFactorChanged
 
@@ -765,7 +765,7 @@ bool get nativeSpellCheckServiceDefined
 
 当前平台是否支持拼写检查服务。
 
-当请求默认拼写检查服务时，[EditableTextState] 使用此选项来定义其 [SpellCheckConfiguration]。
+当请求默认拼写检查服务时，[EditableTextState](https://www.yuque.com/thyname/flutter.widgets/editabletextstate) 使用此选项来定义其 [SpellCheckConfiguration](https://www.yuque.com/thyname/flutter.widgets/spellcheckconfiguration)。
 
 ### supportsShowingSystemContextMenu
 
@@ -775,7 +775,7 @@ bool get supportsShowingSystemContextMenu
 
 当前平台是否支持显示系统上下文菜单。
 
-[AdaptiveTextSelectionToolbar] 使用此选项来决定是显示系统上下文菜单，还是回退到默认的 Flutter 上下文菜单。
+[AdaptiveTextSelectionToolbar](https://www.yuque.com/thyname/flutter.material/adaptivetextselectiontoolbar) 使用此选项来决定是显示系统上下文菜单，还是回退到默认的 Flutter 上下文菜单。
 
 ### brieflyShowPassword
 
@@ -809,7 +809,7 @@ VoidCallback? get onPlatformBrightnessChanged
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层观察此回调何时被调用的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察此回调何时被调用的机制。
 
 ### onPlatformBrightnessChanged
 
@@ -837,7 +837,7 @@ VoidCallback? get onSystemFontFamilyChanged
 
 另请参阅：
 
-- [WidgetsBindingObserver]，一种在 widgets 层观察此回调何时被调用的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察此回调何时被调用的机制。
 
 ### onSystemFontFamilyChanged
 
@@ -895,7 +895,7 @@ set onSemanticsActionEvent(SemanticsActionEventCallback? callback)
 HitTestCallback? get onHitTest
 ```
 
-当平台希望对某个 [FlutterView] 进行命中测试时调用的回调。
+当平台希望对某个 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 进行命中测试时调用的回调。
 
 例如，iOS 使用此功能来判断某个手势是否命中了 [UIKitView]。
 
@@ -911,7 +911,7 @@ set onHitTest(HitTestCallback? callback)
 FrameData get frameData
 ```
 
-当前帧的 [FrameData] 对象。
+当前帧的 [FrameData](https://www.yuque.com/thyname/dart.ui/framedata) 对象。
 
 ### onFrameDataChanged
 
@@ -919,7 +919,7 @@ FrameData get frameData
 VoidCallback? get onFrameDataChanged
 ```
 
-当窗口更新 [FrameData] 时调用的回调。
+当窗口更新 [FrameData](https://www.yuque.com/thyname/dart.ui/framedata) 时调用的回调。
 
 ### onFrameDataChanged
 
@@ -959,15 +959,15 @@ String get defaultRouteName
 
 ## Android
 
-在 Android 上，调用 [`FlutterView.setInitialRoute`](/javadoc/io/flutter/view/FlutterView.html#setInitialRoute-java.lang.String-) 将设置此值。该值必须足够早地设置，即在 Dart 中执行 [runApp] 调用之前，此设置才会对框架产生任何影响。在你的 `FlutterActivity` 子类中，`createFlutterView` 方法是设置该值的合适时机。应用程序的 `AndroidManifest.xml` 文件也必须相应更新，添加合适的 [`<intent-filter>`](https://developer.android.com/guide/topics/manifest/intent-filter-element.html)。
+在 Android 上，调用 [`FlutterView.setInitialRoute`](/javadoc/io/flutter/view/FlutterView.html#setInitialRoute-java.lang.String-) 将设置此值。该值必须足够早地设置，即在 Dart 中执行 [runApp](https://www.yuque.com/thyname/flutter.widgets/runapp) 调用之前，此设置才会对框架产生任何影响。在你的 `FlutterActivity` 子类中，`createFlutterView` 方法是设置该值的合适时机。应用程序的 `AndroidManifest.xml` 文件也必须相应更新，添加合适的 [`<intent-filter>`](https://developer.android.com/guide/topics/manifest/intent-filter-element.html)。
 
 ## iOS
 
-在 iOS 上，调用 [`FlutterViewController.setInitialRoute`](/ios-embedder/interface_flutter_view_controller.html#a7f269c2da73312f856d42611cc12a33f) 将设置此值。该值必须足够早地设置，即在 Dart 中执行 [runApp] 调用之前，此设置才会对框架产生任何影响。`application:didFinishLaunchingWithOptions:` 方法是设置此值的合适时机。
+在 iOS 上，调用 [`FlutterViewController.setInitialRoute`](/ios-embedder/interface_flutter_view_controller.html#a7f269c2da73312f856d42611cc12a33f) 将设置此值。该值必须足够早地设置，即在 Dart 中执行 [runApp](https://www.yuque.com/thyname/flutter.widgets/runapp) 调用之前，此设置才会对框架产生任何影响。`application:didFinishLaunchingWithOptions:` 方法是设置此值的合适时机。
 
 另请参阅：
 
-- [Navigator]，处理路由的组件。
+- [Navigator](https://www.yuque.com/thyname/flutter.widgets/navigator)，处理路由的组件。
 - [SystemChannels.navigation]，处理来自嵌入器的后续导航请求。
 
 ### scaleFontSize()
@@ -992,7 +992,7 @@ final class SystemColor {}
 
 操作系统 UI 调色板中指定的颜色。
 
-目前，系统颜色仅在 Web 上受支持。要检查当前平台是否支持系统颜色，请使用静态字段 [platformProvidesSystemColors]。如果该字段为 `false`，此类中的其他函数将抛出 [UnsupportedError]。
+目前，系统颜色仅在 Web 上受支持。要检查当前平台是否支持系统颜色，请使用静态字段 [platformProvidesSystemColors]。如果该字段为 `false`，此类中的其他函数将抛出 [UnsupportedError](https://www.yuque.com/thyname/dart.core/unsupportederror)。
 
 此类通常与 [AccessibilityFeatures.highContrast] 结合使用。具体来说，在 Windows 上，当用户启用高对比度模式时，他们可能还会选择应用程序用户界面应使用的特定颜色。虽然应用程序通常使用自定义配色方案和设计语言很常见，但在高对比度模式下，建议组件使用系统指定的颜色，以使内容对用户更清晰易读。
 
@@ -1031,7 +1031,7 @@ SystemColor({required String name, Color? value})
 
 创建系统颜色的实例。
 
-[name] 是颜色的名称。由 [SystemColorPalette] 提供的系统颜色（例如 [SystemColorPalette.accentColor] 和 [SystemColorPalette.buttonText]）使用 [W3C CSS 规范](https://drafts.csswg.org/css-color/#css-system-colors) 中定义的标准名称。
+[name] 是颜色的名称。由 [SystemColorPalette](https://www.yuque.com/thyname/dart.ui/systemcolorpalette) 提供的系统颜色（例如 [SystemColorPalette.accentColor] 和 [SystemColorPalette.buttonText]）使用 [W3C CSS 规范](https://drafts.csswg.org/css-color/#css-system-colors) 中定义的标准名称。
 
 [value] 是该颜色的值（如果支持此颜色名称），若不支持则为 null。
 
@@ -1043,7 +1043,7 @@ String name
 
 标准系统颜色名称，由 W3C CSS 规范定义。
 
-Flutter 中的系统颜色名称是大小写敏感的。这是为了使颜色名称可以方便地用作 [Map] 的键。这与 CSS 不同，在 CSS 中系统颜色名称不区分大小写。也就是说，指定 `background-color: aCcEnTcOlOr` 等价于指定 `background-color: AccentColor`。
+Flutter 中的系统颜色名称是大小写敏感的。这是为了使颜色名称可以方便地用作 [Map](https://www.yuque.com/thyname/dart.core/map) 的键。这与 CSS 不同，在 CSS 中系统颜色名称不区分大小写。也就是说，指定 `background-color: aCcEnTcOlOr` 等价于指定 `background-color: AccentColor`。
 
 另请参阅：
 
@@ -1355,7 +1355,7 @@ enum FramePhase {}
 
 帧生命周期中的各个重要时间点。
 
-[FrameTiming] 记录每个阶段的时间戳，用于性能分析。
+[FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming) 记录每个阶段的时间戳，用于性能分析。
 
 操作系统给出的 vsync 信号的时间戳。
 
@@ -1389,7 +1389,7 @@ class FrameTiming {}
 
 一帧的时间相关性能指标。
 
-如果你使用完整的 Flutter 框架，请使用 [SchedulerBinding.addTimingsCallback] 来获取此对象。相比直接使用 [PlatformDispatcher.onReportTimings]，更推荐使用它，因为 [SchedulerBinding.addTimingsCallback] 允许注册多个回调。如果 [SchedulerBinding] 不可用，请参阅 [PlatformDispatcher.onReportTimings] 了解如何获取此对象。
+如果你使用完整的 Flutter 框架，请使用 [SchedulerBinding.addTimingsCallback] 来获取此对象。相比直接使用 [PlatformDispatcher.onReportTimings]，更推荐使用它，因为 [SchedulerBinding.addTimingsCallback] 允许注册多个回调。如果 [SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding) 不可用，请参阅 [PlatformDispatcher.onReportTimings] 了解如何获取此对象。
 
 调试模式（不带任何标志运行 `flutter run`）下的指标可能与 profile 和 release 模式下的指标有很大差异，这是由于调试开销所致。因此建议仅在 profile 和 release 模式下监控和分析性能指标。
 
@@ -1399,9 +1399,9 @@ class FrameTiming {}
 FrameTiming({required int vsyncStart, required int buildStart, required int buildFinish, required int rasterStart, required int rasterFinish, required int rasterFinishWallTime, int layerCacheCount = 0, int layerCacheBytes = 0, int pictureCacheCount = 0, int pictureCacheBytes = 0, int frameNumber = -1})
 ```
 
-使用微秒为单位的原始时间戳构造 [FrameTiming]。
+使用微秒为单位的原始时间戳构造 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming)。
 
-此构造函数仅用于单元测试。真实的 [FrameTiming] 应从 [PlatformDispatcher.onReportTimings] 获取。
+此构造函数仅用于单元测试。真实的 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming) 应从 [PlatformDispatcher.onReportTimings] 获取。
 
 如果未提供 [frameNumber]，则默认为 `-1`。
 
@@ -1411,7 +1411,7 @@ FrameTiming({required int vsyncStart, required int buildStart, required int buil
 int timestampInMicroseconds(FramePhase phase)
 ```
 
-这是自某个纪元以来以微秒为单位的原始时间戳。所有 [FrameTiming] 中的纪元都相同，但可能与 [DateTime] 的纪元不一致。
+这是自某个纪元以来以微秒为单位的原始时间戳。所有 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming) 中的纪元都相同，但可能与 [DateTime](https://www.yuque.com/thyname/dart.core/datetime) 的纪元不一致。
 
 ### buildDuration
 
@@ -1421,7 +1421,7 @@ Duration get buildDuration
 
 在 UI 线程上构建该帧所用的时长。
 
-构建大约在调用 [PlatformDispatcher.onBeginFrame] 时开始。[PlatformDispatcher.onBeginFrame] 回调中的 [Duration] 恰好等于 `Duration(microseconds: timestampInMicroseconds(FramePhase.buildStart))`。
+构建大约在调用 [PlatformDispatcher.onBeginFrame] 时开始。[PlatformDispatcher.onBeginFrame] 回调中的 [Duration](https://www.yuque.com/thyname/dart.core/duration) 恰好等于 `Duration(microseconds: timestampInMicroseconds(FramePhase.buildStart))`。
 
 构建在调用 [FlutterView.render] 时完成。
 
@@ -1545,7 +1545,7 @@ enum AppLifecycleState {}
 
 由于历史原因和名称冲突，Flutter 的应用状态名称与所有平台上的状态名称并非一一对应。例如在 Android 上，当操作系统调用 [`Activity.onPause`](<https://developer.android.com/reference/android/app/Activity#onPause()>) 时，Flutter 将进入 [inactive] 状态，但当 Android 调用 [`Activity.onStop`](<https://developer.android.com/reference/android/app/Activity#onStop()>) 时，Flutter 将进入 [paused] 状态。有关每个状态在各平台上含义的说明，请参阅各个状态的相关文档。
 
-当前的应用状态可以从 [SchedulerBinding.instance.lifecycleState] 获取，可以通过创建 [AppLifecycleListener]，或者通过重写 [WidgetsBindingObserver.didChangeAppLifecycleState] 方法使用 [WidgetsBindingObserver] 来观察状态的变化。
+当前的应用状态可以从 [SchedulerBinding.instance.lifecycleState] 获取，可以通过创建 [AppLifecycleListener](https://www.yuque.com/thyname/flutter.widgets/applifecyclelistener)，或者通过重写 [WidgetsBindingObserver.didChangeAppLifecycleState] 方法使用 [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver) 来观察状态的变化。
 
 应用程序不应依赖于总是能收到所有可能的通知。
 
@@ -1553,8 +1553,8 @@ enum AppLifecycleState {}
 
 另请参阅：
 
-- [AppLifecycleListener]，一个用于观察生命周期状态并提供状态转换回调的对象。
-- [WidgetsBindingObserver]，一种在 widgets 层观察生命周期状态的机制。
+- [AppLifecycleListener](https://www.yuque.com/thyname/flutter.widgets/applifecyclelistener)，一个用于观察生命周期状态并提供状态转换回调的对象。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，一种在 widgets 层观察生命周期状态的机制。
 - iOS 的 [UIKit 活动生命周期](https://developer.apple.com/documentation/uikit/app_and_environment/managing_your_app_s_life_cycle?language=objc) 文档。
 - Android 的[活动生命周期](https://developer.android.com/guide/components/activities/activity-lifecycle)文档。
 - macOS 的 [AppKit 活动生命周期](https://developer.apple.com/documentation/appkit/nsapplicationdelegate?language=objc) 文档。
@@ -1603,7 +1603,7 @@ enum AppExitResponse {}
 
 对退出应用程序请求的可能响应。
 
-该请求通常通过创建 [AppLifecycleListener] 并提供 [AppLifecycleListener.onExitRequested] 回调来响应，或者通过重写 [WidgetsBindingObserver.didRequestAppExit] 来响应。
+该请求通常通过创建 [AppLifecycleListener](https://www.yuque.com/thyname/flutter.widgets/applifecyclelistener) 并提供 [AppLifecycleListener.onExitRequested] 回调来响应，或者通过重写 [WidgetsBindingObserver.didRequestAppExit] 来响应。
 
 可以继续退出应用程序。
 
@@ -1617,7 +1617,7 @@ enum AppExitType {}
 
 调用 [ServicesBinding.exitApplication] 时要执行的应用程序退出类型。
 
-请求应用程序开始有序退出，通过 [WidgetsBinding] 将请求发送回框架。如果框架响应 [AppExitResponse.exit]，则按照与 [required] 退出相同的步骤继续。如果框架响应 [AppExitResponse.cancel]，则取消退出请求，应用程序继续正常执行。
+请求应用程序开始有序退出，通过 [WidgetsBinding](https://www.yuque.com/thyname/flutter.widgets/widgetsbinding) 将请求发送回框架。如果框架响应 [AppExitResponse.exit]，则按照与 [required] 退出相同的步骤继续。如果框架响应 [AppExitResponse.cancel]，则取消退出请求，应用程序继续正常执行。
 
 不可取消的有序退出请求。引擎将关闭引擎并调用原生 UI 工具包的退出 API。
 
@@ -1631,13 +1631,13 @@ class ViewPadding {}
 
 表示矩形四条边各自距离的类，用于编码应用程序应在其用户界面周围放置的视图内边距（view insets）和内边距（padding），分别由 [FlutterView.viewInsets] 和 [FlutterView.padding] 暴露。视图内边距（insets）和内边距（padding）最好通过 [MediaQuery.of] 读取。
 
-有关表示矩形周围距离的通用类，请参阅 [EdgeInsets] 类。
+有关表示矩形周围距离的通用类，请参阅 [EdgeInsets](https://www.yuque.com/thyname/flutter.painting/edgeinsets) 类。
 
 另请参阅：
 
-- [WidgetsBindingObserver]，在 widgets 层接收内边距变化通知的机制。
+- [WidgetsBindingObserver](https://www.yuque.com/thyname/flutter.widgets/widgetsbindingobserver)，在 widgets 层接收内边距变化通知的机制。
 - [MediaQuery.of]，访问这些值的首选机制。
-- [Scaffold]，在 material design 应用程序中自动应用内边距。
+- [Scaffold](https://www.yuque.com/thyname/flutter.material/scaffold)，在 material design 应用程序中自动应用内边距。
 
 ### left
 
@@ -1693,7 +1693,7 @@ typedef WindowPadding = ViewPadding
 
 已弃用。将在 Flutter 未来版本中移除。
 
-请使用 [ViewPadding] 代替。
+请使用 [ViewPadding](https://www.yuque.com/thyname/dart.ui/viewpadding) 代替。
 
 # ViewConstraints
 
@@ -1701,9 +1701,9 @@ typedef WindowPadding = ViewPadding
 class ViewConstraints {}
 ```
 
-[FlutterView] 的不可变布局约束。
+[FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的不可变布局约束。
 
-与 [BoxConstraints] 类似，当且仅当以下所有关系均成立时，[Size] 才满足 [ViewConstraints]：
+与 [BoxConstraints](https://www.yuque.com/thyname/flutter.rendering/boxconstraints) 类似，当且仅当以下所有关系均成立时，[Size](https://www.yuque.com/thyname/dart.ui/size) 才满足 [ViewConstraints](https://www.yuque.com/thyname/dart.ui/viewconstraints)：
 
 - [minWidth] <= [Size.width] <= [maxWidth]
 - [minHeight] <= [Size.height] <= [maxHeight]
@@ -1715,7 +1715,7 @@ class ViewConstraints {}
 
 对于每个约束，[double.infinity] 都是合法值。
 
-有关表示此类约束的通用类，请参阅 [BoxConstraints] 类。
+有关表示此类约束的通用类，请参阅 [BoxConstraints](https://www.yuque.com/thyname/flutter.rendering/boxconstraints) 类。
 
 ### ViewConstraints()
 
@@ -1823,7 +1823,7 @@ class DisplayFeature {}
 
 [bounds] 以逻辑像素为单位度量。在具有两块屏幕的设备上，坐标系以左侧或顶部屏幕的左上角为 (0,0)，并扩展以包括两块屏幕及其间的视觉空间。
 
-[type] 描述了 [DisplayFeature] 的行为，以及它是否会遮挡显示。例如，[DisplayFeatureType.hinge] 和 [DisplayFeatureType.cutout] 都会遮挡显示，而 [DisplayFeatureType.fold] 则不会。
+[type] 描述了 [DisplayFeature](https://www.yuque.com/thyname/dart.ui/displayfeature) 的行为，以及它是否会遮挡显示。例如，[DisplayFeatureType.hinge] 和 [DisplayFeatureType.cutout] 都会遮挡显示，而 [DisplayFeatureType.fold] 则不会。
 
 ![带铰链显示特征的设备](https://flutter.github.io/assets-for-api-docs/assets/hardware/display_feature_hinge.png)
 
@@ -1896,9 +1896,9 @@ String toString()
 enum DisplayFeatureType {}
 ```
 
-[DisplayFeature] 的类型，描述了 [DisplayFeature] 的行为以及它是否会遮挡显示。
+[DisplayFeature](https://www.yuque.com/thyname/dart.ui/displayfeature) 的类型，描述了 [DisplayFeature](https://www.yuque.com/thyname/dart.ui/displayfeature) 的行为以及它是否会遮挡显示。
 
-某些类型的 [DisplayFeature]，例如 [DisplayFeatureType.fold]，可以在不实际影响屏幕绘制的情况下被报告。它们对于了解显示屏的弯曲或折痕位置很有用。在这种情况下，[DisplayFeature.bounds] 的宽度可以为 0。
+某些类型的 [DisplayFeature](https://www.yuque.com/thyname/dart.ui/displayfeature)，例如 [DisplayFeatureType.fold]，可以在不实际影响屏幕绘制的情况下被报告。它们对于了解显示屏的弯曲或折痕位置很有用。在这种情况下，[DisplayFeature.bounds] 的宽度可以为 0。
 
 [DisplayFeatureType.fold] 和 [DisplayFeatureType.hinge] 类型的屏幕所形成的形状称为姿态（posture），并通过 [DisplayFeature.state] 暴露。例如，[DisplayFeatureState.postureFlat] 姿态表示屏幕形成了一个平面。
 
@@ -1908,7 +1908,7 @@ enum DisplayFeatureType {}
 
 ![带凹口显示特征的设备](https://flutter.github.io/assets-for-api-docs/assets/hardware/display_feature_cutout.png)
 
-[DisplayFeature] 类型是新出现的，Flutter 尚不识别。
+[DisplayFeature](https://www.yuque.com/thyname/dart.ui/displayfeature) 类型是新出现的，Flutter 尚不识别。
 
 柔性屏幕上没有物理间隙的折叠。
 
@@ -1961,7 +1961,7 @@ class DisplayCornerRadii {}
 DisplayCornerRadii({required double topLeft, required double topRight, required double bottomRight, required double bottomLeft})
 ```
 
-创建一个 [DisplayCornerRadii]。
+创建一个 [DisplayCornerRadii](https://www.yuque.com/thyname/dart.ui/displaycornerradii)。
 
 ### topLeft
 
@@ -2027,7 +2027,7 @@ class Locale {}
 
 另请参阅：
 
-- [PlatformDispatcher.locale]，指定系统当前选择的 [Locale]。
+- [PlatformDispatcher.locale]，指定系统当前选择的 [Locale](https://www.yuque.com/thyname/dart.ui/locale)。
 
 ### Locale()
 
@@ -2090,7 +2090,7 @@ String get languageCode
 
 另请参阅：
 
-- [Locale.fromSubtags]，描述了创建 [Locale] 对象的约定。
+- [Locale.fromSubtags]，描述了创建 [Locale](https://www.yuque.com/thyname/dart.ui/locale) 对象的约定。
 
 ### scriptCode
 
@@ -2106,7 +2106,7 @@ String? scriptCode
 
 另请参阅：
 
-- [Locale.fromSubtags]，描述了创建 [Locale] 对象的约定。
+- [Locale.fromSubtags]，描述了创建 [Locale](https://www.yuque.com/thyname/dart.ui/locale) 对象的约定。
 
 ### countryCode
 
@@ -2124,7 +2124,7 @@ String? get countryCode
 
 另请参阅：
 
-- [Locale.fromSubtags]，描述了创建 [Locale] 对象的约定。
+- [Locale.fromSubtags]，描述了创建 [Locale](https://www.yuque.com/thyname/dart.ui/locale) 对象的约定。
 
 ### operator ==()
 
@@ -2182,7 +2182,7 @@ enum DartPerformanceMode {}
 class SemanticsActionEvent {}
 ```
 
-请求对由 ID 为 [viewId] 的 [FlutterView] 所拥有、ID 为 [nodeId] 的 [SemanticsNode] 执行类型为 [type] 的 [SemanticsAction] 的事件。
+请求对由 ID 为 [viewId] 的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 所拥有、ID 为 [nodeId] 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 执行类型为 [type] 的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 的事件。
 
 由 [SemanticsBinding.performSemanticsAction] 使用。
 
@@ -2192,7 +2192,7 @@ class SemanticsActionEvent {}
 SemanticsActionEvent({required SemanticsAction type, required int viewId, required int nodeId, Object? arguments})
 ```
 
-创建一个 [SemanticsActionEvent]。
+创建一个 [SemanticsActionEvent](https://www.yuque.com/thyname/dart.ui/semanticsactionevent)。
 
 ### type
 
@@ -2208,7 +2208,7 @@ SemanticsAction type
 int viewId
 ```
 
-与 ID 为 [nodeId] 的 [SemanticsNode] 关联的 [FlutterView] 的 ID。
+与 ID 为 [nodeId] 的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 关联的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的 ID。
 
 ### nodeId
 
@@ -2216,7 +2216,7 @@ int viewId
 int nodeId
 ```
 
-要在其上执行操作的 [SemanticsNode] 的 ID。
+要在其上执行操作的 [SemanticsNode](https://www.yuque.com/thyname/flutter.semantics/semanticsnode) 的 ID。
 
 ### arguments
 
@@ -2232,7 +2232,7 @@ Object? arguments
 SemanticsActionEvent copyWith({SemanticsAction? type, int? viewId, int? nodeId, Object? arguments = _noArgumentPlaceholder})
 ```
 
-创建 [SemanticsActionEvent] 的克隆，并替换所提供的参数。
+创建 [SemanticsActionEvent](https://www.yuque.com/thyname/dart.ui/semanticsactionevent) 的克隆，并替换所提供的参数。
 
 # ViewFocusChangeCallback
 
@@ -2266,7 +2266,7 @@ ViewFocusEvent({required int viewId, required ViewFocusState state, required Vie
 int viewId
 ```
 
-发生焦点变化的 [FlutterView] 的 ID。
+发生焦点变化的 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的 ID。
 
 ### state
 
@@ -2296,7 +2296,7 @@ String toString()
 enum ViewFocusState {}
 ```
 
-表示给定 [FlutterView] 的焦点状态。
+表示给定 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的焦点状态。
 
 失去焦点时，视图的焦点状态变为 [ViewFocusState.unfocused]。
 
@@ -2309,8 +2309,8 @@ enum ViewFocusState {}
 
 另请参阅：
 
-- [ViewFocusDirection]，指定焦点方向。
-- [ViewFocusEvent]，传达 [FlutterView] 焦点变化的相关信息。
+- [ViewFocusDirection](https://www.yuque.com/thyname/dart.ui/viewfocusdirection)，指定焦点方向。
+- [ViewFocusEvent](https://www.yuque.com/thyname/dart.ui/viewfocusevent)，传达 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 焦点变化的相关信息。
 
 指定视图没有平台焦点。
 
@@ -2322,12 +2322,12 @@ enum ViewFocusState {}
 enum ViewFocusDirection {}
 ```
 
-表示焦点在 [FlutterView] 之间转移的方向。
+表示焦点在 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 之间转移的方向。
 
 另请参阅：
 
-- [ViewFocusState]，指定 [FlutterView] 的当前焦点状态。
-- [ViewFocusEvent]，传达 [FlutterView] 焦点变化的相关信息。
+- [ViewFocusState](https://www.yuque.com/thyname/dart.ui/viewfocusstate)，指定 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 的当前焦点状态。
+- [ViewFocusEvent](https://www.yuque.com/thyname/dart.ui/viewfocusevent)，传达 [FlutterView](https://www.yuque.com/thyname/dart.ui/flutterview) 焦点变化的相关信息。
 
 表示焦点转移没有方向。
 
@@ -2352,7 +2352,7 @@ class HitTestRequest {}
 另请参阅：
 
 - [PlatformDispatcher.onHitTest]，平台调用以在特定位置对视图进行命中测试的回调。
-- [HitTestResponse]，命中测试请求的结果。
+- [HitTestResponse](https://www.yuque.com/thyname/dart.ui/hittestresponse)，命中测试请求的结果。
 
 ### HitTestRequest()
 
@@ -2389,7 +2389,7 @@ class HitTestResponse {}
 另请参阅：
 
 - [PlatformDispatcher.onHitTest]，平台调用以在特定位置对视图进行命中测试的回调。
-- [HitTestRequest]，在特定位置对视图进行命中测试的请求。
+- [HitTestRequest](https://www.yuque.com/thyname/dart.ui/hittestrequest)，在特定位置对视图进行命中测试的请求。
 
 ### HitTestResponse()
 
@@ -2417,4 +2417,4 @@ bool hasPlatformView
 
 另请参阅：
 
-- [NativeHitTestTarget]，表示由平台视图支持的命中测试目标的 Flutter 框架 mixin。
+- [NativeHitTestTarget](https://www.yuque.com/thyname/flutter.gestures/nativehittesttarget)，表示由平台视图支持的命中测试目标的 Flutter 框架 mixin。

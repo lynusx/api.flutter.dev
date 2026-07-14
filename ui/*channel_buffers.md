@@ -4,7 +4,7 @@
 typedef DrainChannelCallback = Future<void> Function(ByteData? data, PlatformMessageResponseCallback callback)
 ```
 
-已弃用。请迁移至 [ChannelCallback]。
+已弃用。请迁移至 [ChannelCallback](https://www.yuque.com/thyname/dart.ui/channelcallback)。
 
 [ChannelBuffers.drain] 的 `callback` 参数的函数签名。
 
@@ -26,7 +26,7 @@ typedef ChannelCallback = void Function(ByteData? data, PlatformMessageResponseC
 
 另请参阅：
 
-- [PlatformMessageResponseCallback]，用于回复的类型。
+- [PlatformMessageResponseCallback](https://www.yuque.com/thyname/dart.ui/platformmessageresponsecallback)，用于回复的类型。
 
 # ChannelBuffers
 
@@ -38,7 +38,7 @@ class ChannelBuffers {}
 
 某个通道的消息会一直存储，直到通过 [setListener] 为该通道设置了监听器。每个通道最多只能配置一个监听器。
 
-通常，一旦在 Flutter 框架的 [BinaryMessenger] 上设置了回调，这些缓冲区就会被清空。（参见 [setListener]。）
+通常，一旦在 Flutter 框架的 [BinaryMessenger](https://www.yuque.com/thyname/flutter.services/binarymessenger) 上设置了回调，这些缓冲区就会被清空。（参见 [setListener]。）
 
 ## 通道名称
 
@@ -178,7 +178,7 @@ void handleMessage(ByteData data)
 
 此方法用于由平台消息调度器调用，将消息从插件转发至 [kControlChannelName] 通道。
 
-消息使用 [StandardMethodCodec] 格式。支持两种方法：`resize` 和 `overflow`。`resize` 方法用于更改缓冲区的大小，`overflow` 方法用于控制是否预期会发生溢出。
+消息使用 [StandardMethodCodec](https://www.yuque.com/thyname/flutter.services/standardmethodcodec) 格式。支持两种方法：`resize` 和 `overflow`。`resize` 方法用于更改缓冲区的大小，`overflow` 方法用于控制是否预期会发生溢出。
 
 ## `resize`
 
@@ -228,8 +228,8 @@ void allowOverflow(String name, bool allowed)
 ChannelBuffers channelBuffers
 ```
 
-[ChannelBuffers]，用于在引擎（Engine）和框架（Framework）之间存储消息。通常，无法投递的消息会被存储在这里，直到框架能够处理它们为止。
+[ChannelBuffers](https://www.yuque.com/thyname/dart.ui/channelbuffers)，用于在引擎（Engine）和框架（Framework）之间存储消息。通常，无法投递的消息会被存储在这里，直到框架能够处理它们为止。
 
 另请参阅：
 
-- [BinaryMessenger]，[ChannelBuffers] 通常在此处被读取。
+- [BinaryMessenger](https://www.yuque.com/thyname/flutter.services/binarymessenger)，[ChannelBuffers](https://www.yuque.com/thyname/dart.ui/channelbuffers) 通常在此处被读取。

@@ -6,7 +6,7 @@ abstract class Scene {}
 
 一个表示已合成场景的不透明对象。
 
-要创建 Scene 对象，请使用 [SceneBuilder]。
+要创建 Scene 对象，请使用 [SceneBuilder](https://www.yuque.com/thyname/dart.ui/scenebuilder)。
 
 Scene 对象可以使用 [FlutterView.render] 方法显示在屏幕上。
 
@@ -30,7 +30,7 @@ Future<Image> toImage(int width, int height)
 
 这是一个在后台线程执行的慢操作。
 
-调用者在使用完 [Image] 后必须将其释放（dispose）。如果结果会与其他方法或类共享，应使用 [Image.clone]，并且必须释放所创建的每个句柄。
+调用者在使用完 [Image](https://www.yuque.com/thyname/dart.ui/image) 后必须将其释放（dispose）。如果结果会与其他方法或类共享，应使用 [Image.clone]，并且必须释放所创建的每个句柄。
 
 ### dispose()
 
@@ -54,7 +54,7 @@ class TransformEngineLayer extends _EngineLayerWrapper {}
 
 此类的实例由 [SceneBuilder.pushTransform] 创建。
 
-{@template dart.ui.sceneBuilder.oldLayerCompatibility} [SceneBuilder] 方法中的 `oldLayer` 参数只接受由引擎创建的对象。如果传入此类的自定义实现，[SceneBuilder] 将抛出 [AssertionError]。{@endtemplate}
+{@template dart.ui.sceneBuilder.oldLayerCompatibility} [SceneBuilder](https://www.yuque.com/thyname/dart.ui/scenebuilder) 方法中的 `oldLayer` 参数只接受由引擎创建的对象。如果传入此类的自定义实现，[SceneBuilder](https://www.yuque.com/thyname/dart.ui/scenebuilder) 将抛出 [AssertionError](https://www.yuque.com/thyname/dart.core/assertionerror)。{@endtemplate}
 
 # OffsetEngineLayer
 
@@ -182,15 +182,15 @@ class ShaderMaskEngineLayer extends _EngineLayerWrapper {}
 abstract class SceneBuilder {}
 ```
 
-构建包含给定视觉内容的 [Scene]。
+构建包含给定视觉内容的 [Scene](https://www.yuque.com/thyname/dart.ui/scene)。
 
-随后可以使用 [FlutterView.render] 渲染 [Scene]。
+随后可以使用 [FlutterView.render] 渲染 [Scene](https://www.yuque.com/thyname/dart.ui/scene)。
 
-要将图形操作绘制到 [Scene] 上，首先使用 [PictureRecorder] 和 [Canvas] 创建一个 [Picture]，然后使用 [addPicture] 将其添加到场景中。
+要将图形操作绘制到 [Scene](https://www.yuque.com/thyname/dart.ui/scene) 上，首先使用 [PictureRecorder](https://www.yuque.com/thyname/dart.ui/picturerecorder) 和 [Canvas](https://www.yuque.com/thyname/dart.ui/canvas) 创建一个 [Picture](https://www.yuque.com/thyname/dart.ui/picture)，然后使用 [addPicture] 将其添加到场景中。
 
 ## 与 Flutter 框架配合使用
 
-Flutter 框架的 [RendererBinding] 提供了一个用于创建 [SceneBuilder] 对象的钩子（[RendererBinding.createSceneBuilder]），使测试能够接入场景创建逻辑。在 Flutter 框架的上下文中创建 [SceneBuilder] 时，建议调用 [RendererBinding.createSceneBuilder]，而不是直接调用 [SceneBuilder.new] 构造函数。
+Flutter 框架的 [RendererBinding](https://www.yuque.com/thyname/flutter.rendering/rendererbinding) 提供了一个用于创建 [SceneBuilder](https://www.yuque.com/thyname/dart.ui/scenebuilder) 对象的钩子（[RendererBinding.createSceneBuilder]），使测试能够接入场景创建逻辑。在 Flutter 框架的上下文中创建 [SceneBuilder](https://www.yuque.com/thyname/dart.ui/scenebuilder) 时，建议调用 [RendererBinding.createSceneBuilder]，而不是直接调用 [SceneBuilder.new] 构造函数。
 
 在不使用 Flutter 框架绑定、直接使用 `dart:ui` API 的情况下（如不使用 `flutter_test` 框架等），此建议不适用。
 
@@ -250,7 +250,7 @@ ClipRectEngineLayer pushClipRect(Rect rect, {Clip clipBehavior = Clip.antiAlias,
 
 {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
 
-关于操作栈的详细信息，请参见 [pop]；关于不同的裁剪模式，请参见 [Clip]。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
+关于操作栈的详细信息，请参见 [pop]；关于不同的裁剪模式，请参见 [Clip](https://www.yuque.com/thyname/dart.ui/clip)。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
 
 ### pushClipRRect()
 
@@ -266,7 +266,7 @@ ClipRRectEngineLayer pushClipRRect(RRect rrect, {Clip clipBehavior = Clip.antiAl
 
 {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
 
-关于操作栈的详细信息，请参见 [pop]；关于不同的裁剪模式，请参见 [Clip]。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
+关于操作栈的详细信息，请参见 [pop]；关于不同的裁剪模式，请参见 [Clip](https://www.yuque.com/thyname/dart.ui/clip)。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
 
 ### pushClipRSuperellipse()
 
@@ -282,7 +282,7 @@ ClipRSuperellipseEngineLayer pushClipRSuperellipse(RSuperellipse rsuperellipse, 
 
 {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
 
-关于操作栈的详细信息，请参见 [pop]；关于不同的裁剪模式，请参见 [Clip]。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
+关于操作栈的详细信息，请参见 [pop]；关于不同的裁剪模式，请参见 [Clip](https://www.yuque.com/thyname/dart.ui/clip)。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
 
 ### pushClipPath()
 
@@ -298,7 +298,7 @@ ClipPathEngineLayer pushClipPath(Path path, {Clip clipBehavior = Clip.antiAlias,
 
 {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
 
-关于操作栈的详细信息，请参见 [pop]。关于不同的裁剪模式，请参见 [Clip]。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
+关于操作栈的详细信息，请参见 [pop]。关于不同的裁剪模式，请参见 [Clip](https://www.yuque.com/thyname/dart.ui/clip)。默认情况下，裁剪会进行抗锯齿处理（clip = [Clip.antiAlias]）。
 
 ### pushOpacity()
 
@@ -404,7 +404,7 @@ void addRetained(EngineLayer retainedLayer)
 
 保留图层子树中的所有引擎层都会自动追加到当前的引擎层树中。
 
-因此，在实现 Flutter 框架渲染层中定义的 [Layer] 概念的子类时，一旦调用了此方法，就无需再为其子图层调用 [Layer.addToScene]。
+因此，在实现 Flutter 框架渲染层中定义的 [Layer](https://www.yuque.com/thyname/flutter.rendering/layer) 概念的子类时，一旦调用了此方法，就无需再为其子图层调用 [Layer.addToScene]。
 
 {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
 
@@ -425,9 +425,9 @@ enabledOptions 是一个位域，定义了以下比特位：
 - 0x04：displayEngineStatistics —— 显示 UI 线程帧耗时
 - 0x08：visualizeEngineStatistics —— 以图表形式显示 UI 线程帧耗时 将 enabledOptions 设置为 0x0F 可启用当前定义的所有功能。
 
-“UI 线程”是指执行主 Dart isolate（即可以调用 [FlutterView.render] 的 isolate）全部代码的线程。UI 线程帧耗时是指执行 [PlatformDispatcher.onBeginFrame] 回调所花费的总时间。“光栅线程”是指（在 CPU 上运行的）线程，它随后处理 Dart 代码提供的 [Scene]，将其转换为 GPU 命令并发送给 GPU。
+“UI 线程”是指执行主 Dart isolate（即可以调用 [FlutterView.render] 的 isolate）全部代码的线程。UI 线程帧耗时是指执行 [PlatformDispatcher.onBeginFrame] 回调所花费的总时间。“光栅线程”是指（在 CPU 上运行的）线程，它随后处理 Dart 代码提供的 [Scene](https://www.yuque.com/thyname/dart.ui/scene)，将其转换为 GPU 命令并发送给 GPU。
 
-另请参见渲染库中的 [PerformanceOverlayOption] 枚举，以了解更多详情。
+另请参见渲染库中的 [PerformanceOverlayOption](https://www.yuque.com/thyname/flutter.rendering/performanceoverlayoption) 枚举，以了解更多详情。
 
 ### addPicture()
 
@@ -435,7 +435,7 @@ enabledOptions 是一个位域，定义了以下比特位：
 void addPicture(Offset offset, Picture picture, {bool isComplexHint = false, bool willChangeHint = false})
 ```
 
-向场景中添加一个 [Picture]。
+向场景中添加一个 [Picture](https://www.yuque.com/thyname/dart.ui/picture)。
 
 该图片会在给定的 `offset` 处进行光栅化。
 
@@ -481,6 +481,6 @@ Scene build()
 
 完成场景的构建。
 
-返回一个包含已添加到此场景构建器中的对象的 [Scene]。随后可以使用 [FlutterView.render] 将该 [Scene] 显示在屏幕上。
+返回一个包含已添加到此场景构建器中的对象的 [Scene](https://www.yuque.com/thyname/dart.ui/scene)。随后可以使用 [FlutterView.render] 将该 [Scene](https://www.yuque.com/thyname/dart.ui/scene) 显示在屏幕上。
 
 调用此函数后，场景构建器对象将失效，无法再被使用。

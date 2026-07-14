@@ -4,7 +4,7 @@
 abstract class OffsetBase {}
 ```
 
-[Size] 和 [Offset] 的基类，这两者都是用于以二维轴对齐向量描述距离的方式。
+[Size](https://www.yuque.com/thyname/dart.ui/size) 和 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 的基类，这两者都是用于以二维轴对齐向量描述距离的方式。
 
 ### OffsetBase()
 
@@ -48,7 +48,7 @@ bool get isFinite
 bool operator <(OffsetBase other)
 ```
 
-小于运算符。将一个 [Offset] 或 [Size] 与另一个 [Offset] 或 [Size] 进行比较，如果左操作数的水平值和垂直值分别都小于右操作数的水平值和垂直值，则返回 true。否则返回 false。
+小于运算符。将一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 与另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 进行比较，如果左操作数的水平值和垂直值分别都小于右操作数的水平值和垂直值，则返回 true。否则返回 false。
 
 这是一种偏序关系。两个值有可能既不小于、不大于，也不等于另一个值。
 
@@ -58,7 +58,7 @@ bool operator <(OffsetBase other)
 bool operator <=(OffsetBase other)
 ```
 
-小于等于运算符。将一个 [Offset] 或 [Size] 与另一个 [Offset] 或 [Size] 进行比较，如果左操作数的水平值和垂直值分别都小于或等于右操作数的水平值和垂直值，则返回 true。否则返回 false。
+小于等于运算符。将一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 与另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 进行比较，如果左操作数的水平值和垂直值分别都小于或等于右操作数的水平值和垂直值，则返回 true。否则返回 false。
 
 这是一种偏序关系。两个值有可能既不小于、不大于，也不等于另一个值。
 
@@ -68,7 +68,7 @@ bool operator <=(OffsetBase other)
 bool operator >(OffsetBase other)
 ```
 
-大于运算符。将一个 [Offset] 或 [Size] 与另一个 [Offset] 或 [Size] 进行比较，如果左操作数的水平值和垂直值分别都大于右操作数的水平值和垂直值，则返回 true。否则返回 false。
+大于运算符。将一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 与另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 进行比较，如果左操作数的水平值和垂直值分别都大于右操作数的水平值和垂直值，则返回 true。否则返回 false。
 
 这是一种偏序关系。两个值有可能既不小于、不大于，也不等于另一个值。
 
@@ -78,7 +78,7 @@ bool operator >(OffsetBase other)
 bool operator >=(OffsetBase other)
 ```
 
-大于等于运算符。将一个 [Offset] 或 [Size] 与另一个 [Offset] 或 [Size] 进行比较，如果左操作数的水平值和垂直值分别都大于或等于右操作数的水平值和垂直值，则返回 true。否则返回 false。
+大于等于运算符。将一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 与另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 进行比较，如果左操作数的水平值和垂直值分别都大于或等于右操作数的水平值和垂直值，则返回 true。否则返回 false。
 
 这是一种偏序关系。两个值有可能既不小于、不大于，也不等于另一个值。
 
@@ -88,7 +88,7 @@ bool operator >=(OffsetBase other)
 bool operator ==(Object other)
 ```
 
-相等运算符。将一个 [Offset] 或 [Size] 与另一个 [Offset] 或 [Size] 进行比较，如果左操作数的水平值和垂直值分别与右操作数的水平值和垂直值相等，则返回 true。否则返回 false。
+相等运算符。将一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 与另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 或 [Size](https://www.yuque.com/thyname/dart.ui/size) 进行比较，如果左操作数的水平值和垂直值分别与右操作数的水平值和垂直值相等，则返回 true。否则返回 false。
 
 ### hashCode
 
@@ -112,15 +112,15 @@ class Offset extends OffsetBase {}
 
 通常来说，Offset 可以用两种方式解释：
 
-1.  表示笛卡尔空间中某一点相对于单独维护的原点的位置。例如，在 [RenderBox] 协议中，子组件的左上角位置通常表示为相对于父级盒子左上角的一个 [Offset]。
+1.  表示笛卡尔空间中某一点相对于单独维护的原点的位置。例如，在 [RenderBox](https://www.yuque.com/thyname/flutter.rendering/renderbox) 协议中，子组件的左上角位置通常表示为相对于父级盒子左上角的一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset)。
 
-2.  作为可应用于坐标的向量。例如，在绘制 [RenderObject] 时，会向父级传递一个相对于屏幕原点的 [Offset]，父级可将其与子组件的偏移量相加，从而得到从屏幕原点到各子组件的 [Offset]。
+2.  作为可应用于坐标的向量。例如，在绘制 [RenderObject](https://www.yuque.com/thyname/flutter.rendering/renderobject) 时，会向父级传递一个相对于屏幕原点的 [Offset](https://www.yuque.com/thyname/dart.ui/offset)，父级可将其与子组件的偏移量相加，从而得到从屏幕原点到各子组件的 [Offset](https://www.yuque.com/thyname/dart.ui/offset)。
 
-由于同一个特定的 [Offset] 可能在某一时刻按一种含义解释，而在之后的时刻按另一种含义解释，因此这两种含义使用同一个类来表示。
+由于同一个特定的 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 可能在某一时刻按一种含义解释，而在之后的时刻按另一种含义解释，因此这两种含义使用同一个类来表示。
 
 另请参阅：
 
-- [Size]，表示描述矩形尺寸的向量。
+- [Size](https://www.yuque.com/thyname/dart.ui/size)，表示描述矩形尺寸的向量。
 
 ### Offset()
 
@@ -170,7 +170,7 @@ double get distance
 
 偏移量的大小（模）。
 
-如果需要用此值与另一个 [Offset] 的 distance 进行比较，建议改用 [distanceSquared]，因为它的计算成本更低。
+如果需要用此值与另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 的 distance 进行比较，建议改用 [distanceSquared]，因为它的计算成本更低。
 
 ### distanceSquared
 
@@ -262,7 +262,7 @@ Offset translate(double translateX, double translateY)
 
 返回一个新的偏移量，将 translateX 加到 x 分量上，将 translateY 加到 y 分量上。
 
-如果参数来自另一个 [Offset]，建议改用 `+` 或 `-` 运算符：
+如果参数来自另一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset)，建议改用 `+` 或 `-` 运算符：
 
 ```dart
 Offset a = const Offset(10.0, 10.0);
@@ -281,7 +281,7 @@ Offset operator -()
 
 返回坐标取负后的偏移量。
 
-如果该 [Offset] 表示平面上的一个箭头，此运算符返回指向相反方向的相同箭头。
+如果该 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 表示平面上的一个箭头，此运算符返回指向相反方向的相同箭头。
 
 ### operator -()
 
@@ -359,7 +359,7 @@ Rect operator &(Size other)
 
 矩形构造运算符。
 
-将一个 [Offset] 与一个 [Size] 组合成一个 [Rect]，其左上角坐标为将左操作数（此偏移量）加到原点得到的点，其尺寸为右操作数。
+将一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 与一个 [Size](https://www.yuque.com/thyname/dart.ui/size) 组合成一个 [Rect](https://www.yuque.com/thyname/dart.ui/rect)，其左上角坐标为将左操作数（此偏移量）加到原点得到的点，其尺寸为右操作数。
 
 ```dart
 Rect myRect = Offset.zero & const Size(100.0, 100.0);
@@ -378,7 +378,7 @@ Offset? lerp(Offset? a, Offset? b, double t)
 
 `t` 参数表示在时间线上的位置：0.0 表示插值尚未开始，返回 `a`（或与 `a` 等效的值）；1.0 表示插值已完成，返回 `b`（或与 `b` 等效的值）；介于两者之间的值表示插值位于 `a` 与 `b` 之间时间线上的相应位置。插值可外推到 0.0 和 1.0 之外，因此负值和大于 1.0 的值都是有效的（这类值很容易通过诸如 [Curves.elasticInOut] 之类的曲线生成）。
 
-`t` 的值通常从 [Animation<double>]（例如 [AnimationController]）获取。
+`t` 的值通常从 [Animation<double>]（例如 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)）获取。
 
 ### operator ==()
 
@@ -408,7 +408,7 @@ class Size extends OffsetBase {}
 
 保存一个二维浮点尺寸。
 
-可以将其视为从原点出发的一个 [Offset]。
+可以将其视为从原点出发的一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset)。
 
 ### Size()
 
@@ -416,7 +416,7 @@ class Size extends OffsetBase {}
 Size(double width, double height)
 ```
 
-使用给定的 [width] 和 [height] 创建一个 [Size]。
+使用给定的 [width] 和 [height] 创建一个 [Size](https://www.yuque.com/thyname/dart.ui/size)。
 
 ### Size.copy()
 
@@ -424,7 +424,7 @@ Size(double width, double height)
 Size.copy(Size source)
 ```
 
-创建一个与另一个 [Size] 值相同的实例。
+创建一个与另一个 [Size](https://www.yuque.com/thyname/dart.ui/size) 值相同的实例。
 
 ### Size.square()
 
@@ -432,7 +432,7 @@ Size.copy(Size source)
 Size.square(double dimension)
 ```
 
-创建一个正方形 [Size]，其 [width] 和 [height] 均为给定的 dimension。
+创建一个正方形 [Size](https://www.yuque.com/thyname/dart.ui/size)，其 [width] 和 [height] 均为给定的 dimension。
 
 另请参阅：
 
@@ -444,7 +444,7 @@ Size.square(double dimension)
 Size.fromWidth(double width)
 ```
 
-创建一个具有给定 [width] 且 [height] 为无穷大的 [Size]。
+创建一个具有给定 [width] 且 [height] 为无穷大的 [Size](https://www.yuque.com/thyname/dart.ui/size)。
 
 ### Size.fromHeight()
 
@@ -452,7 +452,7 @@ Size.fromWidth(double width)
 Size.fromHeight(double height)
 ```
 
-创建一个具有给定 [height] 且 [width] 为无穷大的 [Size]。
+创建一个具有给定 [height] 且 [width] 为无穷大的 [Size](https://www.yuque.com/thyname/dart.ui/size)。
 
 ### Size.fromRadius()
 
@@ -460,7 +460,7 @@ Size.fromHeight(double height)
 Size.fromRadius(double radius)
 ```
 
-创建一个正方形 [Size]，其 [width] 和 [height] 均为给定 dimension 的两倍。
+创建一个正方形 [Size](https://www.yuque.com/thyname/dart.ui/size)，其 [width] 和 [height] 均为给定 dimension 的两倍。
 
 这是一个包含给定半径的圆的正方形。
 
@@ -498,8 +498,8 @@ double get aspectRatio
 
 另请参阅：
 
-- [AspectRatio]，一个用于为子组件指定特定宽高比的组件。
-- [FittedBox]，一个组件，在大多数模式下会尝试在改变子组件尺寸的同时保持其宽高比。
+- [AspectRatio](https://www.yuque.com/thyname/flutter.widgets/aspectratio)，一个用于为子组件指定特定宽高比的组件。
+- [FittedBox](https://www.yuque.com/thyname/flutter.widgets/fittedbox)，一个组件，在大多数模式下会尝试在改变子组件尺寸的同时保持其宽高比。
 
 ### zero
 
@@ -538,11 +538,11 @@ bool get isEmpty
 OffsetBase operator -(OffsetBase other)
 ```
 
-[Size] 的二元减法运算符。
+[Size](https://www.yuque.com/thyname/dart.ui/size) 的二元减法运算符。
 
-用一个 [Size] 减去另一个 [Size]，返回描述左操作数比右操作数大多少的 [Offset]。将得到的 [Offset] 与作为右操作数的 [Size] 相加，会得到一个等于作为左操作数的 [Size] 的结果。（即，如果 `sizeA - sizeB -> offsetA`，那么 `offsetA + sizeB -> sizeA`）
+用一个 [Size](https://www.yuque.com/thyname/dart.ui/size) 减去另一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，返回描述左操作数比右操作数大多少的 [Offset](https://www.yuque.com/thyname/dart.ui/offset)。将得到的 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 与作为右操作数的 [Size](https://www.yuque.com/thyname/dart.ui/size) 相加，会得到一个等于作为左操作数的 [Size](https://www.yuque.com/thyname/dart.ui/size) 的结果。（即，如果 `sizeA - sizeB -> offsetA`，那么 `offsetA + sizeB -> sizeA`）
 
-用一个 [Offset] 减去一个 [Size]，返回一个比 [Size] 操作数小的 [Size]，差值由 [Offset] 操作数给出。换句话说，返回的 [Size] 的 [width] 为左操作数的 [width] 减去右操作数的 [Offset.dx] 维度，[height] 为左操作数的 [height] 减去右操作数的 [Offset.dy] 维度。
+用一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 减去一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，返回一个比 [Size](https://www.yuque.com/thyname/dart.ui/size) 操作数小的 [Size](https://www.yuque.com/thyname/dart.ui/size)，差值由 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 操作数给出。换句话说，返回的 [Size](https://www.yuque.com/thyname/dart.ui/size) 的 [width] 为左操作数的 [width] 减去右操作数的 [Offset.dx] 维度，[height] 为左操作数的 [height] 减去右操作数的 [Offset.dy] 维度。
 
 ### operator +()
 
@@ -550,9 +550,9 @@ OffsetBase operator -(OffsetBase other)
 Size operator +(Offset other)
 ```
 
-将 [Offset] 加到 [Size] 上的二元加法运算符。
+将 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 加到 [Size](https://www.yuque.com/thyname/dart.ui/size) 上的二元加法运算符。
 
-返回一个 [Size]，其 [width] 为左操作数（一个 [Size]）的 [width] 与右操作数（一个 [Offset]）的 [Offset.dx] 维度之和，其 [height] 为左操作数的 [height] 与右操作数的 [Offset.dy] 维度之和。
+返回一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，其 [width] 为左操作数（一个 [Size](https://www.yuque.com/thyname/dart.ui/size)）的 [width] 与右操作数（一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset)）的 [Offset.dx] 维度之和，其 [height] 为左操作数的 [height] 与右操作数的 [Offset.dy] 维度之和。
 
 ### operator \*()
 
@@ -562,7 +562,7 @@ Size operator *(double operand)
 
 乘法运算符。
 
-返回一个 [Size]，其各维度为左操作数（一个 [Size]）的维度乘以标量右操作数（一个 [double]）。
+返回一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，其各维度为左操作数（一个 [Size](https://www.yuque.com/thyname/dart.ui/size)）的维度乘以标量右操作数（一个 [double](https://www.yuque.com/thyname/dart.core/double)）。
 
 ### operator /()
 
@@ -572,7 +572,7 @@ Size operator /(double operand)
 
 除法运算符。
 
-返回一个 [Size]，其各维度为左操作数（一个 [Size]）的维度除以标量右操作数（一个 [double]）。
+返回一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，其各维度为左操作数（一个 [Size](https://www.yuque.com/thyname/dart.ui/size)）的维度除以标量右操作数（一个 [double](https://www.yuque.com/thyname/dart.core/double)）。
 
 ### operator ~/()
 
@@ -582,7 +582,7 @@ Size operator ~/(double operand)
 
 整除（向零取整）运算符。
 
-返回一个 [Size]，其各维度为左操作数（一个 [Size]）的维度除以标量右操作数（一个 [double]）并向零方向取整后的结果。
+返回一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，其各维度为左操作数（一个 [Size](https://www.yuque.com/thyname/dart.ui/size)）的维度除以标量右操作数（一个 [double](https://www.yuque.com/thyname/dart.core/double)）并向零方向取整后的结果。
 
 ### operator %()
 
@@ -592,7 +592,7 @@ Size operator %(double operand)
 
 取模（求余）运算符。
 
-返回一个 [Size]，其各维度为左操作数（一个 [Size]）除以标量右操作数（一个 [double]）的余数。
+返回一个 [Size](https://www.yuque.com/thyname/dart.ui/size)，其各维度为左操作数（一个 [Size](https://www.yuque.com/thyname/dart.ui/size)）除以标量右操作数（一个 [double](https://www.yuque.com/thyname/dart.core/double)）的余数。
 
 ### shortestSide
 
@@ -616,7 +616,7 @@ double get longestSide
 Offset topLeft(Offset origin)
 ```
 
-由给定的 [Offset]（视为左上角）和此 [Size] 所描述的矩形中，顶边与左边交点的偏移量。
+由给定的 [Offset](https://www.yuque.com/thyname/dart.ui/offset)（视为左上角）和此 [Size](https://www.yuque.com/thyname/dart.ui/size) 所描述的矩形中，顶边与左边交点的偏移量。
 
 另请参阅 [Rect.topLeft]。
 
@@ -716,7 +716,7 @@ bool contains(Offset offset)
 Size get flipped
 ```
 
-一个 [width] 和 [height] 互换后的 [Size]。
+一个 [width] 和 [height] 互换后的 [Size](https://www.yuque.com/thyname/dart.ui/size)。
 
 ### lerp()
 
@@ -730,7 +730,7 @@ Size? lerp(Size? a, Size? b, double t)
 
 `t` 参数表示在时间线上的位置：0.0 表示插值尚未开始，返回 `a`（或与 `a` 等效的值）；1.0 表示插值已完成，返回 `b`（或与 `b` 等效的值）；介于两者之间的值表示插值位于 `a` 与 `b` 之间时间线上的相应位置。插值可外推到 0.0 和 1.0 之外，因此负值和大于 1.0 的值都是有效的（这类值很容易通过诸如 [Curves.elasticInOut] 之类的曲线生成）。
 
-`t` 的值通常从 [Animation<double>]（例如 [AnimationController]）获取。
+`t` 的值通常从 [Animation<double>]（例如 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)）获取。
 
 ### operator ==()
 
@@ -760,7 +760,7 @@ class Rect {}
 
 一个不可变的二维轴对齐浮点矩形，其坐标相对于给定的原点。
 
-可以使用 Rect 的某个构造函数创建它，也可以使用 `&` 运算符从 [Offset] 和 [Size] 创建：
+可以使用 Rect 的某个构造函数创建它，也可以使用 `&` 运算符从 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 和 [Size](https://www.yuque.com/thyname/dart.ui/size) 创建：
 
 ```dart
 Rect myRect = const Offset(1.0, 2.0) & const Size(3.0, 4.0);
@@ -784,7 +784,7 @@ Rect.fromLTWH(double left, double top, double width, double height)
 
 根据矩形的左边、顶边、宽度和高度构造矩形。
 
-要从一个 [Offset] 和一个 [Size] 构造 [Rect]，可以使用矩形构造运算符 `&`。参见 [Offset.&]。
+要从一个 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 和一个 [Size](https://www.yuque.com/thyname/dart.ui/size) 构造 [Rect](https://www.yuque.com/thyname/dart.ui/rect)，可以使用矩形构造运算符 `&`。参见 [Offset.&]。
 
 ![](https://flutter.github.io/assets-for-api-docs/assets/dart-ui/rect_from_ltwh.png#gh-light-mode-only) ![](https://flutter.github.io/assets-for-api-docs/assets/dart-ui/rect_from_ltwh_dark.png#gh-dark-mode-only)
 
@@ -936,7 +936,7 @@ Rect shift(Offset offset)
 
 返回一个按给定偏移量平移后的新矩形。
 
-若要按单独的 x 和 y 分量而非按 [Offset] 平移矩形，可考虑使用 [translate]。
+若要按单独的 x 和 y 分量而非按 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 平移矩形，可考虑使用 [translate]。
 
 ### translate()
 
@@ -946,7 +946,7 @@ Rect translate(double translateX, double translateY)
 
 返回一个新矩形，其 x 分量加上 translateX，y 分量加上 translateY。
 
-若要按 [Offset] 而非单独的 x、y 分量平移矩形，可考虑使用 [shift]。
+若要按 [Offset](https://www.yuque.com/thyname/dart.ui/offset) 而非单独的 x、y 分量平移矩形，可考虑使用 [shift]。
 
 ### inflate()
 
@@ -1116,7 +1116,7 @@ Rect? lerp(Rect? a, Rect? b, double t)
 
 `t` 参数表示在时间线上的位置：0.0 表示插值尚未开始，返回 `a`（或与 `a` 等效的值）；1.0 表示插值已完成，返回 `b`（或与 `b` 等效的值）；介于两者之间的值表示插值位于 `a` 与 `b` 之间时间线上的相应位置。插值可外推到 0.0 和 1.0 之外，因此负值和大于 1.0 的值都是有效的（这类值很容易通过诸如 [Curves.elasticInOut] 之类的曲线生成）。
 
-`t` 的值通常从 [Animation<double>]（例如 [AnimationController]）获取。
+`t` 的值通常从 [Animation<double>]（例如 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)）获取。
 
 ### operator ==()
 
@@ -1188,7 +1188,7 @@ Radius zero
 
 [x] 和 [y] 值均为零的半径。
 
-可将 [Radius.zero] 与 [RRect] 或 [RSuperellipse] 搭配使用，以得到直角边角。
+可将 [Radius.zero] 与 [RRect](https://www.yuque.com/thyname/dart.ui/rrect) 或 [RSuperellipse](https://www.yuque.com/thyname/dart.ui/rsuperellipse) 搭配使用，以得到直角边角。
 
 ### clamp()
 
@@ -1196,7 +1196,7 @@ Radius zero
 Radius clamp({Radius? minimum, Radius? maximum})
 ```
 
-返回此 [Radius] 的值在给定的最小和最大 [Radius] 值范围内进行限制后的结果。
+返回此 [Radius](https://www.yuque.com/thyname/dart.ui/radius) 的值在给定的最小和最大 [Radius](https://www.yuque.com/thyname/dart.ui/radius) 值范围内进行限制后的结果。
 
 `min` 值默认为 `Radius.circular(-double.infinity)`，`max` 值默认为 `Radius.circular(double.infinity)`。
 
@@ -1206,7 +1206,7 @@ Radius clamp({Radius? minimum, Radius? maximum})
 Radius clampValues({double? minimumX, double? minimumY, double? maximumX, double? maximumY})
 ```
 
-返回此 [Radius] 的值在各维度上按给定的最小值和最大值进行限制后的结果
+返回此 [Radius](https://www.yuque.com/thyname/dart.ui/radius) 的值在各维度上按给定的最小值和最大值进行限制后的结果
 
 `minimumX` 和 `minimumY` 默认为 `-double.infinity`，`maximumX` 和 `maximumY` 默认为 `double.infinity`。
 
@@ -1294,7 +1294,7 @@ Radius? lerp(Radius? a, Radius? b, double t)
 
 `t` 参数表示在时间线上的位置：0.0 表示插值尚未开始，返回 `a`（或与 `a` 等效的值）；1.0 表示插值已完成，返回 `b`（或与 `b` 等效的值）；介于两者之间的值表示插值位于 `a` 与 `b` 之间时间线上的相应位置。插值可外推到 0.0 和 1.0 之外，因此负值和大于 1.0 的值都是有效的（这类值很容易通过诸如 [Curves.elasticInOut] 之类的曲线生成）。
 
-`t` 的值通常从 [Animation<double>]（例如 [AnimationController]）获取。
+`t` 的值通常从 [Animation<double>]（例如 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)）获取。
 
 ### operator ==()
 
@@ -1398,7 +1398,7 @@ bool contains(Offset point)
 
 由给定偏移量（假定相对于原点）指定的点是否位于此圆角矩形内部。
 
-此方法可能会分配（并缓存）一个具有规范化半径的对象副本，且仅在特定 [RRect] 实例首次调用此方法时进行。使用此方法时，建议复用现有的 [RRect]，而不是每次都重新创建对象。
+此方法可能会分配（并缓存）一个具有规范化半径的对象副本，且仅在特定 [RRect](https://www.yuque.com/thyname/dart.ui/rrect) 实例首次调用此方法时进行。使用此方法时，建议复用现有的 [RRect](https://www.yuque.com/thyname/dart.ui/rrect)，而不是每次都重新创建对象。
 
 ### lerp()
 
@@ -1412,7 +1412,7 @@ RRect? lerp(RRect? a, RRect? b, double t)
 
 `t` 参数表示在时间线上的位置：0.0 表示插值尚未开始，返回 `a`（或与 `a` 等效的值）；1.0 表示插值已完成，返回 `b`（或与 `b` 等效的值）；介于两者之间的值表示插值位于 `a` 与 `b` 之间时间线上的相应位置。插值可外推到 0.0 和 1.0 之外，因此负值和大于 1.0 的值都是有效的（这类值很容易通过诸如 [Curves.elasticInOut] 之类的曲线生成）。
 
-`t` 的值通常从 [Animation<double>]（例如 [AnimationController]）获取。
+`t` 的值通常从 [Animation<double>]（例如 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)）获取。
 
 ### toString()
 
@@ -1430,7 +1430,7 @@ class RSuperellipse extends _RRectLike<RSuperellipse> {}
 
 圆角超椭圆（不要与标准超椭圆混淆）是一种通过将超椭圆的四个弯曲圆角替换为圆弧而形成的形状。（标准）超椭圆遵循公式 x^n + y^n = a^n，虽然 n > 2 会使其具有圆角，但这些圆角往往过于尖锐和明显。用圆弧替换它们能使形状显得更柔和、更自然。
 
-从视觉上看，圆角超椭圆与常见的圆角矩形（[RRect]）相似，但直边与圆角之间的过渡更加平滑。它与 SwiftUI 中采用 `.continuous` 圆角样式的 `RoundedRectangle` 形状非常接近。
+从视觉上看，圆角超椭圆与常见的圆角矩形（[RRect](https://www.yuque.com/thyname/dart.ui/rrect)）相似，但直边与圆角之间的过渡更加平滑。它与 SwiftUI 中采用 `.continuous` 圆角样式的 `RoundedRectangle` 形状非常接近。
 
 ### RSuperellipse.fromLTRBXY()
 
@@ -1520,7 +1520,7 @@ RSuperellipse? lerp(RSuperellipse? a, RSuperellipse? b, double t)
 
 `t` 参数表示在时间线上的位置：0.0 表示插值尚未开始，返回 `a`（或与 `a` 等效的值）；1.0 表示插值已完成，返回 `b`（或与 `b` 等效的值）；介于两者之间的值表示插值位于 `a` 与 `b` 之间时间线上的相应位置。插值可外推到 0.0 和 1.0 之外，因此负值和大于 1.0 的值都是有效的（这类值很容易通过诸如 [Curves.elasticInOut] 之类的曲线生成）。
 
-`t` 的值通常从 [Animation<double>]（例如 [AnimationController]）获取。
+`t` 的值通常从 [Animation<double>]（例如 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)）获取。
 
 ### toString()
 
@@ -1546,7 +1546,7 @@ RSTransform(double scos, double ssin, double tx, double ty)
 
 创建一个 RSTransform。
 
-一个 [RSTransform] 表示平移、绕特定点的旋转与缩放系数的组合。
+一个 [RSTransform](https://www.yuque.com/thyname/dart.ui/rstransform) 表示平移、绕特定点的旋转与缩放系数的组合。
 
 第一个参数 `scos` 是旋转角的余弦值乘以缩放系数。
 
@@ -1574,7 +1574,7 @@ RSTransform.fromComponents({required double rotation, required double scale, req
 
 `translateX` 和 `translateY` 参数给出平移偏移量的坐标。
 
-此构造函数计算出 [RSTransform.new] 构造函数所需的参数，然后委托该构造函数实际创建对象。如果需要创建多个 [RSTransform] 对象，并且有办法将旋转的正弦和余弦计算（每次调用此构造函数时都会计算）提取出来并在多个 [RSTransform] 对象间复用，那么直接使用更直接的 [RSTransform.new] 构造函数可能效率更高。
+此构造函数计算出 [RSTransform.new] 构造函数所需的参数，然后委托该构造函数实际创建对象。如果需要创建多个 [RSTransform](https://www.yuque.com/thyname/dart.ui/rstransform) 对象，并且有办法将旋转的正弦和余弦计算（每次调用此构造函数时都会计算）提取出来并在多个 [RSTransform](https://www.yuque.com/thyname/dart.ui/rstransform) 对象间复用，那么直接使用更直接的 [RSTransform.new] 构造函数可能效率更高。
 
 ### scos
 

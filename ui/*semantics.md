@@ -88,7 +88,7 @@ SemanticsAction scrollToOffset
 
 请求将可滚动容器滚动到给定的滚动偏移量。
 
-此 [SemanticsAction] 的负载是一个 flutter 标准编码的 [Float64List]，长度为 2，包含接收该操作的可滚动容器应滚动到的目标水平和垂直偏移量（以逻辑像素为单位）。
+此 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 的负载是一个 flutter 标准编码的 [Float64List](https://www.yuque.com/thyname/dart.typed_data/float64list)，长度为 2，包含接收该操作的可滚动容器应滚动到的目标水平和垂直偏移量（以逻辑像素为单位）。
 
 此操作用于 iOS 完全键盘访问功能，以显示当前在视口中不可见的内容。
 
@@ -240,7 +240,7 @@ SemanticsAction dismiss
 
 请求应关闭该节点。
 
-例如，[SnackBar] 可能具有关闭操作，用于向用户表明该消息在不再相关后可以被移除。在 Android 上（使用 TalkBack），聚焦该节点时会朗读特殊提示文本，且本地上下文菜单中会提供自定义操作。在 iOS 上（使用 VoiceOver），用户可以执行标准手势将其关闭。
+例如，[SnackBar](https://www.yuque.com/thyname/flutter.material/snackbar) 可能具有关闭操作，用于向用户表明该消息在不再相关后可以被移除。在 Android 上（使用 TalkBack），聚焦该节点时会朗读特殊提示文本，且本地上下文菜单中会提供自定义操作。在 iOS 上（使用 VoiceOver），用户可以执行标准手势将其关闭。
 
 ### moveCursorForwardByWord
 
@@ -384,23 +384,23 @@ enum SemanticsRole {}
 
 用于在内容间拖动的控件。
 
-例如，[ReorderableList] 的拖动手柄。
+例如，[ReorderableList](https://www.yuque.com/thyname/flutter.widgets/reorderablelist) 的拖动手柄。
 
 点击时用于循环切换内容的控件。
 
-例如，[CalendarDatePicker] 的上一月/下一月按钮。
+例如，[CalendarDatePicker](https://www.yuque.com/thyname/flutter.material/calendardatepicker) 的上一月/下一月按钮。
 
 带有下拉列表框的输入字段。
 
-例如，[DropdownMenu]。
+例如，[DropdownMenu](https://www.yuque.com/thyname/flutter.material/dropdownmenu)。
 
 [menu] 的一种呈现方式，通常始终可见，且通常水平排列显示。
 
-例如，[MenuBar]。
+例如，[MenuBar](https://www.yuque.com/thyname/flutter.material/menubar)。
 
 一个始终可见的控件列表，或可打开和关闭的 Widget。
 
-例如，[MenuAnchor] 或 [DropdownButton]。
+例如，[MenuAnchor](https://www.yuque.com/thyname/flutter.material/menuanchor) 或 [DropdownButton](https://www.yuque.com/thyname/flutter.material/dropdownbutton)。
 
 由 [menu] 或 [menuBar] 创建的下拉菜单中的项。
 
@@ -423,7 +423,7 @@ enum SemanticsRole {}
 
 以垂直或水平布局显示多个 [listItem] 的容器。
 
-例如，[LisView] 或 [Column]。
+例如，[LisView] 或 [Column](https://www.yuque.com/thyname/flutter.widgets/column)。
 
 [list] 中的项。
 
@@ -433,15 +433,15 @@ enum SemanticsRole {}
 
 旋转以指示应用程序正忙的图形对象。
 
-例如，[CircularProgressIndicator]。
+例如，[CircularProgressIndicator](https://www.yuque.com/thyname/flutter.material/circularprogressindicator)。
 
 显示带数字进度的图形对象。
 
-例如，[LinearProgressIndicator]。
+例如，[LinearProgressIndicator](https://www.yuque.com/thyname/flutter.material/linearprogressindicator)。
 
 允许用户输入按键组合或序列的键盘快捷键字段。
 
-例如，[Shortcuts]。
+例如，[Shortcuts](https://www.yuque.com/thyname/flutter.widgets/shortcuts)。
 
 一组单选按钮。
 
@@ -571,7 +571,7 @@ SemanticsFlag isCheckStateMixed
 
 如果为 true，则此语义节点所代表的复选框处于混合状态。
 
-例如，[Checkbox.tristate] 设置为 true 的 [Checkbox] 可以具有已选中、未选中或混合状态。
+例如，[Checkbox.tristate] 设置为 true 的 [Checkbox](https://www.yuque.com/thyname/flutter.material/checkbox) 可以具有已选中、未选中或混合状态。
 
 当复选框处于已选中或未选中状态时，此值必须为 false。{@endtemplate}
 
@@ -810,7 +810,7 @@ SemanticsFlag isLiveRegion
 
 实时区域表示对该语义节点的更新很重要。平台可以利用此信息，通过礼貌性播报向用户告知此节点的更新。
 
-实时区域的一个示例是 [SnackBar] Widget。在 Android 和 iOS 上，即使该 Widget 未获得无障碍焦点，实时区域也会自动触发礼貌性播报。如果操作系统的无障碍服务已在播报其他内容（例如朗读已聚焦 Widget 的标签或提供系统播报），则可能不会朗读此播报。{@endtemplate}
+实时区域的一个示例是 [SnackBar](https://www.yuque.com/thyname/flutter.material/snackbar) Widget。在 Android 和 iOS 上，即使该 Widget 未获得无障碍焦点，实时区域也会自动触发礼貌性播报。如果操作系统的无障碍服务已在播报其他内容（例如朗读已聚焦 Widget 的标签或提供系统播报），则可能不会朗读此播报。{@endtemplate}
 
 ### hasToggledState
 
@@ -850,7 +850,7 @@ SemanticsFlag hasImplicitScrolling
 
 {@template dart.ui.semantics.hasImplicitScrolling} 当用户尝试将焦点移动到屏幕外的子项时，平台是否可以滚动该语义节点。
 
-例如，[ListView] Widget 具有隐式滚动功能，以便用户可以轻松地将无障碍焦点移动到下一组子项。[PageView] Widget 没有隐式滚动，因此用户在到达当前页面末尾时不会导航到下一页。{@endtemplate}
+例如，[ListView](https://www.yuque.com/thyname/flutter.widgets/listview) Widget 具有隐式滚动功能，以便用户可以轻松地将无障碍焦点移动到下一组子项。[PageView](https://www.yuque.com/thyname/flutter.widgets/pageview) Widget 没有隐式滚动，因此用户在到达当前页面末尾时不会导航到下一页。{@endtemplate}
 
 ### hasExpandedState
 
@@ -860,7 +860,7 @@ SemanticsFlag hasExpandedState
 
 {@template dart.ui.semantics.hasExpandedState} 该语义节点具有 "expanded"（已展开）或 "collapsed"（已折叠）的属性。
 
-例如，[SubmenuButton] Widget 具有展开状态。
+例如，[SubmenuButton](https://www.yuque.com/thyname/flutter.material/submenubutton) Widget 具有展开状态。
 
 另请参阅：
 
@@ -876,7 +876,7 @@ SemanticsFlag isExpanded
 
 如果为 true，语义节点为 "已展开"。如果为 false，语义节点为 "已折叠"。
 
-例如，如果 [SubmenuButton] 显示其子项，则 [isExpanded] 为 true。
+例如，如果 [SubmenuButton](https://www.yuque.com/thyname/flutter.material/submenubutton) 显示其子项，则 [isExpanded] 为 true。
 
 另请参阅：
 
@@ -1374,9 +1374,9 @@ abstract base class StringAttribute extends NativeFieldWrapperClass1 {}
 
 另请参阅：
 
-- [AttributedString]，使用字符串属性的地方。
-- [SpellOutStringAttribute]，使辅助技术在朗读字符串时逐字符拼读。
-- [LocaleStringAttribute]，使辅助技术以特定语言处理字符串。
+- [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring)，使用字符串属性的地方。
+- [SpellOutStringAttribute](https://www.yuque.com/thyname/dart.ui/spelloutstringattribute)，使辅助技术在朗读字符串时逐字符拼读。
+- [LocaleStringAttribute](https://www.yuque.com/thyname/dart.ui/localestringattribute)，使辅助技术以特定语言处理字符串。
 
 ### range
 
@@ -1394,7 +1394,7 @@ StringAttribute copy({required TextRange range})
 
 创建一个新属性，复制所有属性，但 range 会更新为指定的值。
 
-例如，[LocaleStringAttribute] 为其字符范围指定一个 [Locale]。复制它将生成一个具有相同语言区域但 [TextRange] 已更新的新 [LocaleStringAttribute]。
+例如，[LocaleStringAttribute](https://www.yuque.com/thyname/dart.ui/localestringattribute) 为其字符范围指定一个 [Locale](https://www.yuque.com/thyname/dart.ui/locale)。复制它将生成一个具有相同语言区域但 [TextRange](https://www.yuque.com/thyname/dart.ui/textrange) 已更新的新 [LocaleStringAttribute](https://www.yuque.com/thyname/dart.ui/localestringattribute)。
 
 # SpellOutStringAttribute
 
@@ -1406,8 +1406,8 @@ base class SpellOutStringAttribute extends StringAttribute {}
 
 另请参阅：
 
-- [AttributedString]，使用字符串属性的地方。
-- [LocaleStringAttribute]，使辅助技术以特定语言处理字符串。
+- [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring)，使用字符串属性的地方。
+- [LocaleStringAttribute](https://www.yuque.com/thyname/dart.ui/localestringattribute)，使辅助技术以特定语言处理字符串。
 
 ### SpellOutStringAttribute()
 
@@ -1439,8 +1439,8 @@ base class LocaleStringAttribute extends StringAttribute {}
 
 另请参阅：
 
-- [AttributedString]，使用字符串属性的地方。
-- [SpellOutStringAttribute]，使辅助技术在朗读字符串时逐字符拼读。
+- [AttributedString](https://www.yuque.com/thyname/flutter.semantics/attributedstring)，使用字符串属性的地方。
+- [SpellOutStringAttribute](https://www.yuque.com/thyname/dart.ui/spelloutstringattribute)，使辅助技术在朗读字符串时逐字符拼读。
 
 ### LocaleStringAttribute()
 
@@ -1476,9 +1476,9 @@ String toString()
 abstract class SemanticsUpdateBuilder {}
 ```
 
-用于创建 [SemanticsUpdate] 对象的对象。
+用于创建 [SemanticsUpdate](https://www.yuque.com/thyname/dart.ui/semanticsupdate) 对象的对象。
 
-创建后，[SemanticsUpdate] 对象可以传递给 [PlatformDispatcher.updateSemantics]，以更新传达给用户的语义信息。
+创建后，[SemanticsUpdate](https://www.yuque.com/thyname/dart.ui/semanticsupdate) 对象可以传递给 [PlatformDispatcher.updateSemantics]，以更新传达给用户的语义信息。
 
 ### SemanticsUpdateBuilder()
 
@@ -1486,7 +1486,7 @@ abstract class SemanticsUpdateBuilder {}
 SemanticsUpdateBuilder()
 ```
 
-创建一个空的 [SemanticsUpdateBuilder] 对象。
+创建一个空的 [SemanticsUpdateBuilder](https://www.yuque.com/thyname/dart.ui/semanticsupdatebuilder) 对象。
 
 ### updateNode()
 
@@ -1496,19 +1496,19 @@ void updateNode({required int id, required SemanticsFlags flags, required int ac
 
 更新具有给定 `id` 的节点关联的信息。
 
-语义节点构成一棵树，树的根节点 id 始终为零。`childrenInTraversalOrder` 和 `childrenInHitTestOrder` 是该节点直接子节点的 id。前者按遍历顺序枚举子节点，后者按命中测试顺序枚举相同的子节点。这两个列表长度必须相同，且包含相同的 id，二者的区别仅在于 id 列出的顺序。有关不同子节点顺序的更多信息，请参阅 [DebugSemanticsDumpOrder]。
+语义节点构成一棵树，树的根节点 id 始终为零。`childrenInTraversalOrder` 和 `childrenInHitTestOrder` 是该节点直接子节点的 id。前者按遍历顺序枚举子节点，后者按命中测试顺序枚举相同的子节点。这两个列表长度必须相同，且包含相同的 id，二者的区别仅在于 id 列出的顺序。有关不同子节点顺序的更多信息，请参阅 [DebugSemanticsDumpOrder](https://www.yuque.com/thyname/flutter.semantics/debugsemanticsdumporder)。
 
 系统会保留当前可从根节点访问到的节点。给定的更新不必包含更新中未发生变化的节点信息。如果更新后某个节点无法从根节点访问，该节点将从树中丢弃。
 
-`flags` 是应用于此节点的 [SemanticsFlag] 位域。
+`flags` 是应用于此节点的 [SemanticsFlag](https://www.yuque.com/thyname/dart.ui/semanticsflag) 位域。
 
-`actions` 是该节点可执行的 [SemanticsAction] 位域。如果用户希望对该节点执行这些操作之一，将调用 [PlatformDispatcher.onSemanticsActionEvent]，并指定要执行的操作。由于语义树是异步维护的，调用 [PlatformDispatcher.onSemanticsActionEvent] 回调时指定的操作可能已不再可行。
+`actions` 是该节点可执行的 [SemanticsAction](https://www.yuque.com/thyname/dart.ui/semanticsaction) 位域。如果用户希望对该节点执行这些操作之一，将调用 [PlatformDispatcher.onSemanticsActionEvent]，并指定要执行的操作。由于语义树是异步维护的，调用 [PlatformDispatcher.onSemanticsActionEvent] 回调时指定的操作可能已不再可行。
 
 `identifier` 是一个字符串，用于向通过查询无障碍层次结构工作的 UI 自动化工具（例如 Android UI Automator、iOS XCUITest 或 Appium）描述该节点。它不会暴露给用户。
 
 `label` 是描述此节点的字符串。`value` 属性以字符串形式描述节点的当前值。执行 [SemanticsAction.increase] 操作后，`increasedValue` 字符串将成为 `value` 字符串。执行 [SemanticsAction.decrease] 操作后，`decreasedValue` 字符串将成为 `value` 字符串。`hint` 字符串描述对此节点执行操作会产生的结果。所有这些字符串的阅读方向由 `textDirection` 给出。
 
-`labelAttributes`、`valueAttributes`、`hintAttributes`、`increasedValueAttributes` 和 `decreasedValueAttributes` 分别是 `label`、`value`、`hint`、`increasedValue` 和 `decreasedValue` 所携带的 [StringAttribute] 列表。它们的内容在语义更新期间不得更改。
+`labelAttributes`、`valueAttributes`、`hintAttributes`、`increasedValueAttributes` 和 `decreasedValueAttributes` 分别是 `label`、`value`、`hint`、`increasedValue` 和 `decreasedValue` 所携带的 [StringAttribute](https://www.yuque.com/thyname/dart.ui/stringattribute) 列表。它们的内容在语义更新期间不得更改。
 
 `tooltip` 是一个字符串，用于描述当用户悬停或长按此语义节点的支持 Widget 时的附加信息。
 
@@ -1546,8 +1546,8 @@ void updateNode({required int id, required SemanticsFlags flags, required int ac
 
 - https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role
 - https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level
-- [SemanticsValidationResult]，描述 `validationResult` 参数的可能取值。
-- [SemanticsHitTestBehavior]，描述命中测试的行为方式。
+- [SemanticsValidationResult](https://www.yuque.com/thyname/dart.ui/semanticsvalidationresult)，描述 `validationResult` 参数的可能取值。
+- [SemanticsHitTestBehavior](https://www.yuque.com/thyname/dart.ui/semanticshittestbehavior)，描述命中测试的行为方式。
 
 ### updateCustomAction()
 
@@ -1571,7 +1571,7 @@ void updateCustomAction({required int id, String? label, String? hint, int overr
 SemanticsUpdate build()
 ```
 
-创建一个封装此对象所记录更新的 [SemanticsUpdate] 对象。
+创建一个封装此对象所记录更新的 [SemanticsUpdate](https://www.yuque.com/thyname/dart.ui/semanticsupdate) 对象。
 
 返回的对象可以传递给 [PlatformDispatcher.updateSemantics]，以实际更新系统保留的语义信息。
 
@@ -1585,7 +1585,7 @@ abstract class SemanticsUpdate {}
 
 表示一批语义更新的不透明对象。
 
-要创建 SemanticsUpdate 对象，请使用 [SemanticsUpdateBuilder]。
+要创建 SemanticsUpdate 对象，请使用 [SemanticsUpdateBuilder](https://www.yuque.com/thyname/dart.ui/semanticsupdatebuilder)。
 
 可以使用 [PlatformDispatcher.updateSemantics] 方法将语义更新应用于系统保留的语义树。
 

@@ -24,7 +24,7 @@ CallbackHandle.fromRawHandle(int _handle)
 int toRawHandle()
 ```
 
-获取原始回调句柄，以便通过 [MethodChannel] 或 [SendPort]（传递给另一个 [Isolate]）传递。
+获取原始回调句柄，以便通过 [MethodChannel](https://www.yuque.com/thyname/flutter.services/methodchannel) 或 [SendPort](https://www.yuque.com/thyname/dart.isolate/sendport)（传递给另一个 [Isolate](https://www.yuque.com/thyname/dart.isolate/isolate)）传递。
 
 ### operator ==()
 
@@ -48,7 +48,7 @@ abstract final class PluginUtilities {}
 
 另请参阅：
 
-- [IsolateNameServer]，提供处理 [Isolate] 的实用工具。
+- [IsolateNameServer](https://www.yuque.com/thyname/dart.ui/isolatenameserver)，提供处理 [Isolate](https://www.yuque.com/thyname/dart.isolate/isolate) 的实用工具。
 
 ### getCallbackHandle()
 
@@ -60,7 +60,7 @@ CallbackHandle? getCallbackHandle(Function callback)
 
 `callback` 参数不能为 null。
 
-返回一个 [CallbackHandle]，可提供给 [PluginUtilities.getCallbackFromHandle] 以获取原始回调的 tear-off（函数引用）。如果 `callback` 不是顶层或静态函数，则返回 null。
+返回一个 [CallbackHandle](https://www.yuque.com/thyname/dart.ui/callbackhandle)，可提供给 [PluginUtilities.getCallbackFromHandle] 以获取原始回调的 tear-off（函数引用）。如果 `callback` 不是顶层或静态函数，则返回 null。
 
 ### getCallbackFromHandle()
 

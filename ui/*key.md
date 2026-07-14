@@ -128,7 +128,7 @@ bool synthesized
 
 合成事件不具有可信的 [timeStamp]，不应被当作按键在回调发生的那一刻真正按下或释放来处理。
 
-[KeyRepeatEvent] 永远不会被合成。
+[KeyRepeatEvent](https://www.yuque.com/thyname/flutter.services/keyrepeatevent) 永远不会被合成。
 
 ### toString()
 
