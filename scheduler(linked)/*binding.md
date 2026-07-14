@@ -16,7 +16,7 @@ double get timeDilation
 set timeDilation(double value)
 ```
 
-如果 [SchedulerBinding] 已初始化，设置时间膨胀系数会自动调用 [SchedulerBinding.resetEpoch]，以确保调度器绑定的使用者所看到的时间戳始终是递增的。
+如果 [SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding) 已初始化，设置时间膨胀系数会自动调用 [SchedulerBinding.resetEpoch]，以确保调度器绑定的使用者所看到的时间戳始终是递增的。
 
 在初始化绑定之前设置此值是安全的。
 
@@ -52,7 +52,7 @@ typedef SchedulingStrategy = bool Function({required int priority, required Sche
 
 另请参阅：
 
-- [defaultSchedulingStrategy]，[SchedulerBinding.schedulingStrategy] 的默认 [SchedulingStrategy]。
+- [defaultSchedulingStrategy](https://www.yuque.com/thyname/flutter.scheduler/defaultschedulingstrategy)，[SchedulerBinding.schedulingStrategy] 的默认 [SchedulingStrategy](https://www.yuque.com/thyname/flutter.scheduler/schedulingstrategy)。
 
 # SchedulerPhase
 
@@ -60,7 +60,7 @@ typedef SchedulingStrategy = bool Function({required int priority, required Sche
 enum SchedulerPhase {}
 ```
 
-[SchedulerBinding] 在 [SchedulerBinding.handleBeginFrame] 期间所经历的各个阶段。
+[SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding) 在 [SchedulerBinding.handleBeginFrame] 期间所经历的各个阶段。
 
 该枚举通过 [SchedulerBinding.schedulerPhase] 暴露出来。
 
@@ -70,7 +70,7 @@ enum SchedulerPhase {}
 
 - [WidgetsBinding.drawFrame]，它驱动构建和渲染管线以生成一帧。
 
-当前没有帧正在被处理。此时可能正在执行的有：任务（由 [SchedulerBinding.scheduleTask] 调度）、微任务（由 [scheduleMicrotask] 调度）、[Timer] 回调、事件处理程序（例如来自用户输入的事件），以及其他回调（例如来自 [Future]、[Stream] 等）。
+当前没有帧正在被处理。此时可能正在执行的有：任务（由 [SchedulerBinding.scheduleTask] 调度）、微任务（由 [scheduleMicrotask](https://www.yuque.com/thyname/dart.async/schedulemicrotask) 调度）、[Timer](https://www.yuque.com/thyname/dart.async/timer) 回调、事件处理程序（例如来自用户输入的事件），以及其他回调（例如来自 [Future](https://www.yuque.com/thyname/dart.async/future)、[Stream](https://www.yuque.com/thyname/dart.async/stream) 等）。
 
 瞬态回调（由 [SchedulerBinding.scheduleFrameCallback] 调度）正在执行。
 
@@ -98,9 +98,9 @@ enum SchedulerPhase {}
 class PerformanceModeRequestHandle {}
 ```
 
-一个不透明的句柄，用于使对 [DartPerformanceMode] 的请求保持有效，直至被释放。
+一个不透明的句柄，用于使对 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode) 的请求保持有效，直至被释放。
 
-要创建 [PerformanceModeRequestHandle]，请使用 [SchedulerBinding.requestPerformanceMode]。发起请求的组件负责释放该句柄。
+要创建 [PerformanceModeRequestHandle](https://www.yuque.com/thyname/flutter.scheduler/performancemoderequesthandle)，请使用 [SchedulerBinding.requestPerformanceMode]。发起请求的组件负责释放该句柄。
 
 ### dispose()
 
@@ -108,7 +108,7 @@ class PerformanceModeRequestHandle {}
 void dispose()
 ```
 
-调用此方法以向 [SchedulerBinding] 表明不再需要对 [DartPerformanceMode] 的请求。
+调用此方法以向 [SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding) 表明不再需要对 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode) 的请求。
 
 每个对象只能调用此方法一次。
 
@@ -120,7 +120,7 @@ mixin SchedulerBinding on BindingBase {}
 
 用于运行以下内容的调度器：
 
-- **瞬态回调（Transient callbacks）**，由系统的 [dart:ui.PlatformDispatcher.onBeginFrame] 回调触发，用于将应用程序的行为与系统显示同步。例如，[Ticker] 和 [AnimationController] 便由此触发。
+- **瞬态回调（Transient callbacks）**，由系统的 [dart:ui.PlatformDispatcher.onBeginFrame] 回调触发，用于将应用程序的行为与系统显示同步。例如，[Ticker](https://www.yuque.com/thyname/flutter.scheduler/ticker) 和 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller) 便由此触发。
 
 - **持久性回调（Persistent callbacks）**，由系统的 [dart:ui.PlatformDispatcher.onDrawFrame] 回调触发，用于在瞬态回调执行完毕后更新系统显示。例如，渲染层使用它来驱动其渲染管线。
 
@@ -140,9 +140,9 @@ void initInstances()
 SchedulerBinding get instance
 ```
 
-当前的 [SchedulerBinding]（如果已创建）。
+当前的 [SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding)（如果已创建）。
 
-提供对此 mixin 所暴露功能的访问。必须先初始化绑定才能使用此获取器；通常通过调用 [runApp] 或 [WidgetsFlutterBinding.ensureInitialized] 来完成初始化。
+提供对此 mixin 所暴露功能的访问。必须先初始化绑定才能使用此获取器；通常通过调用 [runApp](https://www.yuque.com/thyname/flutter.widgets/runapp) 或 [WidgetsFlutterBinding.ensureInitialized] 来完成初始化。
 
 ### addTimingsCallback()
 
@@ -150,9 +150,9 @@ SchedulerBinding get instance
 void addTimingsCallback(TimingsCallback callback)
 ```
 
-添加一个 [TimingsCallback]，用于接收引擎发送的 [FrameTiming]。
+添加一个 [TimingsCallback](https://www.yuque.com/thyname/dart.ui/timingscallback)，用于接收引擎发送的 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming)。
 
-此 API 使应用程序能够监控其图形性能。来自引擎的数据会被批量组织成 [FrameTiming] 对象列表，在 release 模式下约每秒报告一次，在 debug 和 profile 构建中约每 100ms 报告一次。该列表按时间先后升序排列（最早的帧在前）。第一帧的时序信息会立即发送，不会被批量处理。
+此 API 使应用程序能够监控其图形性能。来自引擎的数据会被批量组织成 [FrameTiming](https://www.yuque.com/thyname/dart.ui/frametiming) 对象列表，在 release 模式下约每秒报告一次，在 debug 和 profile 构建中约每 100ms 报告一次。该列表按时间先后升序排列（最早的帧在前）。第一帧的时序信息会立即发送，不会被批量处理。
 
 返回的数据可用于捕获丢帧情况（通过查看 [FrameTiming.buildDuration] 或 [FrameTiming.rasterDuration] 是否超出帧预算，例如在 60Hz 下为 16ms），以及捕获高延迟情况（通过查看 [FrameTiming.totalSpan] 是否超出帧预算）。在 Flutter 引擎对图形更新进行流水线处理的情况下，即使没有丢帧，延迟也可能超过一帧，例如因为 [FrameTiming.buildDuration] 与 [FrameTiming.rasterDuration] 之和超出了帧预算。在这些情况下，动画会保持流畅，但触摸输入会显得更加迟滞。
 
@@ -160,7 +160,7 @@ void addTimingsCallback(TimingsCallback callback)
 
 此 API 基于 [dart:ui.PlatformDispatcher.onReportTimings] 实现。在 release 构建中，当没有任何库注册此 API 时，[dart:ui.PlatformDispatcher.onReportTimings] 回调不会被设置，从而禁用性能跟踪，并将运行时开销降至几乎为零。当注册了一个或多个回调时（即启用性能跟踪时），性能跟踪本身带来的开销约为每秒 0.01% 的 CPU 占用（在 iPhone 6s 上测得）。
 
-在 debug 和 profile 构建中，[SchedulerBinding] 自身会注册一个 timings 回调以更新 [Timeline]。
+在 debug 和 profile 构建中，[SchedulerBinding](https://www.yuque.com/thyname/flutter.scheduler/schedulerbinding) 自身会注册一个 timings 回调以更新 [Timeline](https://www.yuque.com/thyname/dart.developer/timeline)。
 
 如果同一个回调被添加两次，它将被执行两次。
 
@@ -192,7 +192,7 @@ AppLifecycleState? get lifecycleState
 
 当 [SystemChannels.lifecycle] 通知被分发时，此值由 [handleAppLifecycleStateChanged] 设置。
 
-监听此值变化的推荐方式是使用 [WidgetsBindingObserver.didChangeAppLifecycleState]，或通过 [AppLifecycleListener] 对象。
+监听此值变化的推荐方式是使用 [WidgetsBindingObserver.didChangeAppLifecycleState]，或通过 [AppLifecycleListener](https://www.yuque.com/thyname/flutter.widgets/applifecyclelistener) 对象。
 
 ### resetInternalState()
 
@@ -222,7 +222,7 @@ SchedulingStrategy schedulingStrategy
 
 用于决定是否运行任务的策略。
 
-默认为 [defaultSchedulingStrategy]。
+默认为 [defaultSchedulingStrategy](https://www.yuque.com/thyname/flutter.scheduler/defaultschedulingstrategy)。
 
 ### scheduleTask()
 
@@ -234,13 +234,13 @@ Future<T> scheduleTask<T>(TaskCallback<T> task, Priority priority, {String? debu
 
 如果 `task` 返回一个 future，则 [scheduleTask] 返回的 future 将在前者被调度完成之后才完成。否则，[scheduleTask] 返回的 future 将在 `task` 被调度之后，以 `task` 返回的相同值完成。
 
-`debugLabel` 和 `flow` 用于向 [Timeline] 报告该任务，以便在性能分析时使用。
+`debugLabel` 和 `flow` 用于向 [Timeline](https://www.yuque.com/thyname/dart.developer/timeline) 报告该任务，以便在性能分析时使用。
 
 ## Processing model
 
 任务将在帧与帧之间按优先级顺序执行，当前 [schedulingStrategy] 跳过的任务除外。任务应当简短（例如最多一毫秒），以免导致常规的帧回调被延迟。
 
-如果动画正在运行（例如，一个用于指示存在待处理任务的 [ProgressIndicator]），那么优先级低于 [Priority.animation] 的任务将不会运行（至少在使用 [defaultSchedulingStrategy] 的情况下如此；可以通过 [schedulingStrategy] 对此进行配置）。
+如果动画正在运行（例如，一个用于指示存在待处理任务的 [ProgressIndicator](https://www.yuque.com/thyname/flutter.material/progressindicator)），那么优先级低于 [Priority.animation] 的任务将不会运行（至少在使用 [defaultSchedulingStrategy](https://www.yuque.com/thyname/flutter.scheduler/defaultschedulingstrategy) 的情况下如此；可以通过 [schedulingStrategy] 对此进行配置）。
 
 ### unlocked()
 
@@ -338,7 +338,7 @@ bool debugAssertNoPendingPerformanceModeRequests(String reason)
 
 在 debug 模式下断言不存在待处理的性能模式请求。
 
-如果存在待处理的性能模式请求，则抛出 [FlutterError]，因为这表明可能存在内存泄漏。
+如果存在待处理的性能模式请求，则抛出 [FlutterError](https://www.yuque.com/thyname/flutter.foundation/fluttererror)，因为这表明可能存在内存泄漏。
 
 ### debugAssertNoTimeDilation()
 
@@ -348,7 +348,7 @@ bool debugAssertNoTimeDilation(String reason)
 
 在 debug 模式下断言不存在人为的时间膨胀。
 
-如果存在这种膨胀，则抛出 [FlutterError]，因为这会使后续测试也受到时间膨胀的影响，从而变得不稳定。
+如果存在这种膨胀，则抛出 [FlutterError](https://www.yuque.com/thyname/flutter.foundation/fluttererror)，因为这会使后续测试也受到时间膨胀的影响，从而变得不稳定。
 
 ### debugPrintTransientCallbackRegistrationStack()
 
@@ -406,7 +406,7 @@ void addPostFrameCallback(FrameCallback callback, {String debugLabel = 'callback
 
 帧后回调无法被取消注册。它们只会被调用一次。
 
-在 debug 模式下，如果 [debugTracePostFrameCallbacks] 被设为 true，则已注册的回调将显示在时间线事件图表中，可在 [DevTools](https://docs.flutter.dev/tools/devtools) 中查看。在这种情况下，`debugLabel` 参数指定了该回调在时间线中显示的名称。在 profile 和 release 构建中，帧后回调永远不会被追踪，`debugLabel` 参数会被忽略。
+在 debug 模式下，如果 [debugTracePostFrameCallbacks](https://www.yuque.com/thyname/flutter.scheduler/debugtracepostframecallbacks) 被设为 true，则已注册的回调将显示在时间线事件图表中，可在 [DevTools](https://docs.flutter.dev/tools/devtools) 中查看。在这种情况下，`debugLabel` 参数指定了该回调在时间线中显示的名称。在 profile 和 release 构建中，帧后回调永远不会被追踪，`debugLabel` 参数会被忽略。
 
 另请参阅：
 
@@ -483,7 +483,7 @@ void scheduleFrame()
 
 已调度的帧会在操作系统提供的 "Vsync" 信号触发时得到处理。"Vsync" 信号，即垂直同步信号，历史上与显示刷新有关，那时硬件通过物理方式在两次显示更新之间垂直移动电子束。当代硬件的运作方式更为精细复杂，但概念上的 "Vsync" 刷新信号仍被用来指示应用程序何时应更新其渲染内容。
 
-要在此函数每次调度一帧时都向控制台打印调用栈，请将 [debugPrintScheduleFrameStacks] 设为 true。
+要在此函数每次调度一帧时都向控制台打印调用栈，请将 [debugPrintScheduleFrameStacks](https://www.yuque.com/thyname/flutter.scheduler/debugprintscheduleframestacks) 设为 true。
 
 另请参阅：
 
@@ -502,7 +502,7 @@ void scheduleForcedFrame()
 
 框架使用此方法，在手机旋转时强制以正确的尺寸渲染一帧，以便屏幕重新开启时能够提供尺寸正确的渲染内容。
 
-要在此函数每次调度一帧时都向控制台打印调用栈，请将 [debugPrintScheduleFrameStacks] 设为 true。
+要在此函数每次调度一帧时都向控制台打印调用栈，请将 [debugPrintScheduleFrameStacks](https://www.yuque.com/thyname/flutter.scheduler/debugprintscheduleframestacks) 设为 true。
 
 除非必须立即调度一帧，否则应优先使用 [scheduleFrame]，因为在设备本应处于空闲状态时使用 [scheduleForcedFrame] 会显著增加电量消耗。
 
@@ -532,7 +532,7 @@ void scheduleWarmUpFrame()
 
 预热帧可能实际上从不真正渲染（因为引擎并未请求它，因此没有有效的绘制上下文），但它会促使框架经历构建、布局和绘制的各个步骤，这些步骤合计可能需要几毫秒。因此，当引擎请求真正的一帧时，大部分工作已经完成，框架便可以以最小的额外开销生成该帧。
 
-预热帧在启动时由 [runApp] 调度，在热重载期间由 [RendererBinding.performReassemble] 调度。
+预热帧在启动时由 [runApp](https://www.yuque.com/thyname/flutter.widgets/runapp) 调度，在热重载期间由 [RendererBinding.performReassemble] 调度。
 
 当框架因调用 [RendererBinding.allowFirstFrame] 而被解除阻塞时（对应于此前调用 [RendererBinding.deferFirstFrame] 阻塞了渲染），也会调度预热帧。
 
@@ -544,11 +544,11 @@ void resetEpoch()
 
 为时间戳计算方式的一次非单调变化做好准备。
 
-从调度器接收到的回调都假定其时间戳是单调递增的。传递给 [handleBeginFrame] 的原始时间戳是单调的，但调度器可能会调整这些时间戳以提供 [timeDilation] 效果。如果不加以妥善处理，这些调整可能导致时间看起来在倒退。
+从调度器接收到的回调都假定其时间戳是单调递增的。传递给 [handleBeginFrame] 的原始时间戳是单调的，但调度器可能会调整这些时间戳以提供 [timeDilation](https://www.yuque.com/thyname/flutter.scheduler/timedilation) 效果。如果不加以妥善处理，这些调整可能导致时间看起来在倒退。
 
-[resetEpoch] 函数通过将用于未来时间戳调整的基准时间戳重置为当前值，来确保时间戳保持单调。例如，如果 [timeDilation] 减小，[resetEpoch] 不会缩放自纪元开始以来的整个 [Duration]，而是确保仅缩放自 [resetEpoch] 被调用以来的时长。
+[resetEpoch] 函数通过将用于未来时间戳调整的基准时间戳重置为当前值，来确保时间戳保持单调。例如，如果 [timeDilation](https://www.yuque.com/thyname/flutter.scheduler/timedilation) 减小，[resetEpoch] 不会缩放自纪元开始以来的整个 [Duration](https://www.yuque.com/thyname/dart.core/duration)，而是确保仅缩放自 [resetEpoch] 被调用以来的时长。
 
-设置 [timeDilation] 会自动调用 [resetEpoch]。你无需自行调用 [resetEpoch]。
+设置 [timeDilation](https://www.yuque.com/thyname/flutter.scheduler/timedilation) 会自动调用 [resetEpoch]。你无需自行调用 [resetEpoch]。
 
 将给定的时间戳调整到当前纪元。
 
@@ -574,7 +574,7 @@ Duration get currentSystemFrameTimeStamp
 
 引擎为当前正在处理的帧提供给 [dart:ui.PlatformDispatcher.onBeginFrame] 的原始时间戳。
 
-与 [currentFrameTimeStamp] 不同，此时间戳既不会因纪元开始时间而被偏移，也不会根据当前纪元的 [timeDilation] 而被缩放。
+与 [currentFrameTimeStamp] 不同，此时间戳既不会因纪元开始时间而被偏移，也不会根据当前纪元的 [timeDilation](https://www.yuque.com/thyname/flutter.scheduler/timedilation) 而被缩放。
 
 在大多数平台上，此值或多或少是任意的，通常应予以忽略。在 Fuchsia 上，此值对应于系统提供的呈现时间，可用于确保在不同进程中运行的动画保持同步。
 
@@ -586,13 +586,13 @@ void handleBeginFrame(Duration? rawTimeStamp)
 
 由引擎调用，以使框架准备好生成新的一帧。
 
-此函数调用所有通过 [scheduleFrameCallback] 注册的瞬态帧回调。随后返回，运行任何已调度的微任务（例如由瞬态帧回调解析的 [Future] 所对应的处理程序），并调用 [handleDrawFrame] 以继续该帧的处理。
+此函数调用所有通过 [scheduleFrameCallback] 注册的瞬态帧回调。随后返回，运行任何已调度的微任务（例如由瞬态帧回调解析的 [Future](https://www.yuque.com/thyname/dart.async/future) 所对应的处理程序），并调用 [handleDrawFrame] 以继续该帧的处理。
 
 如果给定的时间戳为 null，则会复用上一帧的时间戳。
 
-要在 debug 模式下于每一帧开始时显示横幅，请将 [debugPrintBeginFrameBanner] 设为 true。该横幅会使用 [debugPrint] 打印到控制台，内容包含帧编号（每帧递增一）和该帧的时间戳。如果给定的时间戳为 null，则会显示字符串 "warm-up frame" 而非时间戳。这样便可将框架主动推送的帧与引擎响应操作系统 "Vsync" 信号所请求的帧区分开来。
+要在 debug 模式下于每一帧开始时显示横幅，请将 [debugPrintBeginFrameBanner](https://www.yuque.com/thyname/flutter.scheduler/debugprintbeginframebanner) 设为 true。该横幅会使用 [debugPrint](https://www.yuque.com/thyname/flutter.foundation/debugprint) 打印到控制台，内容包含帧编号（每帧递增一）和该帧的时间戳。如果给定的时间戳为 null，则会显示字符串 "warm-up frame" 而非时间戳。这样便可将框架主动推送的帧与引擎响应操作系统 "Vsync" 信号所请求的帧区分开来。
 
-你也可以通过将 [debugPrintEndFrameBanner] 设为 true，在每一帧结束时显示横幅。这样便可将一帧执行期间打印的日志语句与帧与帧之间打印的日志语句（例如响应事件或定时器时打印的日志）区分开来。
+你也可以通过将 [debugPrintEndFrameBanner](https://www.yuque.com/thyname/flutter.scheduler/debugprintendframebanner) 设为 true，在每一帧结束时显示横幅。这样便可将一帧执行期间打印的日志语句与帧与帧之间打印的日志语句（例如响应事件或定时器时打印的日志）区分开来。
 
 ### requestPerformanceMode()
 
@@ -600,13 +600,13 @@ void handleBeginFrame(Duration? rawTimeStamp)
 PerformanceModeRequestHandle? requestPerformanceMode(DartPerformanceMode mode)
 ```
 
-请求特定的 [DartPerformanceMode]。
+请求特定的 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode)。
 
-如果由于性能模式请求存在冲突而请求失败，则返回 `null`。当两个请求的 [DartPerformanceMode] 类型不同、且此前已存在对某个性能模式的显式请求时，即视为存在冲突。
+如果由于性能模式请求存在冲突而请求失败，则返回 `null`。当两个请求的 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode) 类型不同、且此前已存在对某个性能模式的显式请求时，即视为存在冲突。
 
 请求方在不再需要该性能模式时，负责调用 [PerformanceModeRequestHandle.dispose]。
 
-移除对特定 [DartPerformanceMode] 的请求。
+移除对特定 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode) 的请求。
 
 如果所有待处理的请求都已被释放，引擎将恢复为 [DartPerformanceMode.balanced] 性能模式。
 
@@ -616,7 +616,7 @@ PerformanceModeRequestHandle? requestPerformanceMode(DartPerformanceMode mode)
 DartPerformanceMode? debugGetRequestedPerformanceMode()
 ```
 
-返回当前请求的 [DartPerformanceMode]；如果尚未发出任何请求，则返回 `null`。
+返回当前请求的 [DartPerformanceMode](https://www.yuque.com/thyname/dart.ui/dartperformancemode)；如果尚未发出任何请求，则返回 `null`。
 
 此功能仅在 debug 和 profile 模式下受支持，在 release 模式下返回 `null`。
 
@@ -638,6 +638,6 @@ void handleDrawFrame()
 bool defaultSchedulingStrategy({required int priority, required SchedulerBinding scheduler})
 ```
 
-[SchedulerBinding.schedulingStrategy] 的默认 [SchedulingStrategy]。
+[SchedulerBinding.schedulingStrategy] 的默认 [SchedulingStrategy](https://www.yuque.com/thyname/flutter.scheduler/schedulingstrategy)。
 
-如果存在任何已注册的帧回调，则仅运行 [Priority] 为 [Priority.animation] 或更高的任务。否则，运行所有任务。
+如果存在任何已注册的帧回调，则仅运行 [Priority](https://www.yuque.com/thyname/flutter.scheduler/priority) 为 [Priority.animation] 或更高的任务。否则，运行所有任务。
