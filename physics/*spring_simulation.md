@@ -8,7 +8,7 @@ class SpringDescription {}
 
 描述弹簧常数的结构体。
 
-用于配置 [SpringSimulation]。
+用于配置 [SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation)。
 
 ### SpringDescription()
 
@@ -38,7 +38,7 @@ SpringDescription.withDampingRatio({required double mass, required double stiffn
 SpringDescription.withDurationAndBounce({Duration duration = const Duration(milliseconds: 500), double bounce = 0.0})
 ```
 
-根据所需的动画时长和弹跳程度创建一个 [SpringDescription]。
+根据所需的动画时长和弹跳程度创建一个 [SpringDescription](https://www.yuque.com/thyname/flutter.physics/springdescription)。
 
 这提供了一种基于视觉属性 [duration] 和 [bounce] 来定义弹簧的直观方式。有关这些属性的定义，请查阅其相应的文档。
 
@@ -57,7 +57,7 @@ final SpringDescription spring = SpringDescription.withDurationAndBounce(
 
 另请参阅：
 
-- [SpringDescription]，通过显式提供物理参数来创建弹簧。
+- [SpringDescription](https://www.yuque.com/thyname/flutter.physics/springdescription)，通过显式提供物理参数来创建弹簧。
 - [SpringDescription.withDampingRatio]，使用阻尼比和其他物理参数来创建弹簧。
 
 ### mass
@@ -80,7 +80,7 @@ double stiffness
 
 弹簧常数（k）。
 
-刚度的单位为 M/T²，其中 M 是 [mass] 属性所使用的质量单位，T 是驱动 [SpringSimulation] 所使用的时间单位。
+刚度的单位为 M/T²，其中 M 是 [mass] 属性所使用的质量单位，T 是驱动 [SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation) 所使用的时间单位。
 
 刚度定义了弹簧常数，用于衡量弹簧的强度。对于相同的偏离静止位置的程度，刚度较大的弹簧会对所连接的对象施加更大的力。
 
@@ -94,9 +94,9 @@ double damping
 
 它是一个没有物理意义的纯数值，用于描述系统受到扰动后的振荡与衰减情况。阻尼越大，弹性运动的振荡次数越少、振幅越小。
 
-请勿将阻尼**系数**（c）与阻尼**比**（ζ）混淆。若要使用阻尼比创建 [SpringDescription]，请使用 [SpringDescription.withDampingRatio] 构造函数。
+请勿将阻尼**系数**（c）与阻尼**比**（ζ）混淆。若要使用阻尼比创建 [SpringDescription](https://www.yuque.com/thyname/flutter.physics/springdescription)，请使用 [SpringDescription.withDampingRatio] 构造函数。
 
-阻尼系数的单位为 M/T，其中 M 是 [mass] 属性所使用的质量单位，T 是驱动 [SpringSimulation] 所使用的时间单位。
+阻尼系数的单位为 M/T，其中 M 是 [mass] 属性所使用的质量单位，T 是驱动 [SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation) 所使用的时间单位。
 
 ### duration
 
@@ -140,7 +140,7 @@ String toString()
 enum SpringType {}
 ```
 
-[SpringSimulation] 用于模拟弹簧时所采用的弹簧解的类型。
+[SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation) 用于模拟弹簧时所采用的弹簧解的类型。
 
 请参阅 [SpringSimulation.type]。
 
@@ -162,7 +162,7 @@ class SpringSimulation extends Simulation {}
 
 {@tool snippet}
 
-此方法会触发一个 [AnimationController]（此前已构造的 `_controller` 字段），以模拟弹簧振荡效果。
+此方法会触发一个 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller)（此前已构造的 `_controller` 字段），以模拟弹簧振荡效果。
 
 ```dart
 void _startSpringMotion() {
@@ -181,7 +181,7 @@ void _startSpringMotion() {
 
 {@end-tool}
 
-该 [AnimationController] 可以与 [AnimatedBuilder] 搭配使用，以动画方式呈现子组件仿佛附着在弹簧上的位置变化。
+该 [AnimationController](https://www.yuque.com/thyname/flutter.animation/animationcontroller) 可以与 [AnimatedBuilder](https://www.yuque.com/thyname/flutter.widgets/animatedbuilder) 搭配使用，以动画方式呈现子组件仿佛附着在弹簧上的位置变化。
 
 ### SpringSimulation()
 
@@ -193,7 +193,7 @@ SpringSimulation(SpringDescription spring, double start, double end, double velo
 
 起始距离和结束距离参数的单位可以任意选定，但必须与系统中其他长度所使用的单位保持一致。
 
-速度的单位为 L/T，其中 L 为前述任意选定的长度单位，T 为驱动 [SpringSimulation] 所使用的时间单位。
+速度的单位为 L/T，其中 L 为前述任意选定的长度单位，T 为驱动 [SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation) 所使用的时间单位。
 
 如果 `snapToEnd` 为 true，那么当 [isDone] 返回 true 时，[x] 将被设置为 `end`，[dx] 将被设置为 0。这对于要求模拟必须精确停止在结束值处的过渡效果非常有用，因为弹簧本身可能无法自然地精确到达目标值。默认为 false。
 
@@ -205,7 +205,7 @@ SpringType get type
 
 所模拟弹簧的类型，用于调试目的。
 
-此值根据传入 [SpringSimulation] 构造函数的 [SpringDescription] 推导得出。
+此值根据传入 [SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation) 构造函数的 [SpringDescription](https://www.yuque.com/thyname/flutter.physics/springdescription) 推导得出。
 
 ### x()
 
@@ -237,7 +237,7 @@ String toString()
 class ScrollSpringSimulation extends SpringSimulation {}
 ```
 
-一种 [SpringSimulation]，当模拟 [isDone] 时，[x] 的值保证恰好等于结束值。
+一种 [SpringSimulation](https://www.yuque.com/thyname/flutter.physics/springsimulation)，当模拟 [isDone] 时，[x] 的值保证恰好等于结束值。
 
 ### ScrollSpringSimulation()
 

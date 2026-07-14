@@ -12,7 +12,7 @@ class Tolerance {}
 Tolerance({double distance = _epsilonDefault, double time = _epsilonDefault, double velocity = _epsilonDefault})
 ```
 
-创建一个 [Tolerance] 对象。默认情况下，距离、时间和速度的容差均为 ±0.001；构造函数的参数可以覆盖此默认值。
+创建一个 [Tolerance](https://www.yuque.com/thyname/flutter.physics/tolerance) 对象。默认情况下，距离、时间和速度的容差均为 ±0.001；构造函数的参数可以覆盖此默认值。
 
 ### defaultTolerance
 

@@ -18,7 +18,7 @@ class ClampedSimulation extends Simulation {}
 ClampedSimulation(Simulation simulation, {double xMin = double.negativeInfinity, double xMax = double.infinity, double dxMin = double.negativeInfinity, double dxMax = double.infinity})
 ```
 
-创建一个 [ClampedSimulation]，用于限制给定的模拟。
+创建一个 [ClampedSimulation](https://www.yuque.com/thyname/flutter.physics/clampedsimulation)，用于限制给定的模拟。
 
 命名参数指定了应用于 [x] 和 [dx] 的限制行为的取值范围。
 

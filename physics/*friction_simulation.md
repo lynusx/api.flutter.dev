@@ -16,7 +16,7 @@ class FrictionSimulation extends Simulation {}
 FrictionSimulation(double drag, double position, double velocity, {Tolerance tolerance, double constantDeceleration = 0})
 ```
 
-使用给定的参数创建一个 [FrictionSimulation]，这些参数分别为：流体阻力系数 _cₓ_（一个无单位的数值）；初始位置 _x₀_（其长度单位与 [x] 所使用的单位相同）；以及初始速度 _dx₀_（其速度单位与 [dx] 所使用的单位相同）。
+使用给定的参数创建一个 [FrictionSimulation](https://www.yuque.com/thyname/flutter.physics/frictionsimulation)，这些参数分别为：流体阻力系数 _cₓ_（一个无单位的数值）；初始位置 _x₀_（其长度单位与 [x] 所使用的单位相同）；以及初始速度 _dx₀_（其速度单位与 [dx] 所使用的单位相同）。
 
 ### FrictionSimulation.through()
 
@@ -78,7 +78,7 @@ String toString()
 class BoundedFrictionSimulation extends FrictionSimulation {}
 ```
 
-一种 [FrictionSimulation]，会将所建模的粒子限制在特定的取值范围内。
+一种 [FrictionSimulation](https://www.yuque.com/thyname/flutter.physics/frictionsimulation)，会将所建模的粒子限制在特定的取值范围内。
 
 仅位置会被限制。一旦粒子到达边界，速度 [dx] 仍会继续报告未经限制的模拟速度。
 
@@ -88,7 +88,7 @@ class BoundedFrictionSimulation extends FrictionSimulation {}
 BoundedFrictionSimulation(double drag, double position, double velocity, double _minX, double _maxX)
 ```
 
-使用给定的参数创建一个 [BoundedFrictionSimulation]，这些参数分别为：流体阻力系数 _cₓ_（一个无单位的数值）；初始位置 _x₀_（其长度单位与 [x] 所使用的单位相同）；初始速度 _dx₀_（其速度单位与 [dx] 所使用的单位相同）；位置的最小值；以及位置的最大值。最小值和最大值必须与初始位置使用相同的单位，并且初始位置必须处于给定的范围之内。
+使用给定的参数创建一个 [BoundedFrictionSimulation](https://www.yuque.com/thyname/flutter.physics/boundedfrictionsimulation)，这些参数分别为：流体阻力系数 _cₓ_（一个无单位的数值）；初始位置 _x₀_（其长度单位与 [x] 所使用的单位相同）；初始速度 _dx₀_（其速度单位与 [dx] 所使用的单位相同）；位置的最小值；以及位置的最大值。最小值和最大值必须与初始位置使用相同的单位，并且初始位置必须处于给定的范围之内。
 
 ### x()
 
