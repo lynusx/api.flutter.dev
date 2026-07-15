@@ -6,7 +6,7 @@
 typedef PreviewTheme = PreviewThemeData Function()
 ```
 
-用于构建 [Preview] 时创建主题数据的回调函数签名。
+用于构建 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 时创建主题数据的回调函数签名。
 
 # WidgetWrapper
 
@@ -14,7 +14,7 @@ typedef PreviewTheme = PreviewThemeData Function()
 typedef WidgetWrapper = Widget Function(Widget)
 ```
 
-用于在创建 [Preview] 时使用另一个 [Widget] 包装某个 [Widget] 的回调函数签名。
+用于在创建 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 时使用另一个 [Widget](https://www.yuque.com/thyname/flutter.widgets/widget) 包装某个 [Widget](https://www.yuque.com/thyname/flutter.widgets/widget) 的回调函数签名。
 
 # PreviewLocalizations
 
@@ -22,7 +22,7 @@ typedef WidgetWrapper = Widget Function(Widget)
 typedef PreviewLocalizations = PreviewLocalizationsData Function()
 ```
 
-用于构建 [Preview] 时创建本地化数据的回调函数签名。
+用于构建 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 时创建本地化数据的回调函数签名。
 
 # Preview
 
@@ -68,11 +68,11 @@ class MyWidget extends StatelessWidget {
 
 {@end-tool}
 
-**重要提示：** 提供给 `@Preview()` 注解的所有值都必须是常量，回调参数也必须是静态且非私有的。在运行时创建 [Preview] 实例时（包括在 [Preview.transform()] 中），不受这些限制约束。
+**重要提示：** 提供给 `@Preview()` 注解的所有值都必须是常量，回调参数也必须是静态且非私有的。在运行时创建 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 实例时（包括在 [Preview.transform()] 中），不受这些限制约束。
 
 另请参阅：
 
-- [MultiPreview]，一个允许通过单个注解创建多个 [Preview] 的基类。
+- [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview)，一个允许通过单个注解创建多个 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 的基类。
 - [flutter.dev/to/widget-previews](https://flutter.dev/to/widget-previews)，了解 widget 预览入门的详细信息。
 
 ### Preview()
@@ -125,7 +125,7 @@ double? textScaleFactor
 
 {@template widget_preview_text_scale_factor} 对被预览 widget 内的文本应用字体缩放。
 
-如果未提供，将使用 [MediaQuery] 提供的默认文本缩放系数。{@endtemplate}
+如果未提供，将使用 [MediaQuery](https://www.yuque.com/thyname/flutter.widgets/mediaquery) 提供的默认文本缩放系数。{@endtemplate}
 
 ### wrapper
 
@@ -133,7 +133,7 @@ double? textScaleFactor
 WidgetWrapper? wrapper
 ```
 
-{@template widget_preview_wrapper} 将被预览的 [Widget] 包装在一个 [Widget] 树中。
+{@template widget_preview_wrapper} 将被预览的 [Widget](https://www.yuque.com/thyname/flutter.widgets/widget) 包装在一个 [Widget](https://www.yuque.com/thyname/flutter.widgets/widget) 树中。
 
 此函数可用于执行依赖注入，或设置正确渲染预览所需的其他脚手架结构。{@endtemplate}
 
@@ -145,7 +145,7 @@ WidgetWrapper? wrapper
 PreviewTheme? theme
 ```
 
-{@template widget_preview_theme} 用于返回要应用于被预览 [Widget] 的 Material 和 Cupertino 主题数据的回调函数。{@endtemplate}
+{@template widget_preview_theme} 用于返回要应用于被预览 [Widget](https://www.yuque.com/thyname/flutter.widgets/widget) 的 Material 和 Cupertino 主题数据的回调函数。{@endtemplate}
 
 {@macro widget_preview_must_be_static_const}
 
@@ -165,7 +165,7 @@ Brightness? brightness
 PreviewLocalizations? localizations
 ```
 
-{@template widget_preview_localizations} 用于返回要应用于被预览 [Widget] 的本地化配置的回调函数。{@endtemplate}
+{@template widget_preview_localizations} 用于返回要应用于被预览 [Widget](https://www.yuque.com/thyname/flutter.widgets/widget) 的本地化配置的回调函数。{@endtemplate}
 
 {@macro widget_preview_must_be_static_const}
 
@@ -175,13 +175,13 @@ PreviewLocalizations? localizations
 Preview transform()
 ```
 
-对当前 [Preview] 应用转换。
+对当前 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 应用转换。
 
-重写此方法可以让自定义 [Preview] 实现初始化更复杂的预览，而这些预览由于用于注解的常量构造函数的限制而无法以其他方式实现。
+重写此方法可以让自定义 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 实现初始化更复杂的预览，而这些预览由于用于注解的常量构造函数的限制而无法以其他方式实现。
 
 另请参阅：
 
-- [PreviewBuilder]，一个用于构建和修改 [Preview] 的工具类。
+- [PreviewBuilder](https://www.yuque.com/thyname/flutter.widget_previews/previewbuilder)，一个用于构建和修改 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 的工具类。
 
 ### toBuilder()
 
@@ -189,7 +189,7 @@ Preview transform()
 PreviewBuilder toBuilder()
 ```
 
-创建一个使用此预览中设置的值初始化的 [PreviewBuilder]。
+创建一个使用此预览中设置的值初始化的 [PreviewBuilder](https://www.yuque.com/thyname/flutter.widget_previews/previewbuilder)。
 
 # MultiPreview
 
@@ -199,13 +199,13 @@ abstract base class MultiPreview {}
 
 用于定义自定义"多重预览"注解的基类。
 
-用 [MultiPreview] 的实例标记返回 widget 预览的函数，等价于将 `previews` 字段中的每个 [Preview] 实例分别应用于该函数。
+用 [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview) 的实例标记返回 widget 预览的函数，等价于将 `previews` 字段中的每个 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 实例分别应用于该函数。
 
 {@tool snippet} 此示例展示了为单个预览函数定义多个预览的两种方法。
 
-第一种方法使用 [MultiPreview] 实现，通过浅色和深色模式主题创建预览。
+第一种方法使用 [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview) 实现，通过浅色和深色模式主题创建预览。
 
-第二种方法使用多个 [Preview] 注解来实现相同的效果。
+第二种方法使用多个 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 注解来实现相同的效果。
 
 ```dart
 final class BrightnessPreview extends MultiPreview {
@@ -241,11 +241,11 @@ WidgetBuilder brightnessPreviewManual() {
 
 {@end-tool}
 
-**重要提示：** 提供给 [MultiPreview] 派生注解的所有值都必须是常量，回调参数也必须是静态且非私有的。在运行时创建 [MultiPreview] 实例时（包括在 [Preview.transform()] 中），不受这些限制约束。
+**重要提示：** 提供给 [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview) 派生注解的所有值都必须是常量，回调参数也必须是静态且非私有的。在运行时创建 [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview) 实例时（包括在 [Preview.transform()] 中），不受这些限制约束。
 
 另请参阅：
 
-- [Preview]，用于标记返回 widget 预览的函数的注解。
+- [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview)，用于标记返回 widget 预览的函数的注解。
 - [flutter.dev/to/widget-previews](https://flutter.dev/to/widget-previews)，了解 widget 预览入门的详细信息。
 
 ### MultiPreview()
@@ -254,7 +254,7 @@ WidgetBuilder brightnessPreviewManual() {
 MultiPreview()
 ```
 
-创建一个 [MultiPreview] 注解实例。
+创建一个 [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview) 注解实例。
 
 ### previews
 
@@ -262,7 +262,7 @@ MultiPreview()
 List<Preview> get previews
 ```
 
-为被注解函数创建的一组 [Preview]。
+为被注解函数创建的一组 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview)。
 
 ### transform()
 
@@ -270,13 +270,13 @@ List<Preview> get previews
 List<Preview> transform()
 ```
 
-对 [previews] 中的每个 [Preview] 应用转换。
+对 [previews] 中的每个 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 应用转换。
 
-重写此方法可以让 [MultiPreview] 实现初始化更复杂的预览，而这些预览由于用于注解的常量构造函数的限制而无法以其他方式实现。
+重写此方法可以让 [MultiPreview](https://www.yuque.com/thyname/flutter.widget_previews/multipreview) 实现初始化更复杂的预览，而这些预览由于用于注解的常量构造函数的限制而无法以其他方式实现。
 
 另请参阅：
 
-- [PreviewBuilder]，一个用于构建和修改 [Preview] 的工具类。
+- [PreviewBuilder](https://www.yuque.com/thyname/flutter.widget_previews/previewbuilder)，一个用于构建和修改 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 的工具类。
 
 # PreviewBuilder
 
@@ -284,7 +284,7 @@ List<Preview> transform()
 final class PreviewBuilder {}
 ```
 
-用于构建 [Preview] 实例的工具类。
+用于构建 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 实例的工具类。
 
 ### PreviewBuilder()
 
@@ -292,7 +292,7 @@ final class PreviewBuilder {}
 PreviewBuilder()
 ```
 
-创建一个不带初始状态的 [PreviewBuilder]。
+创建一个不带初始状态的 [PreviewBuilder](https://www.yuque.com/thyname/flutter.widget_previews/previewbuilder)。
 
 ### group
 
@@ -372,7 +372,7 @@ PreviewLocalizations? localizations
 Preview build()
 ```
 
-返回根据构建器状态创建的 [Preview] 实例。
+返回根据构建器状态创建的 [Preview](https://www.yuque.com/thyname/flutter.widget_previews/preview) 实例。
 
 # PreviewLocalizationsData
 
@@ -415,7 +415,7 @@ List<Locale> supportedLocales
 
 - [localeResolutionCallback]，当设备语言区域发生变化时用于解析应用语言区域的应用回调。
 - [localizationsDelegates]，共同定义此应用使用的所有本地化资源。
-- [basicLocaleListResolution]，默认的语言区域解析算法。
+- [basicLocaleListResolution](https://www.yuque.com/thyname/flutter.widgets/basiclocalelistresolution)，默认的语言区域解析算法。
 
 ### localizationsDelegates
 
@@ -423,9 +423,9 @@ List<Locale> supportedLocales
 Iterable<LocalizationsDelegate<Object?>>? localizationsDelegates
 ```
 
-此预览的 [Localizations] widget 的委托。
+此预览的 [Localizations](https://www.yuque.com/thyname/flutter.widgets/localizations) widget 的委托。
 
-这些委托共同定义了此预览的 [Localizations] widget 的所有本地化资源。
+这些委托共同定义了此预览的 [Localizations](https://www.yuque.com/thyname/flutter.widgets/localizations) widget 的所有本地化资源。
 
 ### localeListResolutionCallback
 
@@ -441,7 +441,7 @@ LocaleListResolutionCallback? localeListResolutionCallback
 
 另请参阅：
 
-- [basicLocaleListResolution]，默认的语言区域解析算法。
+- [basicLocaleListResolution](https://www.yuque.com/thyname/flutter.widgets/basiclocalelistresolution)，默认的语言区域解析算法。
 
 ### localeResolutionCallback
 
@@ -457,7 +457,7 @@ LocaleResolutionCallback? localeResolutionCallback
 
 另请参阅：
 
-- [basicLocaleListResolution]，默认的语言区域解析算法。
+- [basicLocaleListResolution](https://www.yuque.com/thyname/flutter.widgets/basiclocalelistresolution)，默认的语言区域解析算法。
 
 # PreviewThemeData
 
@@ -465,7 +465,7 @@ LocaleResolutionCallback? localeResolutionCallback
 base class PreviewThemeData {}
 ```
 
-用于 widget 预览的 [ThemeData] 和 [CupertinoThemeData] 实例的集合。
+用于 widget 预览的 [ThemeData](https://www.yuque.com/thyname/flutter.material/themedata) 和 [CupertinoThemeData](https://www.yuque.com/thyname/flutter.cupertino/cupertinothemedata) 实例的集合。
 
 注意：此接口尚不稳定，**将会发生变化**。
 
@@ -475,7 +475,7 @@ base class PreviewThemeData {}
 PreviewThemeData({ThemeData? materialLight, ThemeData? materialDark, CupertinoThemeData? cupertinoLight, CupertinoThemeData? cupertinoDark})
 ```
 
-创建一个用于 widget 预览的 [ThemeData] 和 [CupertinoThemeData] 实例的集合。
+创建一个用于 widget 预览的 [ThemeData](https://www.yuque.com/thyname/flutter.material/themedata) 和 [CupertinoThemeData](https://www.yuque.com/thyname/flutter.cupertino/cupertinothemedata) 实例的集合。
 
 如果未为特定配置提供主题，则不会应用任何主题数据，将使用默认主题。
 
@@ -485,7 +485,7 @@ PreviewThemeData({ThemeData? materialLight, ThemeData? materialDark, CupertinoTh
 ThemeData? materialLight
 ```
 
-启用浅色模式时应用的 Material [ThemeData]。
+启用浅色模式时应用的 Material [ThemeData](https://www.yuque.com/thyname/flutter.material/themedata)。
 
 ### materialDark
 
@@ -493,7 +493,7 @@ ThemeData? materialLight
 ThemeData? materialDark
 ```
 
-启用深色模式时应用的 Material [ThemeData]。
+启用深色模式时应用的 Material [ThemeData](https://www.yuque.com/thyname/flutter.material/themedata)。
 
 ### cupertinoLight
 
@@ -501,7 +501,7 @@ ThemeData? materialDark
 CupertinoThemeData? cupertinoLight
 ```
 
-启用浅色模式时应用的 Cupertino [CupertinoThemeData]。
+启用浅色模式时应用的 Cupertino [CupertinoThemeData](https://www.yuque.com/thyname/flutter.cupertino/cupertinothemedata)。
 
 ### cupertinoDark
 
@@ -509,7 +509,7 @@ CupertinoThemeData? cupertinoLight
 CupertinoThemeData? cupertinoDark
 ```
 
-启用深色模式时应用的 Cupertino [CupertinoThemeData]。
+启用深色模式时应用的 Cupertino [CupertinoThemeData](https://www.yuque.com/thyname/flutter.cupertino/cupertinothemedata)。
 
 ### themeForBrightness()
 
@@ -517,4 +517,4 @@ CupertinoThemeData? cupertinoDark
 (ThemeData?, CupertinoThemeData?) themeForBrightness(Brightness brightness)
 ```
 
-返回与 [brightness] 的值对应的一对 [ThemeData] 和 [CupertinoThemeData]。
+返回与 [brightness] 的值对应的一对 [ThemeData](https://www.yuque.com/thyname/flutter.material/themedata) 和 [CupertinoThemeData](https://www.yuque.com/thyname/flutter.cupertino/cupertinothemedata)。
