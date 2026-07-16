@@ -8,13 +8,13 @@
 class DesktopTextSelectionToolbarLayoutDelegate extends SingleChildLayoutDelegate {}
 ```
 
-Positions the toolbar at [anchor] if it fits, otherwise moves it so that it just fits fully on-screen.
+如果工具栏能够放得下，则将其定位在 [anchor] 处；否则将其移动，使其完全适应屏幕。
 
-See also:
+另请参阅：
 
-- [desktopTextSelectionControls], which uses this to position itself.
-- [cupertinoDesktopTextSelectionControls], which uses this to position itself.
-- [TextSelectionToolbarLayoutDelegate], which does a similar layout for the mobile text selection toolbars.
+- [desktopTextSelectionControls]，它使用此委托来定位自身。
+- [cupertinoDesktopTextSelectionControls]，它使用此委托来定位自身。
+- [TextSelectionToolbarLayoutDelegate](https://www.yuque.com/thyname/flutter.widgets/textselectiontoolbarlayoutdelegate)，它为移动端文本选择工具栏执行类似的布局。
 
 ### DesktopTextSelectionToolbarLayoutDelegate()
 
@@ -22,7 +22,7 @@ See also:
 DesktopTextSelectionToolbarLayoutDelegate({required Offset anchor})
 ```
 
-Creates an instance of TextSelectionToolbarLayoutDelegate.
+创建一个 TextSelectionToolbarLayoutDelegate 实例。
 
 ### anchor
 
@@ -30,9 +30,9 @@ Creates an instance of TextSelectionToolbarLayoutDelegate.
 Offset anchor
 ```
 
-The point at which to render the menu, if possible.
+渲染菜单的位置点（如果可行）。
 
-Should be provided in local coordinates.
+应以本地坐标（local coordinates）提供。
 
 ### getConstraintsForChild()
 

@@ -6,17 +6,17 @@
 class DefaultTextEditingShortcuts extends StatelessWidget {}
 ```
 
-A widget with the shortcuts used for the default text editing behavior.
+一个包含默认文本编辑行为所用快捷键的 Widget。
 
-This default behavior can be overridden by placing a [Shortcuts] widget lower in the widget tree than this. See the [Action] class for an example of remapping an [Intent] to a custom [Action].
+可以通过在该 Widget 下方的 Widget 树中放置一个 [Shortcuts](https://www.yuque.com/thyname/flutter.widgets/shortcuts) Widget 来覆盖此默认行为。有关将 [Intent](https://www.yuque.com/thyname/flutter.widgets/intent) 重新映射为自定义 [Action](https://www.yuque.com/thyname/flutter.widgets/action) 的示例，请参阅 [Action](https://www.yuque.com/thyname/flutter.widgets/action) 类。
 
-The [Shortcuts] widget usually takes precedence over system keybindings. Proceed with caution if the shortcut you wish to override is also used by the system. For example, overriding [LogicalKeyboardKey.backspace] could cause CJK input methods to discard more text than they should when the backspace key is pressed during text composition on iOS.
+[Shortcuts](https://www.yuque.com/thyname/flutter.widgets/shortcuts) Widget 通常优先于系统按键绑定。如果你要覆盖的快捷键也被系统使用，请谨慎操作。例如，覆盖 [LogicalKeyboardKey.backspace] 可能导致在 iOS 上进行文本组合（text composition）期间按下退格键时，CJK 输入法丢弃的文本比预期的更多。
 
 {@macro flutter.widgets.editableText.shortcutsAndTextInput}
 
 {@tool snippet}
 
-This example shows how to use an additional [Shortcuts] widget to override some default text editing keyboard shortcuts to have new behavior. Instead of moving the cursor, alt + up/down will change the focused widget.
+此示例展示了如何使用额外的 [Shortcuts](https://www.yuque.com/thyname/flutter.widgets/shortcuts) Widget 来覆盖部分默认文本编辑键盘快捷键，以实现新的行为。按下 alt + 上/下箭头键将切换焦点所在的 Widget，而不是移动光标。
 
 ```dart
 @override
@@ -55,7 +55,7 @@ Widget build(BuildContext context) {
 
 {@tool snippet}
 
-This example shows how to use an additional [Shortcuts] widget to override default text editing shortcuts to have completely custom behavior defined by a custom Intent and Action. Here, the up/down arrow keys increment/decrement a counter instead of moving the cursor.
+此示例展示了如何使用额外的 [Shortcuts](https://www.yuque.com/thyname/flutter.widgets/shortcuts) Widget 来覆盖默认文本编辑快捷键，以实现由自定义 Intent 和 Action 定义的完全自定义行为。这里，上/下箭头键用于递增/递减一个计数器，而不是移动光标。
 
 ```dart
 class IncrementCounterIntent extends Intent {}
@@ -137,9 +137,9 @@ class MyWidgetState extends State<MyWidget> {
 
 {@end-tool}
 
-See also:
+另请参阅：
 
-- [WidgetsApp], which creates a DefaultTextEditingShortcuts.
+- [WidgetsApp](https://www.yuque.com/thyname/flutter.widgets/widgetsapp)，它会创建一个 DefaultTextEditingShortcuts。
 
 ### DefaultTextEditingShortcuts()
 
@@ -147,7 +147,7 @@ See also:
 DefaultTextEditingShortcuts({dynamic key, required Widget child})
 ```
 
-Creates a [DefaultTextEditingShortcuts] widget that provides the default text editing shortcuts on the current platform.
+创建一个 [DefaultTextEditingShortcuts](https://www.yuque.com/thyname/flutter.widgets/defaulttexteditingshortcuts) Widget，为当前平台提供默认的文本编辑快捷键。
 
 ### child
 
@@ -169,4 +169,4 @@ Widget build(BuildContext context)
 Intent? intentForMacOSSelector(String selectorName)
 ```
 
-Maps the selector from NSStandardKeyBindingResponding to the Intent if the selector is recognized.
+如果该选择器（selector）是可识别的，则将来自 NSStandardKeyBindingResponding 的选择器映射到对应的 Intent。
