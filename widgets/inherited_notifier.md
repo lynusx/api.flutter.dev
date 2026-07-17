@@ -54,15 +54,3 @@ Whenever this object sends change notifications, the dependents of this widget a
 By default, whenever the [notifier] is changed (including when changing to or from null), if the old notifier is not equal to the new notifier (as determined by the `==` operator), notifications are sent. This behavior can be overridden by overriding [updateShouldNotify].
 
 While the [notifier] is null, no notifications are sent, since the null object cannot itself send notifications.
-
-### updateShouldNotify()
-
-```dart
-bool updateShouldNotify(InheritedNotifier<T> oldWidget)
-```
-
-### createElement()
-
-```dart
-InheritedElement createElement()
-```

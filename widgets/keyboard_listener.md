@@ -69,15 +69,3 @@ Widget child
 The widget below this widget in the tree.
 
 {@macro flutter.widgets.ProxyWidget.child}
-
-### build()
-
-```dart
-Widget build(BuildContext context)
-```
-
-### debugFillProperties()
-
-```dart
-void debugFillProperties(DiagnosticPropertiesBuilder properties)
-```

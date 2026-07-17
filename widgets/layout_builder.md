@@ -187,9 +187,3 @@ LayoutBuilder({dynamic key, required Widget Function(BuildContext, InvalidType) 
 ```
 
 Creates a widget that defers its building until layout.
-
-### createRenderObject()
-
-```dart
-RenderAbstractLayoutBuilderMixin<BoxConstraints, RenderBox> createRenderObject(BuildContext context)
-```

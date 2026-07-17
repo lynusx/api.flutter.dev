@@ -147,15 +147,3 @@ InheritedModelElement(InheritedModel<T> widget)
 ```
 
 Creates an element that uses the given widget as its configuration.
-
-### updateDependencies()
-
-```dart
-void updateDependencies(Element dependent, Object? aspect)
-```
-
-### notifyDependent()
-
-```dart
-void notifyDependent(InheritedModel<T> oldWidget, Element dependent)
-```
